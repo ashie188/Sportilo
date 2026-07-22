@@ -1,0 +1,23 @@
+.home {
+  margin-top:2px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* HOW IT WORKS */
+
+.how-section {
+  padding: 80px 100px;
+  text-align: center;
+}
+
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.how-card {
+  background: #e0f2fe;
+  padding: 30px;
+  border-radius: 10px;
+}

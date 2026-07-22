@@ -1,0 +1,295 @@
+/* GLOBAL WRAPPER */
+.jm-wrapper {
+  font-family: "Poppins", sans-serif;
+  color: #0f172a;
+}
+
+.jm-empty{
+
+  text-align:center;
+
+  margin-top:40px;
+
+  color:#64748b;
+
+  font-size:18px;
+}
+
+/* CONTAINER */
+.jm-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+/* HERO */
+.jm-hero {
+  background: linear-gradient(
+    135deg,
+    #84d0f3 0%,
+    #6998ff 70%
+);
+  padding: 80px 0;
+}
+
+.jm-hero .jm-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+}
+
+@media (max-width: 768px) {
+  .jm-hero .jm-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.jm-hero-content h1 {
+  font-size: 48px;
+  line-height: 1.2;
+}
+
+.jm-hero-content span {
+  color: #0ea5e9;
+  color:rgb(230, 230, 22);
+}
+
+.jm-hero-content p {
+  margin-top: 15px;
+  color: #334155;
+}
+
+.jm-hero-image img {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+/* MATCH SECTION */
+.jm-matches {
+  background: #ffffff;
+  padding: 80px 0;
+}
+
+.jm-heading {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 40px;
+}
+
+.jm-toggle-wrapper {
+  display: flex;
+
+  justify-content: center;
+
+  margin-bottom: 28px;
+}
+
+/* TOGGLE css is same as the create group*/
+
+/* SEARCH */
+.jm-search {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.jm-search input{
+
+  width:420px;
+
+  padding:14px 18px;
+
+  border-radius:14px;
+
+  border:none;
+
+  background:white;
+
+  box-shadow:
+  0 10px 25px rgba(0,0,0,.08);
+}
+
+.jm-search input:focus {
+  outline: 2px solid #0ea5e9;
+}
+
+/* LOADING */
+.jm-loading {
+  text-align: center;
+
+  margin-bottom: 24px;
+
+  color: #2563eb;
+
+  font-weight: 600;
+
+  font-size: 16px;
+}
+
+/* GRID */
+.jm-grid {
+
+  margin-top: 20px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fill, minmax(260px, 260px));
+
+  justify-content: center;
+
+  gap: 30px;
+}
+
+/* CTA */
+.jm-cta {
+  background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+  color: white;
+  text-align: center;
+  padding: 80px 0;
+}
+
+.jm-cta h2 {
+  font-size: 30px;
+}
+
+.jm-cta p {
+  margin-top: 10px;
+}
+
+.jm-cta button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  border-radius: 10px;
+  border: none;
+  background: white;
+  color: #0ea5e9;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.jm-cta button:hover {
+  transform: scale(1.05);
+}
+
+.jm-cta button:active {
+  transform: scale(0.98);
+}
+
+/* BOTTOM CTA SECTION */
+
+/* SECTION */
+.jm-bottom-cta {
+  padding: 70px 0;
+  background: linear-gradient(135deg, #e0f2fe, #7dd3fc 55%, #a78bfa);
+}
+
+/* FLEX */
+.jm-bottom-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+}
+
+/* LEFT */
+.jm-bottom-left h2 {
+  font-size: 28px;
+  color: #0f172a;
+  margin-bottom: 15px;
+}
+
+.jm-bottom-left button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.jm-bottom-left button:hover {
+  transform: translateY(-2px);
+}
+
+/* RIGHT */
+
+.jm-bottom-right h3 {
+  font-size: 24px;
+  color: #1e3a8a;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+.jm-bottom-right p {
+  font-size: 16px;
+  color: #334155;
+  line-height: 1.6;
+  max-width: 400px;
+}
+
+/* LOAD MORE SECTION */
+
+.jm-load-section {
+  margin-top: 40px;
+  text-align: center;
+  margin-bottom:25px;
+}
+
+.jm-load-btn {
+  padding:14px 32px;
+
+  border:none;
+
+  border-radius:14px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #c238f8,
+    #2563eb
+  );
+
+  font-weight:600;
+
+  box-shadow:
+  0 12px 30px rgba(37,99,235,.25);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.jm-load-btn:hover {
+  transform: translateY(-3px);
+}
+
+.jm-no-more p {
+  top:0px;
+  color: #475569;
+  font-size: 16px;
+}
+
+.jm-no-more button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  background:
+  linear-gradient(
+    135deg,
+    #38bdf8,
+    #2563eb
+  );
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-bottom: 8px;
+}
+
+.jm-no-more button:hover {
+  transform: translateY(-2px);
+}

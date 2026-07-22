@@ -1,0 +1,83 @@
+1) user table query
+
+CREATE TABLE users (
+
+    id SERIAL PRIMARY KEY,
+
+    name VARCHAR(100) NOT NULL,
+
+    email VARCHAR(100) UNIQUE NOT NULL,
+
+    password VARCHAR(255),
+
+    provider VARCHAR(20) NOT NULL,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+);
+
+
+2)create offline match table query
+
+CREATE TABLE matches (
+    id SERIAL PRIMARY KEY,
+
+    -- ADMIN INFO
+    admin_name VARCHAR(100) NOT NULL,
+    admin_email VARCHAR(100) NOT NULL,
+
+    -- MATCH INFO
+    sport VARCHAR(50) NOT NULL,
+    location VARCHAR(150) NOT NULL,
+    match_date DATE NOT NULL,
+    match_time TIME NOT NULL,
+
+    -- PLAYERS
+    current_players INT DEFAULT 1,
+    max_players INT NOT NULL,
+
+    -- DETAILS
+    description TEXT,
+
+    -- STATUS
+    status VARCHAR(20) DEFAULT 'open',
+
+    -- TIMESTAMPS
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+ALTER TABLE matches
+ADD COLUMN email_sent BOOLEAN DEFAULT FALSE;
+
+3)participants table
+
+
+4)gaming-groups query
+CREATE TABLE gaming_groups (
+    id SERIAL PRIMARY KEY,
+
+    admin_name VARCHAR(100) NOT NULL,
+    admin_email VARCHAR(100) NOT NULL,
+
+    game VARCHAR(100) NOT NULL,
+    platform VARCHAR(50),
+
+    event_date DATE NOT NULL,
+    event_time TIME NOT NULL,
+
+    current_players INT DEFAULT 1,
+    max_players INT NOT NULL,
+
+    discord_link TEXT,
+    room_code VARCHAR(100),
+
+    description TEXT,
+
+    status VARCHAR(20) DEFAULT 'open',
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+ALTER TABLE gaming_groups
+ADD COLUMN email_sent BOOLEAN DEFAULT FALSE;
+

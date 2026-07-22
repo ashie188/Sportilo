@@ -1,0 +1,623 @@
+/* ================================= */
+/* BRIDGE SECTION */
+/* ================================= */
+
+.bridge-section{
+
+  padding:90px 30px 80px;
+
+  position:relative;
+
+  overflow:hidden;
+
+  background:
+  linear-gradient(
+    180deg,
+    #0f172a 0%,
+    #172554 25%,
+    #1e3a8a 55%,
+    #bfdbfe 85%,
+    #dbeafe 100%
+  );
+}
+
+/* ================================= */
+/* HERO COLOR GLOWS */
+/* ================================= */
+
+.bridge-section::before{
+
+  content:"";
+
+  position:absolute;
+
+  top:-180px;
+  left:-180px;
+
+  width:500px;
+  height:500px;
+
+  background:
+  radial-gradient(
+    circle,
+    rgba(56,189,248,.18),
+    transparent 70%
+  );
+
+  filter:blur(80px);
+
+  pointer-events:none;
+}
+
+.bridge-section::after{
+
+  content:"";
+
+  position:absolute;
+
+  bottom:-200px;
+  right:-200px;
+
+  width:550px;
+  height:550px;
+
+  background:
+  radial-gradient(
+    circle,
+    rgba(124,58,237,.18),
+    transparent 70%
+  );
+
+  filter:blur(90px);
+
+  pointer-events:none;
+}
+
+/* ================================= */
+/* HEADER */
+/* ================================= */
+
+.bridge-header{
+
+  position:relative;
+
+  z-index:2;
+
+  max-width:950px;
+
+  margin:auto;
+
+  text-align:center;
+
+  margin-bottom:50px;
+}
+
+/* ================================= */
+/* BADGE */
+/* ================================= */
+
+.bridge-badge{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  padding:12px 24px;
+
+  border-radius:999px;
+
+  background:
+  rgba(255,255,255,.08);
+
+  border:
+  1px solid rgba(255,255,255,.12);
+
+  backdrop-filter:blur(12px);
+
+  color:#dbeafe;
+
+  font-size:14px;
+
+  font-weight:600;
+
+  margin-bottom:10px;
+}
+
+/* ================================= */
+/* TITLE */
+/* ================================= */
+
+.bridge-header h2{
+  top:0;
+  font-size:50px;
+
+  line-height:1.1;
+
+  font-weight:800;
+
+  color:white;
+
+  margin-bottom:16px;
+
+  letter-spacing:-1px;
+}
+
+.bridge-header h2 span{
+
+  background:
+  linear-gradient(
+    135deg,
+    #38bdf8,
+    #7c3aed,
+    #f59e0b
+  );
+
+  -webkit-background-clip:text;
+
+  -webkit-text-fill-color:transparent;
+}
+
+/* ================================= */
+/* SUBTITLE */
+/* ================================= */
+
+.bridge-header p{
+
+  max-width:760px;
+
+  margin:auto;
+
+  color:#cbd5e1;
+
+  font-size:16px;
+
+  line-height:1.6;
+}
+
+/* ================================= */
+/* STATS */
+/* ================================= */
+
+.bridge-stats{
+
+  position:relative;
+
+  z-index:2;
+
+  display:flex;
+
+  justify-content:center;
+
+  gap:60px;
+
+  margin-top:50px;
+}
+
+.bridge-stat{
+
+  text-align:center;
+}
+
+.bridge-stat h3{
+
+  font-size:36px;
+
+  font-weight:800;
+
+  color:#f59e0b;
+
+  margin-bottom:6px;
+}
+
+.bridge-stat p{
+
+  color:#dbeafe;
+
+  font-size:15px;
+}
+
+/* ================================= */
+/* CARDS AREA */
+/* ================================= */
+
+.bridge-cards{
+
+  position:relative;
+
+  z-index:2;
+
+  max-width:1200px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:
+  minmax(320px,1fr)
+  120px
+  minmax(320px,1fr);
+
+  align-items:start;
+
+  gap:35px;
+}
+
+/* ================================= */
+/* CARD */
+/* ================================= */
+
+.bridge-card{
+
+  background:
+  rgba(255,255,255,.92);
+
+  backdrop-filter:blur(14px);
+
+  border-radius:28px;
+
+  padding:32px;
+
+  position:relative;
+
+  transition:.35s;
+
+  display:flex;
+
+  flex-direction:column;
+}
+
+/* ================================= */
+/* SPORTS CARD */
+/* ================================= */
+
+.sports-card{
+
+  border:
+  1px solid rgba(56,189,248,.25);
+
+  box-shadow:
+  0 20px 40px rgba(56,189,248,.12);
+}
+
+.sports-card:hover{
+
+  transform:
+  translateY(-10px);
+
+  box-shadow:
+  0 30px 60px rgba(56,189,248,.18);
+}
+
+/* ================================= */
+/* GAMING CARD */
+/* ================================= */
+
+.gaming-card{
+
+  border:
+  1px solid rgba(124,58,237,.25);
+
+  box-shadow:
+  0 20px 40px rgba(124,58,237,.14);
+}
+
+.gaming-card:hover{
+
+  transform:
+  translateY(-10px);
+
+  box-shadow:
+  0 30px 60px rgba(124,58,237,.18);
+}
+
+/* ================================= */
+/* CARD TOP */
+/* ================================= */
+
+.card-top{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  margin-bottom:12px;
+}
+
+/* ================================= */
+/* ICON */
+/* ================================= */
+
+.bridge-icon{
+
+  width:72px;
+
+  height:72px;
+
+  border-radius:18px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-size:34px;
+}
+
+.sports-card .bridge-icon{
+
+  background:
+  rgba(56,189,248,.12);
+
+  color:#0284c7;
+}
+
+.gaming-card .bridge-icon{
+
+  background:
+  rgba(124,58,237,.12);
+
+  color:#7c3aed;
+}
+
+/* ================================= */
+/* TAG */
+/* ================================= */
+
+.bridge-tag{
+
+  padding:8px 14px;
+
+  border-radius:999px;
+
+  font-size:13px;
+
+  font-weight:700;
+
+  background:
+  rgba(56,189,248,.12);
+
+  color:#0284c7;
+}
+
+.gaming-tag{
+
+  background:
+  rgba(124,58,237,.12);
+
+  color:#7c3aed;
+}
+
+/* ================================= */
+/* TITLE */
+/* ================================= */
+
+.bridge-card h3{
+
+  font-size:32px;
+
+  font-weight:800;
+
+  color:#0f172a;
+
+  margin-bottom:10px;
+
+  line-height:1.2;
+}
+
+/* ================================= */
+/* DESCRIPTION */
+/* ================================= */
+
+.bridge-card p{
+
+  color:#64748b;
+
+  line-height:1.8;
+
+  margin-bottom:16px;
+}
+
+/* ================================= */
+/* SPORTS / GAME TAGS */
+/* ================================= */
+
+.bridge-sports{
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:10px;
+
+  margin-bottom:20px;
+}
+
+.bridge-sports span{
+
+  padding:10px 14px;
+
+  border-radius:999px;
+
+  background:#f8fafc;
+
+  border:
+  1px solid rgba(15,23,42,.06);
+
+  font-size:14px;
+
+  font-weight:600;
+
+  color:#334155;
+}
+
+/* ================================= */
+/* BUTTONS */
+/* ================================= */
+
+.bridge-card button{
+
+  width:100%;
+
+  border:none;
+
+  border-radius:14px;
+
+  padding:15px;
+
+  font-size:16px;
+
+  font-weight:700;
+
+  cursor:pointer;
+
+  transition:.3s;
+}
+
+.sports-card button{
+
+  background:
+  linear-gradient(
+    135deg,
+    #38bdf8,
+    #2563eb
+  );
+
+  color:white;
+}
+
+.gaming-card button{
+
+  background:
+  linear-gradient(
+    135deg,
+    #7c3aed,
+    #a855f7
+  );
+
+  color:white;
+}
+
+/* ================================= */
+/* ENERGY RING */
+/* ================================= */
+
+.bridge-center{
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+}
+
+.energy-ring{
+
+  width:80px;
+
+  height:80px;
+
+  border-radius:50%;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-size:30px;
+
+  color:white;
+
+  background:
+  linear-gradient(
+    135deg,
+    #38bdf8,
+    #7c3aed,
+    #f59e0b
+  );
+
+  box-shadow:
+    0 0 20px rgba(56,189,248,.35),
+    0 0 40px rgba(124,58,237,.25),
+    0 0 60px rgba(245,158,11,.20);
+}
+
+/* ================================= */
+/* RESPONSIVE */
+/* ================================= */
+
+@media(max-width:950px){
+
+  .bridge-cards{
+
+    grid-template-columns:1fr;
+  }
+
+  .bridge-center{
+
+    display:none;
+  }
+
+  .bridge-header h2{
+
+    font-size:42px;
+  }
+
+  .bridge-stats{
+
+    flex-wrap:wrap;
+
+    gap:30px;
+  }
+}
+
+@media(max-width:600px){
+
+  .bridge-section{
+
+    padding:90px 20px;
+  }
+
+  .bridge-header h2{
+
+    font-size:34px;
+  }
+
+  .bridge-header p{
+
+    font-size:17px;
+  }
+
+  .bridge-card{
+
+    padding:28px;
+  }
+
+  .bridge-card h3{
+
+    font-size:26px;
+  }
+
+  .bridge-icon{
+
+    width:60px;
+    height:60px;
+
+    font-size:28px;
+  }
+
+  .bridge-tag{
+
+    font-size:12px;
+  }
+
+  .bridge-stats{
+
+    gap:20px;
+  }
+}

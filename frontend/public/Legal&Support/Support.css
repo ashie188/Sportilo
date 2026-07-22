@@ -1,0 +1,211 @@
+/* ========================================= */
+/* SUPPORT PAGE */
+/* ========================================= */
+
+.support-page{
+
+    min-height:100vh;
+
+    background:#f8fafc;
+
+    padding:70px 20px 90px;
+
+    font-family:"Poppins",sans-serif;
+}
+
+/* ========================================= */
+/* CONTAINER */
+/* ========================================= */
+
+.support-container{
+
+    max-width:900px;
+
+    margin:auto;
+
+    background:#ffffff;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:18px;
+
+    padding:55px 65px;
+
+    box-shadow:
+        0 10px 35px rgba(15,23,42,.05);
+}
+
+/* ========================================= */
+/* HEADER */
+/* ========================================= */
+
+.support-container h1{
+
+    font-size:42px;
+
+    font-weight:800;
+
+    color:#0f172a;
+
+    margin-bottom:10px;
+
+    letter-spacing:-1px;
+}
+
+.support-subtitle{
+
+    color:#64748b;
+
+    font-size:16px;
+
+    line-height:1.8;
+
+    margin-bottom:45px;
+}
+
+/* ========================================= */
+/* SECTIONS */
+/* ========================================= */
+
+.support-container section{
+
+    padding-bottom:36px;
+
+    margin-bottom:36px;
+
+    border-bottom:1px solid #e2e8f0;
+}
+
+.support-container section:last-child{
+
+    border:none;
+
+    margin-bottom:0;
+
+    padding-bottom:0;
+}
+
+/* ========================================= */
+/* HEADINGS */
+/* ========================================= */
+
+.support-container h2{
+
+    font-size:24px;
+
+    font-weight:700;
+
+    color:#2563eb;
+
+    margin-bottom:16px;
+}
+
+/* ========================================= */
+/* PARAGRAPHS */
+/* ========================================= */
+
+.support-container p{
+
+    font-size:15px;
+
+    line-height:1.9;
+
+    color:#475569;
+}
+
+/* ========================================= */
+/* CONTACT BOX */
+/* ========================================= */
+
+.support-contact{
+
+    margin-top:18px;
+
+    padding:22px;
+
+    border-radius:14px;
+
+    background:#f8fafc;
+
+    border:1px solid #e2e8f0;
+}
+
+.support-contact h3{
+
+    font-size:18px;
+
+    color:#0f172a;
+
+    margin-bottom:10px;
+}
+
+.support-contact a{
+
+    display:inline-block;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    color:#2563eb;
+
+    text-decoration:none;
+
+    margin-bottom:10px;
+}
+
+.support-contact a:hover{
+
+    text-decoration:underline;
+}
+
+.support-contact p{
+
+    margin:0;
+
+    color:#64748b;
+}
+
+/* ========================================= */
+/* RESPONSIVE */
+/* ========================================= */
+
+@media(max-width:768px){
+
+    .support-page{
+
+        padding:45px 16px 60px;
+    }
+
+    .support-container{
+
+        padding:32px 24px;
+    }
+
+    .support-container h1{
+
+        font-size:32px;
+    }
+
+    .support-container h2{
+
+        font-size:20px;
+    }
+
+    .support-container p{
+
+        font-size:14px;
+
+        line-height:1.8;
+    }
+
+    .support-container section{
+
+        margin-bottom:28px;
+
+        padding-bottom:28px;
+    }
+}
+
+
+

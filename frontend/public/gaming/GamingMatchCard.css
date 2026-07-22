@@ -1,0 +1,321 @@
+/* CARD */
+.gmc-card {
+  background: linear-gradient(
+    135deg,
+    #e0f2fe 0%,
+    #7dd3fc 70%
+);
+
+  border-radius: 22px;
+
+  padding: 16px;
+
+  cursor: pointer;
+
+  position: relative;
+
+  overflow: hidden;
+
+  transition: all 0.32s ease;
+
+  border:
+    1px solid rgba(255,255,255,0.18);
+
+  box-shadow:
+    0 8px 22px rgba(37,99,235,0.14);
+
+  height: fit-content;
+}
+
+/* TOP GLOW */
+
+.gmc-card::before {
+
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 4px;
+
+  background:
+  linear-gradient(
+    90deg,
+    rgb(212, 212, 17),
+    rgb(255, 230, 0),
+    rgb(212, 212, 17)
+  );
+
+box-shadow:
+  0 0 12px rgba(255, 230, 0, 0.45),
+  0 0 24px rgba(255, 230, 0, 0.22);
+}
+
+/* GLOW */
+
+.gmc-card::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(195,195,15,0.08),
+      transparent 40%
+    );
+
+  pointer-events: none;
+}
+
+/* HOVER */
+
+.gmc-card:hover {
+
+  transform:
+    translateY(-8px)
+    scale(1.02);
+
+  box-shadow:
+    0 22px 48px rgba(37,99,235,0.22);
+}
+
+/* HEADER */
+
+.gmc-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+/* GAME ICON */
+
+.gmc-game-icon {
+
+  width: 46px;
+  height: 46px;
+
+  border-radius: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #2563eb,
+    #1d4ed8,
+    rgb(195,195,15)
+  );
+
+  color: white;
+
+  box-shadow:
+    0 12px 24px rgba(37,99,235,0.22);
+}
+
+/* STATUS */
+
+.gmc-status {
+
+  padding: 6px 14px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+.gmc-status.open {
+
+  background:
+    rgba(16,185,129,0.14);
+
+  color: #047857;
+}
+
+.gmc-status.completed {
+
+  background:
+    rgba(239,68,68,0.12);
+
+  color: #b91c1c;
+}
+
+.gmc-status.full {
+
+  background:
+    rgba(234,179,8,0.12);
+
+  color: #92400e;
+}
+
+/* BODY */
+
+.gmc-body h3 {
+
+  margin-top: 12px;
+
+  font-size: 21px;
+
+  color: #0f172a;
+
+  font-weight: 800;
+}
+
+/* PLATFORM */
+
+.gmc-platform {
+
+  margin-top: 4px;
+
+  color: #1e3a8a;
+
+  font-weight: 600;
+}
+
+/* TIME */
+
+.gmc-time {
+
+  margin-top: 10px;
+
+  color: #475569;
+
+  font-size: 14px;
+}
+
+/* PLAYERS */
+
+.gmc-players {
+
+  margin-top: 18px;
+
+  font-weight: 700;
+
+  color: #0f172a;
+}
+
+/* BAR */
+
+.gmc-player-bar {
+
+  width: 100%;
+  height: 8px;
+
+  margin-top: 10px;
+
+  border-radius: 999px;
+
+  overflow: hidden;
+
+  background:
+    rgba(255,255,255,0.32);
+}
+
+.gmc-player-fill {
+
+  height: 100%;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #2563eb,
+      rgb(195,195,15)
+    );
+}
+
+/* ROOM TAGS */
+
+.gmc-room {
+
+  display: flex;
+
+  gap: 10px;
+
+  margin-top: 18px;
+
+  flex-wrap: wrap;
+}
+
+.gmc-room span {
+
+  background:
+    rgba(255,255,255,0.28);
+
+  padding: 8px 12px;
+
+  border-radius: 12px;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  color: #0f172a;
+}
+
+/* ADMIN */
+
+.gmc-admin {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 20px;
+
+  padding-top: 16px;
+
+  border-top:
+    1px solid rgba(255,255,255,0.22);
+}
+
+/* AVATAR */
+
+.gmc-avatar {
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #2563eb,
+      rgb(195,195,15)
+    );
+
+  color: white;
+
+  font-weight: 700;
+}
+
+.gmc-admin span {
+font-size: 14px;
+
+  font-weight: 600;
+
+  color: #1e293b;
+}
