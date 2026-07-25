@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import "./AccountMatchCard.css"
 
 export default function AccountMatchCard({ match, onClick, isHistory }) {
   const navigate = useNavigate();

@@ -1,16 +1,36 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./Home";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
 import Header from "./Header";
 import Footer from "./Footer";
-import Auth from "./Auth";
-import CreateGroup from "./CreateGroup";
-import JoinMatch from "./JoinMatch";
-import Account from "./Account";
-import MatchDetailsPage from "./components/MatchDetailsPage";
-import Legal from "./Legal&Support/Legal";
-import Support from "./Legal&Support/Support";
 
+const Home = lazy(() => import("./Home"));
+const Auth = lazy(() => import("./Auth"));
+const CreateGroup = lazy(() => import("./CreateGroup"));
+const JoinMatch = lazy(() => import("./JoinMatch"));
+const Account = lazy(() => import("./Account"));
+const MatchDetailsPage = lazy(() => import("./components/MatchDetailsPage"));
+const Legal = lazy(() => import("./Legal&Support/Legal"));
+const Support = lazy(() => import("./Legal&Support/Support"));
+
+function PageLoader() {
+  return (
+    <div
+      style={{
+        minHeight: "70vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        fontSize: "18px",
+        fontWeight: "600",
+        color: "#2563eb",
+      }}
+    >
+      Loading...
+    </div>
+  );
+}
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -24,18 +44,51 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <Header user={user} setUser={setUser}/>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Auth setUser={setUser} />} />
-        <Route path="/register" element={<Auth setUser={setUser} />} />
-        <Route path="/create-group" element={<CreateGroup />} />
-        <Route path="/join-group" element={<JoinMatch />} />
-        <Route path="/account" element={<Account user={user} setUser={setUser} />} />
-        <Route path="/match/:type/:id" element={<MatchDetailsPage />}/>
-        <Route path="/legal" element={<Legal />}/>
-        <Route path="/support" element={<Support/>}/>
-      </Routes>
+      <Header user={user} setUser={setUser} />
+      <main>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+
+            <Route
+              path="/login"
+              element={
+                <GoogleOAuthProvider
+                  clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
+                >
+                  <Auth setUser={setUser} />
+                </GoogleOAuthProvider>
+              }
+            />
+
+            <Route
+              path="/register"
+              element={
+                <GoogleOAuthProvider
+                  clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
+                >
+                  <Auth setUser={setUser} />
+                </GoogleOAuthProvider>
+              }
+            />
+
+            <Route path="/create-group" element={<CreateGroup />} />
+
+            <Route path="/join-group" element={<JoinMatch />} />
+
+            <Route
+              path="/account"
+              element={<Account user={user} setUser={setUser} />}
+            />
+
+            <Route path="/match/:type/:id" element={<MatchDetailsPage />} />
+
+            <Route path="/legal" element={<Legal />} />
+
+            <Route path="/support" element={<Support />} />
+          </Routes>
+        </Suspense>
+      </main>
       <Footer />
     </BrowserRouter>
   );

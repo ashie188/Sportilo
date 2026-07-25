@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import "./MatchDetailsPage.css"
 
 export default function MatchDetailsPage() {
   const location = useLocation();
@@ -13,7 +14,17 @@ export default function MatchDetailsPage() {
   const [joining, setJoining] = useState(false);
   const [error, setError] = useState("");
   const [showJoinSuccessModal, setShowJoinSuccessModal] = useState(false);
+  //new states for update note
+  const [updateNote, setUpdateNote] = useState("");
+  const [savingNote, setSavingNote] = useState(false);
+  const [updateMessage, setUpdateMessage] = useState("");
+  const [updateError, setUpdateError] = useState(false);
+
   const isGamingMatch = type === "gaming";
+
+  const user = JSON.parse(localStorage.getItem("user") || "null");
+
+  const isOrganizer = user?.email === currentMatch?.admin_email;
 
   //fech match details if not passed via state
   const fetchMatch = async () => {
@@ -24,9 +35,8 @@ export default function MatchDetailsPage() {
         `http://localhost:3000/details/${type}/${id}`,
       );
 
-      console.log("matchdetails fetched is", result.data);
-
       setCurrentMatch(result.data);
+      setUpdateNote(result.data.update_note || "");
     } catch (err) {
       console.error(err);
     } finally {
@@ -102,9 +112,7 @@ export default function MatchDetailsPage() {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        console.log("No token found, redirecting to login");
         setError("Please login to join the match");
-        console.log("Redirecting to login page");
         setJoining(false);
         return;
       }
@@ -123,12 +131,9 @@ export default function MatchDetailsPage() {
         },
       );
 
-      console.log("Join response:", res.data);
-
       setCurrentMatch(res.data.match);
 
-      // ✅ REFRESH PARTICIPANTS
-      /*fetchParticipants();*/
+      await fetchParticipants();
 
       alert("Joined successfully");
       setShowJoinSuccessModal(true);
@@ -162,6 +167,44 @@ export default function MatchDetailsPage() {
       }
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const handleUpdateNote = async () => {
+    try {
+      setSavingNote(true);
+      setUpdateMessage("");
+
+      const token = localStorage.getItem("token");
+
+      const res = await axios.patch(
+        `http://localhost:3000/admin_final_update/${type}/${currentMatch.id}`,
+        {
+          Update_Note: updateNote,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      const updatedMatch = res.data.match;
+
+      setCurrentMatch(res.data.match);
+
+      setTimeout(() => {
+        console.log("After setCurrentMatch (closure):", currentMatch);
+      }, 100);
+      setUpdateNote(updatedMatch.update_note || "");
+
+      setUpdateError(false);
+      setUpdateMessage(res.data.message);
+    } catch (err) {
+      setUpdateError(true);
+      setUpdateMessage(err.response?.data?.message || "Something went wrong.");
+    } finally {
+      setSavingNote(false);
     }
   };
 
@@ -222,6 +265,60 @@ export default function MatchDetailsPage() {
             <h3>About this match</h3>
             <p>{currentMatch.description}</p>
           </div>
+
+          {(isOrganizer || currentMatch.update_note) && (
+            <div className="mdp-card">
+              <h3>📢 Match Update</h3>
+
+              {isOrganizer && !currentMatch.update_note ? (
+                <>
+                  <textarea
+                    className="mdp-update-note"
+                    placeholder="Write any important announcement for participants..."
+                    value={updateNote}
+                    onChange={(e) => {
+                      setUpdateNote(e.target.value);
+
+                      setUpdateMessage("");
+
+                      setUpdateError(false);
+                    }}
+                  />
+
+                  {updateMessage && (
+                    <p
+                      className={
+                        updateError ? "mdp-update-error" : "mdp-update-success"
+                      }
+                    >
+                      {updateMessage}
+                    </p>
+                  )}
+
+                  <button
+                    className="mdp-save-update-btn"
+                    onClick={handleUpdateNote}
+                    disabled={savingNote}
+                  >
+                    {savingNote ? "Saving..." : "Save Update"}
+                  </button>
+                </>
+              ) : (
+                <>
+                  <p>{currentMatch.update_note}</p>
+
+                  {currentMatch.update_note_updated_at && (
+                    <small style={{ display: "block", marginTop: "8px", color: "#555" }}>
+                      Updated{" "}
+                      {new Date(
+                        currentMatch.update_note_updated_at,
+                      ).toLocaleString()}
+                    </small>
+                  )}
+                </>
+              )}
+            </div>
+          )}
 
           <div className="mdp-card">
             <h3>{isGamingMatch ? "Lobby Details" : "Match Details"}</h3>

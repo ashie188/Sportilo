@@ -49,6 +49,14 @@ CREATE TABLE matches (
 ALTER TABLE matches
 ADD COLUMN email_sent BOOLEAN DEFAULT FALSE;
 
+ALTER TABLE matches
+ADD COLUMN Update_Note TEXT;
+
+ALTER TABLE matches
+ADD COLUMN Update_Note_Updated_At TIMESTAMP;
+
+
+
 3)participants table
 
 
@@ -81,3 +89,32 @@ CREATE TABLE gaming_groups (
 ALTER TABLE gaming_groups
 ADD COLUMN email_sent BOOLEAN DEFAULT FALSE;
 
+ALTER TABLE gaming_groups
+ADD COLUMN Update_Note TEXT;
+
+ALTER TABLE gaming_groups
+ADD COLUMN Update_Note_Updated_At TIMESTAMP;
+
+
+
+    <link href="./App.css" rel="stylesheet" />
+    <link href="./index.css" rel="stylesheet" />
+    <link href="./Header.css" rel="stylesheet" />
+    <link href="./Footer.css" rel="stylesheet" />
+    <link href="./Home.css" rel="stylesheet" />
+    <link href="./Home-hero_section.css" rel="stylesheet" />
+    <link href="./home-sports_section.css" rel="stylesheet" />
+    <link href="./Home-featured_matches.css" rel="stylesheet" />
+    <link href="./Home-how_it_works.css" rel="stylesheet" />
+    <link href="./Auth.css" rel="stylesheet" />
+    <link href="./CreateGroup.css" rel="stylesheet" />
+    <link href="./joinMatch.css" rel="stylesheet" />
+    <link href="./MatchCard.css" rel="stylesheet" />
+    <link href="./Account.css" rel="stylesheet" />
+    <link href="./AccountMatchCard.css" rel="stylesheet" />
+    <link href="./MatchDetailsPage.css" rel="stylesheet" />
+    <link href="./gaming/GamingMatchCard.css" rel="stylesheet" />
+    <link href="./home-dual_section.css" rel="stylesheet" />
+    <link href="./Legal&Support/Legal.css" rel="stylesheet" />
+    <link href="./Legal&Support/Support.css" rel="stylesheet" />
+    <link href="./ShareSportiloCard.css" rel="stylesheet" />

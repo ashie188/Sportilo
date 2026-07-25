@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import AccountMatchCard from "./AccountMatchCard";
 import ShareSportiloCard from "./components/ShareSportiloCard";
+import "./Account.css";
+import "./components/ShareSportiloCard.css"
 
 function getInitials(name) {
   if (!name) return "U";
@@ -25,10 +27,8 @@ export default function Account({ user, setUser }) {
 
   useEffect(() => {
     if (!user) {
-      navigate("/login");
+      navigate("/login", { replace: true });
       return;
-    } else {
-      navigate("/account");
     }
 
     fetchMatches();
@@ -49,7 +49,25 @@ export default function Account({ user, setUser }) {
         },
       );
 
-      if (!res.ok) throw new Error("Server error");
+      if (res.status === 401) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+
+        setUser(null);
+
+        navigate("/login", {
+          replace: true,
+          state: {
+            message: "Your session has expired. Please login again.",
+          },
+        });
+
+        return;
+      }
+
+      if (!res.ok) {
+        throw new Error("Server error");
+      }
 
       const data = await res.json();
 

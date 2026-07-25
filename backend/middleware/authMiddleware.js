@@ -5,9 +5,8 @@ const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
   console.log("HEADERS:", req.headers);
 
-
   if (!authHeader) {
-    console.log("no token provided in auth middleware")
+    console.log("no token provided in auth middleware");
     return res.status(401).json({ message: "No token provided" });
   }
 
@@ -21,7 +20,16 @@ const authMiddleware = (req, res, next) => {
 
     next();
   } catch (err) {
-    return res.status(401).json({ message: "Invalid token" });
+    if (err.name === "TokenExpiredError") {
+      return res.status(401).json({
+        message: "Session expired",
+        expired: true,
+      });
+    }
+
+    return res.status(401).json({
+      message: "Invalid token",
+    });
   }
 };
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { GoogleLogin } from "@react-oauth/google";
+import "./Auth.css";
 
 export default function Auth({ setUser }) {
   const location = useLocation();
@@ -32,9 +33,8 @@ export default function Auth({ setUser }) {
   }, [location.pathname]);
 
   const handleToggle = () => {
-    setError(""); // clear error on toggle
-    if (isLogin) navigate("/register");
-    else navigate("/login");
+    setError("");
+    navigate(isLogin ? "/register" : "/login");
   };
 
   // input handler

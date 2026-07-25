@@ -1,6 +1,7 @@
 import React from "react";
 import { FaGamepad } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import "./GamingMatchCard.css";
 
 export default function GamingMatchCard({ match }) {
   const navigate = useNavigate();

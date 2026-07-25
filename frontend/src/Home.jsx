@@ -3,6 +3,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import HomeMatchCard from "./HomeMatchCard";
 import ShareSportiloCard from "./components/ShareSportiloCard";
+import "./Home.css";
+import "./Home-hero_section.css";
+import "./home-sports_section.css";
+import "./Home-featured_matches.css";
+import "./Home-how_it_works.css";
+import "./home-dual_section.css";
+import "./components/ShareSportiloCard.css";
 
 function Home() {
   const [matches, setMatches] = useState([]);
@@ -49,7 +56,12 @@ function Home() {
             >
               Create Match
             </button>
-            <button className="join-btn">Join Match</button>
+            <button
+              className="join-btn"
+              onClick={() => navigate("/join-group")}
+            >
+              Join Match
+            </button>
           </div>
         </div>
       </section>
@@ -142,13 +154,20 @@ function Home() {
       <section className="sports-section">
         <div className="sports-badge">⚡ Explore Communities</div>
         <h2>Choose Your Arena</h2>
-        <p>
+        <p className="section-subtitle">
           Compete, connect and discover communities built around your favorite
           games.
         </p>
 
         <div className="sports-container">
-          <div className="sport-card football">
+          <div className="sport-card">
+            <img
+              src="/images/Sportmania-football_court.webp"
+              alt="Football"
+              loading="lazy"
+              decoding="async"
+              className="sport-image"
+            />
             <div className="overlay">
               <h3>⚽ Football</h3>
               <p>120+ matches</p>
@@ -156,7 +175,14 @@ function Home() {
             </div>
           </div>
 
-          <div className="sport-card cricket">
+          <div className="sport-card">
+            <img
+              src="/images/Sportmania-cricket_court.webp"
+              alt="cricket"
+              loading="lazy"
+              decoding="async"
+              className="sport-image"
+            />
             <div className="overlay">
               <h3>🏏 Cricket</h3>
               <p>90+ matches</p>
@@ -165,6 +191,13 @@ function Home() {
           </div>
 
           <div className="sport-card gaming">
+            <img
+              src="/images/Sportmania-gaming.webp"
+              alt="gaming"
+              loading="lazy"
+              decoding="async"
+              className="sport-image"
+            />
             <div className="overlay">
               <h3>🎮 Gaming</h3>
               <p>150+ lobbies</p>
@@ -172,7 +205,14 @@ function Home() {
             </div>
           </div>
 
-          <div className="sport-card tennis">
+          <div className="sport-card">
+            <img
+              src="/images/Sportmania-tennis_court.webp"
+              alt="tennis"
+              loading="lazy"
+              decoding="async"
+              className="sport-image"
+            />
             <div className="overlay">
               <h3>🎾 Tennis</h3>
               <p>40+ matches</p>

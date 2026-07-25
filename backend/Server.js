@@ -11,8 +11,8 @@ import gamingCreateMatchRoutes from "./routes/gamingCreateMatchRoutes.js";
 import gamingJoinMatchRoutes from "./routes/gamingJoinMatchRoutes.js";
 import featuredMatchesRoutes from "./routes/featuredMatchesRoutes.js";
 import MatchDetailsRoutes from "./routes/MatchDetailsRoutes.js";
-//cron job
-import "./services/reminderCron.js";
+import "./services/reminderCron.js";        //cron job
+import adminFinalUpdateRoutes from "./routes/admin_final_updateroute.js";
 
 dotenv.config();
 
@@ -47,6 +47,9 @@ app.use("/home", featuredMatchesRoutes);
 
 //match details route
 app.use("/details", MatchDetailsRoutes);
+
+//aadmin final note
+app.use("/admin_final_update", adminFinalUpdateRoutes);
 
 app.listen(port,()=>{
   console.log("the port is started at",port);

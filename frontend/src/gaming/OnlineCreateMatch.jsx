@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { memo } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function OnlineCreateMatch() {
+function OnlineCreateMatch() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -119,7 +120,6 @@ export default function OnlineCreateMatch() {
         room_code: "",
         description: "",
       });
-
     } catch (error) {
       console.error(
         "Error creating gaming match:",
@@ -140,31 +140,45 @@ export default function OnlineCreateMatch() {
       <form onSubmit={handleSubmit}>
         <input
           name="game"
+          value={formData.game}
           placeholder="Game (BGMI, Valorant...)"
           onChange={handleChange}
         />
 
         <input
           name="platform"
+          value={formData.platform}
           placeholder="Platform (Mobile / PC)"
           onChange={handleChange}
         />
 
         <div className="row">
-          <input type="date" name="event_date" onChange={handleChange} />
+          <input
+            type="date"
+            name="event_date"
+            value={formData.event_date}
+            onChange={handleChange}
+          />
 
-          <input type="time" name="event_time" onChange={handleChange} />
+          <input
+            type="time"
+            name="event_time"
+            value={formData.event_time}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="row">
           <input
             name="current_players"
+            value={formData.current_players}
             placeholder="Current Players"
             onChange={handleChange}
           />
 
           <input
             name="max_players"
+            value={formData.max_players}
             placeholder="Max Players"
             onChange={handleChange}
           />
@@ -172,18 +186,21 @@ export default function OnlineCreateMatch() {
 
         <input
           name="discord_link"
+          value={formData.discord_link}
           placeholder="Discord Link"
           onChange={handleChange}
         />
 
         <input
           name="room_code"
+          value={formData.room_code}
           placeholder="Room Code"
           onChange={handleChange}
         />
 
         <textarea
           name="description"
+          value={formData.description}
           placeholder="Gaming Lobby Description"
           onChange={handleChange}
         ></textarea>
@@ -235,7 +252,11 @@ export default function OnlineCreateMatch() {
               🔗 Share Lobby
             </button>
 
-            <button className="match-view-btn" onClick={handleViewCreatedLobby} autoFocus>
+            <button
+              className="match-view-btn"
+              onClick={handleViewCreatedLobby}
+              autoFocus
+            >
               View Lobby
             </button>
 
@@ -255,3 +276,4 @@ export default function OnlineCreateMatch() {
     </div>
   );
 }
+export default memo(OnlineCreateMatch);

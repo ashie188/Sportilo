@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import OnlineCreateMatch from "./gaming/OnlineCreateMatch";
-import { FaAngleRight } from "react-icons/fa";
+import "./CreateGroup.css";
 
 function CreateGroup() {
   const navigate = useNavigate();
@@ -10,6 +10,7 @@ function CreateGroup() {
   const [error, setError] = useState("");
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [createdMatch, setCreatedMatch] = useState(null);
+  const [creatingMatch, setCreatingMatch] = useState(false);
 
   const [formData, setFormData] = useState({
     sport: "",
@@ -21,15 +22,20 @@ function CreateGroup() {
     description: "",
   });
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (creatingMatch) return;
+
+    setCreatingMatch(true);
     try {
       const token = localStorage.getItem("token");
       {
@@ -66,12 +72,6 @@ function CreateGroup() {
         return;
       }
 
-      {
-        /*the backend call*/
-      }
-
-      console.log("calling backend from create-group");
-
       const response = await axios.post(
         "http://localhost:3000/matches/create",
         {
@@ -89,7 +89,6 @@ function CreateGroup() {
           },
         },
       );
-      console.log("Match created");
 
       setCreatedMatch(response.data.match);
       setShowSuccessModal(true);
@@ -109,6 +108,8 @@ function CreateGroup() {
         error.response?.data || error.message,
       );
       setError(error.response?.data || error.message);
+    } finally {
+      setCreatingMatch(false);
     }
   };
 
@@ -130,7 +131,7 @@ function CreateGroup() {
         alert("Match link copied!");
       }
     } catch (err) {
-      console.log(err);
+      console.error("Failed to share match:", err);
     }
   };
 
@@ -152,23 +153,19 @@ function CreateGroup() {
 
               <div className="suggestions">
                 <div className="suggestion-card">
-                  <FaAngleRight className="note-icon" />
-                   Matches near popular grounds usually fill up faster.
+                  • Matches near popular grounds usually fill up faster.
                 </div>
 
                 <div className="suggestion-card">
-                  <FaAngleRight className="note-icon" />
-                   Keep team sizes realistic to get more join requests.
+                  • Keep team sizes realistic to get more join requests.
                 </div>
 
                 <div className="suggestion-card">
-                  <FaAngleRight className="note-icon" />
-                   Evening and weekend matches attract the most players.
+                  • Evening and weekend matches attract the most players.
                 </div>
 
                 <div className="suggestion-card">
-                  <FaAngleRight className="note-icon" />
-                   A clear match description increases participation.
+                  • A clear match description increases participation.
                 </div>
               </div>
 
@@ -183,33 +180,27 @@ function CreateGroup() {
           ) : (
             <>
               <div className="panel-header">
-                <span className="badge gaming-badge-info">🏆 Notes</span>
-
+                <span className="badge">🏆 Notes</span>
                 <h3>Make your Squad Better</h3>
               </div>
 
               <div className="suggestions">
                 <div className="suggestion-card gaming-card-info">
-                  <FaAngleRight className="note-icon" />
-                   Mention your rank to attract players at a similar skill
+                  • Mention your rank to attract players at a similar skill
                   level.
                 </div>
 
                 <div className="suggestion-card gaming-card-info">
-                  <FaAngleRight className="note-icon" />
-                   Full squads usually form faster than random player
-                  searches.
+                  • Full squads usually form faster than random player searches.
                 </div>
 
                 <div className="suggestion-card gaming-card-info">
-                  <FaAngleRight className="note-icon" />
-                   Schedule sessions during peak evening hours for quicker
+                  • Schedule sessions during peak evening hours for quicker
                   joins.
                 </div>
 
                 <div className="suggestion-card gaming-card-info">
-                  <FaAngleRight className="note-icon" />
-                   Clear room details reduce last-minute dropouts.
+                  • Clear room details reduce last-minute dropouts.
                 </div>
               </div>
 
@@ -258,30 +249,44 @@ function CreateGroup() {
               <form onSubmit={handleSubmit}>
                 <input
                   name="sport"
+                  value={formData.sport}
                   placeholder="Sport (Football, Cricket...)"
                   onChange={handleChange}
                 />
 
                 <input
                   name="location"
+                  value={formData.location}
                   placeholder="Location / Turf"
                   onChange={handleChange}
                 />
 
                 <div className="row">
-                  <input type="date" name="date" onChange={handleChange} />
-                  <input type="time" name="time" onChange={handleChange} />
+                  <input
+                    type="date"
+                    name="date"
+                    value={formData.date}
+                    onChange={handleChange}
+                  />
+                  <input
+                    type="time"
+                    name="time"
+                    value={formData.time}
+                    onChange={handleChange}
+                  />
                 </div>
 
                 <div className="row">
                   <input
                     name="currentPlayers"
+                    value={formData.currentPlayers}
                     placeholder="Current Players"
                     onChange={handleChange}
                   />
 
                   <input
                     name="maxPlayers"
+                    value={formData.maxPlayers}
                     placeholder="Max Players"
                     onChange={handleChange}
                   />
@@ -289,12 +294,15 @@ function CreateGroup() {
 
                 <textarea
                   name="description"
+                  value={formData.description}
                   placeholder="Match Description"
                   onChange={handleChange}
                 ></textarea>
                 {error && <div className="form-error">{error}</div>}
 
-                <button type="submit">Create Match</button>
+                <button type="submit" disabled={creatingMatch}>
+                  {creatingMatch ? "Creating Match..." : "Create Match"}
+                </button>
               </form>
             </div>
           ) : (

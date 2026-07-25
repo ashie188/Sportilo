@@ -1,0 +1,314 @@
+/* ================================= */
+/* FEATURED SECTION */
+/* ================================= */
+
+.featured-section {
+  padding: 90px 30px;
+
+  background: linear-gradient(
+    180deg,
+    #d6dcff 0%,
+    #9fb7ff 15%,
+    #3159c7 35%,
+    #0f172a 100%
+  );
+
+  color: white;
+
+  overflow: hidden;
+}
+
+.featured-title-row {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 28px;
+}
+
+.featured-section h2 {
+  font-size: 42px;
+
+  font-weight: 800;
+
+  letter-spacing: -1px;
+
+  color: white;
+
+  margin: 0;
+}
+
+.featured-pill {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 10px 16px;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.12);
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  color: #fbbf24;
+
+  font-size: 13px;
+
+  font-weight: 700;
+}
+
+/* ================================= */
+/* SCROLL CONTAINER */
+/* ================================= */
+
+.scroll-background {
+  background: linear-gradient(
+    180deg,
+    rgba(232, 240, 255, 0.95),
+    rgba(220, 232, 255, 0.95)
+  );
+
+  border-radius: 24px;
+
+  padding: 24px 18px;
+
+  overflow: hidden;
+
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* ================================= */
+/* SCROLL */
+/* ================================= */
+
+.matches-scroll {
+  display: flex;
+
+  gap: 22px;
+
+  width: max-content;
+
+  animation: scrollLeft 35s linear infinite;
+}
+
+.matches-scroll:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ================================= */
+/* CARD */
+/* ================================= */
+
+.match-card:hover {
+  transform: translateY(-8px);
+
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* ================================= */
+/* SPORTS CARD */
+/* ================================= */
+.match-card {
+  min-width: 260px;
+
+  padding: 20px;
+
+  border-radius: 20px;
+
+  flex-shrink: 0;
+
+  cursor: pointer;
+
+  transition: 0.35s;
+}
+
+.offline-card-featured {
+  background: linear-gradient(135deg, #172554, #2563eb);
+
+  border: 1px solid rgba(56, 189, 248, 0.35);
+
+  box-shadow: 0 12px 30px rgba(56, 189, 248, 0.22);
+}
+
+.offline-card-featured:hover {
+  border: 1px solid #38bdf8;
+}
+
+/* ================================= */
+/* GAMING CARD */
+/* ================================= */
+
+.gaming-card-featured {
+  background: linear-gradient(135deg, #2e1065, #5b21b6);
+
+  border: 1px solid rgba(124, 58, 237, 0.35);
+
+  box-shadow: 0 12px 30px rgba(91, 33, 182, 0.22);
+}
+
+.gaming-card-featured:hover {
+  border: 1px solid #7c3aed;
+}
+
+/* ================================= */
+/* CARD HEADER */
+/* ================================= */
+
+.match-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 14px;
+}
+
+/* ================================= */
+/* TYPE */
+/* ================================= */
+
+.match-type {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 6px 12px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  color: #e2e8f0;
+}
+.gaming-card-featured .match-type {
+  background: rgba(255, 255, 255, 0.12);
+}
+.offline-card-featured .match-type {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ================================= */
+/* STATUS */
+/* ================================= */
+
+.match-status {
+  padding: 6px 10px;
+
+  border-radius: 999px;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+}
+
+.match-status.open {
+  background: rgba(34, 197, 94, 0.15);
+
+  color: #22c55e;
+}
+
+.match-status.full {
+  background: rgba(239, 68, 68, 0.15);
+
+  color: #ef4444;
+}
+
+/* ================================= */
+/* TEXT */
+/* ================================= */
+
+.match-card h3 {
+  font-size: 24px;
+
+  margin-bottom: 14px;
+
+  color: white;
+}
+
+.match-card p {
+  color: #cbd5e1;
+
+  margin-bottom: 8px;
+
+  font-size: 14px;
+}
+
+/* ================================= */
+/* BUTTON */
+/* ================================= */
+
+.match-card button {
+  width: 100%;
+
+  margin-top: 16px;
+
+  padding: 12px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  color: white;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+}
+
+.gaming-card-featured button {
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+}
+
+.match-card button:hover {
+  transform: translateY(-2px);
+}
+
+/* ================================= */
+/* RESPONSIVE */
+/* ================================= */
+
+@media (max-width: 768px) {
+  .featured-section {
+    padding: 70px 20px;
+  }
+
+  .featured-title-row {
+    gap: 15px;
+
+    flex-wrap: wrap;
+  }
+
+  .featured-section h2 {
+    font-size: 34px;
+  }
+
+  .match-card {
+    min-width: 240px;
+  }
+}

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import MatchCard from "./components/MatchCard";
 import GamingMatchCard from "./gaming/GamingMatchCard";
+import "./joinMatch.css"
 
 export default function JoinMatch({ token }) {
   const [matches, setMatches] = useState([]);

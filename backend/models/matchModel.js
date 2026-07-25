@@ -9,11 +9,15 @@ export const createMatchModel = async ({
   match_time,
   max_players,
   currentPlayers,
-  description
+  description,
 }) => {
-
+  
   // ✅ initial status logic
-  const status = currentPlayers >= max_players ? "full" : "open";
+  const current = Number(currentPlayers);
+  const max = Number(max_players);
+
+  console.log({current, max,});
+  const status = current >= max ? "full" : "open";
 
   const query = `
     INSERT INTO matches (
@@ -42,7 +46,7 @@ export const createMatchModel = async ({
     currentPlayers,
     max_players,
     description,
-    status
+    status,
   ];
 
   const result = await db.query(query, values);
