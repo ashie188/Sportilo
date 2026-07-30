@@ -26,6 +26,6 @@ const pool = new Pool(
 pool
   .query("SELECT NOW()")
   .then(() => console.log("PostgreSQL Connected "))
-  .catch((err) => console.error("DB Connection Error "));
+  .catch((err) => console.error("DB Connection Error: ",err));
 
 export default pool;
