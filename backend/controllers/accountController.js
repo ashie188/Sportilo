@@ -7,7 +7,6 @@ export const getUserMatches = async (req, res) => {
     // =========================
     // OFFLINE CREATED
     // =========================
-    console.log("inside account controller fetching matches");
 
     const createdOfflineMatches = await pool.query(
       `
@@ -95,8 +94,6 @@ export const getUserMatches = async (req, res) => {
       new Map(allMatches.map((m) => [`${m.type}-${m.id}`, m])).values(),
     );
 
-    //console.log(uniqueMatches);
-
     // =========================
     // ACTIVE MATCHES
     // =========================
@@ -120,7 +117,7 @@ export const getUserMatches = async (req, res) => {
       historyMatches,
     });
   } catch (err) {
-    console.error(err);
+    console.log("error at getusermatches in accountcontroller");
 
     res.status(500).json({
       message: "Server error",

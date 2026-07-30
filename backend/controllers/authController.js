@@ -30,7 +30,7 @@ export const registerUser = async (req, res) => {
       subject: "Welcome to Sportilo!",
       html: welcomeEmail(user.name),
     }).catch((err) => {
-      console.error("Welcome email failed:", err);
+      console.log("Welcome email failed at registeruser in authcontroller");
     });
 
     res.status(201).json({
@@ -110,7 +110,7 @@ export const googleLogin = async (req, res) => {
       subject: "Welcome to Sportilo!",
       html: welcomeEmail(user.name),
     }).catch((err) => {
-      console.error("Welcome email failed:", err.message);
+      console.log("Welcome email failed in googlelogin in authcontroller");
     });
     }
 

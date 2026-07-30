@@ -6,6 +6,9 @@
   display: flex;
   min-height: 100dvh;
   font-family: "Poppins", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 /* ================================= */
@@ -68,6 +71,7 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-bottom: 1px solid rgba(19, 18, 18, 0.292);
   backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border-radius: 18px;
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
 }
@@ -80,7 +84,9 @@
   background: rgba(255, 255, 255, 0.55);
   font-weight: 600;
   cursor: pointer;
-  transition: 0.25s;
+  transition:
+    background 0.25s ease,
+    transform 0.2s ease;
 }
 
 .active-toggle {
@@ -153,18 +159,28 @@
   border-radius: 8px;
   border: 1px solid #cbd5f5;
   outline: none;
-  transition: 0.3s;
+  font-family: "Poppins", sans-serif;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .create-box textarea {
   min-height: 120px;
-  resize: none;
+  max-height: 260px;
+  resize: vertical;
 }
 
 .create-box input:focus,
 .create-box textarea:focus {
   border-color: #38bdf8;
   box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+}
+
+.create-box input:focus-visible,
+.create-box textarea:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 1px;
 }
 
 .row {
@@ -186,17 +202,28 @@
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
+  font-family: "Poppins", sans-serif;
   transition:
-    transform 0.3s,
-    box-shadow 0.3s,
-    background 0.3s;
-  will-change: transform;
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .create-box button:hover {
   transform: translateY(-2px);
-
   box-shadow: 0 10px 20px rgba(56, 189, 248, 0.35);
+}
+
+.create-box button[type="submit"]:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  will-change: auto;
+}
+
+.create-box button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
 }
 
 /* ================================= */
@@ -272,13 +299,22 @@
   color: #2563eb;
   font-weight: 600;
   cursor: pointer;
+  font-family: "Poppins", sans-serif;
   box-shadow: 0 8px 22px rgba(15, 23, 42, 0.12);
-  transition: 0.3s;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .cta-box button:hover {
   transform: translateY(-2px);
   box-shadow: 0 14px 30px rgba(15, 23, 42, 0.18);
+}
+
+.cta-box button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  border-radius: 12px;
 }
 
 /* ================================= */
@@ -304,7 +340,9 @@
   align-items: center;
   background: rgba(15, 23, 42, 0.65);
   backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   z-index: 9999;
+  isolation: isolate;
 }
 
 .match-success-modal {
@@ -393,12 +431,20 @@
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: 0.25s;
+  font-family: "Poppins", sans-serif;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .match-share-now-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(37, 99, 235, 0.28);
+}
+
+.match-share-now-btn:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
 }
 
 /* ================================= */
@@ -413,11 +459,17 @@
   color: #2563eb;
   font-weight: 600;
   cursor: pointer;
-  transition: 0.25s;
+  font-family: "Poppins", sans-serif;
+  transition: background 0.2s ease;
 }
 
 .match-view-btn:hover {
   background: #eff6ff;
+}
+
+.match-view-btn:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
 }
 
 /* ================================= */
@@ -429,13 +481,22 @@
   color: #64748b;
   font-size: 13px;
   cursor: pointer;
-  transition: 0.25s;
+  font-family: "Poppins", sans-serif;
+  transition: color 0.2s ease;
 }
 
 .match-later-btn:hover {
   color: #0f172a;
 }
 
+.match-later-btn:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ================================= */
+/* ANIMATIONS */
 /* ================================= */
 
 @keyframes modalEnter {
@@ -443,40 +504,325 @@
     opacity: 0;
     transform: translateY(20px) scale(0.96);
   }
-
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
 }
 
+@keyframes modalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ================================= */
-/* RESPONSIVE */
+/* RESPONSIVE — MOBILE (<768px)      */
 /* ================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .create-page {
     flex-direction: column;
-  }
-
-  .create-left {
-    display: none;
+    min-height: 100dvh;
+    padding-bottom: 80px;
   }
 
   .create-right {
-    padding: 30px 20px;
+    order: 1;
+    padding: 24px 16px 20px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
-  .create-header,
+  .create-left {
+    order: 2;
+    display: flex;
+    padding: 30px 20px 40px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Header */
+  .create-header {
+    width: 100%;
+    margin-bottom: 14px;
+  }
+
+  .create-header h1 {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  /* Toggle */
+  .create-toggle {
+    width: 100%;
+    flex-direction: row;
+    gap: 6px;
+    padding: 7px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+  }
+
+  .create-toggle button {
+    flex: 1;
+    min-width: unset;
+    padding: 10px 8px;
+    font-size: 13px;
+    border-radius: 9px;
+    white-space: nowrap;
+  }
+
+  /* Form box */
   .create-box {
+    width: 100%;
+    padding: 20px 16px;
+    border-radius: 18px;
+    box-shadow:
+      0 6px 20px rgba(15, 23, 42, 0.07),
+      0 16px 32px rgba(37, 99, 235, 0.05);
+  }
+
+  .create-box::before {
+    display: none;
+  }
+
+  .form-header {
+    margin-bottom: 14px;
+  }
+
+  .form-header h3 {
+    font-size: 17px;
+  }
+
+  .form-header p {
+    font-size: 12px;
+  }
+
+  /* Inputs — tighter on mobile, user doesn't need large padding */
+  .create-box input,
+  .create-box textarea {
+    padding: 8px 10px; /* reduced from 10px 12px */
+    font-size: 14px;
+    margin-bottom: 8px; /* reduced from 10px */
+    border-radius: 8px;
+    box-sizing: border-box;
     width: 100%;
   }
 
+  .create-box textarea {
+    min-height: 80px;
+    max-height: 140px;
+  }
+
   .row {
-    flex-direction: column;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .row input {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Submit button — full tap target */
+  .create-box button[type="submit"] {
+    padding: 13px;
+    font-size: 15px;
+    border-radius: 10px;
+    min-height: 48px;
+  }
+
+  /* Error */
+  .form-error {
+    font-size: 12px;
+    padding: 9px 11px;
+    margin-bottom: 10px;
+  }
+
+  /* Left panel */
+  .info-panel {
+    width: 100%;
+  }
+
+  .panel-header {
+    margin-bottom: 16px;
+  }
+
+  .panel-header h3 {
+    font-size: 19px;
+  }
+
+  .suggestions {
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .suggestion-card {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .cta-box {
+    margin-top: 22px;
+  }
+
+  .cta-box button {
+    padding: 12px 24px;
+    min-height: 48px;
+    font-size: 14px;
+  }
+
+  /* Success modal — bottom sheet on mobile */
+  .match-success-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .match-success-modal {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 20px 20px 0 0;
+    padding: 24px 20px 32px;
+    animation: modalSlideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .match-success-icon {
+    width: 56px;
+    height: 56px;
+    font-size: 26px;
+    margin-bottom: 14px;
+  }
+
+  .match-success-modal h2 {
+    font-size: 20px;
+  }
+
+  .match-created-name {
+    font-size: 15px;
+  }
+
+  .match-created-subtitle {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+
+  .match-growth-tip {
+    padding: 12px;
+    margin-bottom: 18px;
+    border-radius: 12px;
+  }
+
+  .match-growth-tip strong {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .match-growth-tip p {
+    font-size: 12px;
+  }
+
+  .match-share-now-btn,
+  .match-view-btn {
+    padding: 13px;
+    font-size: 14px;
+    min-height: 48px;
+  }
+
+  .match-later-btn {
+    margin-top: 14px;
+    font-size: 12px;
+  }
+}
+
+/* ================================= */
+/* RESPONSIVE — SMALL MOBILE (<500px)*/
+/* ================================= */
+
+@media (max-width: 500px) {
+  .create-right {
+    padding: 20px 12px 18px;
+  }
+
+  .create-left {
+    padding: 26px 14px 36px;
+  }
+
+  .create-header h1 {
+    font-size: 21px;
   }
 
   .create-toggle {
     flex-direction: column;
+    gap: 5px;
+  }
+
+  .create-toggle button {
+    width: 100%;
+    padding: 12px;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .create-box {
+    padding: 18px 13px;
+    border-radius: 14px;
+  }
+
+  /* Hard 16px — non-negotiable, prevents iOS Safari zoom on input focus */
+  .create-box input,
+  .create-box textarea {
+    font-size: 14px;
+    padding: 7px 10px; /* reduced from 10px */
+    margin-bottom: 7px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .create-box textarea {
+    min-height: 70px;
+    max-height: 120px;
+  }
+
+  .form-header h3 {
+    font-size: 16px;
+  }
+
+  .match-success-modal {
+    padding: 20px 14px 28px;
+  }
+
+  .match-success-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
+  }
+
+  .match-success-modal h2 {
+    font-size: 18px;
+  }
+
+  .match-share-now-btn,
+  .match-view-btn {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .panel-header h3 {
+    font-size: 17px;
+  }
+
+  .suggestion-card {
+    font-size: 12px;
+  }
+
+  .badge {
+    font-size: 10px;
+    padding: 4px 10px;
   }
 }

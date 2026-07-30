@@ -21,7 +21,7 @@ export default function Header({ user, setUser }) {
         <div className="logo">
           <Link to="/">
             <img
-              src="/images/icon_best.svg"
+              src="/images/icon_best-optimized.svg"
               alt="Sportilo Logo"
               className="header-logo"
             />

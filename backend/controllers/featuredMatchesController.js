@@ -88,11 +88,10 @@ LIMIT 3
     // =========================
 
     const featuredMatches = [...offlineMatches, ...gamingMatches];
-    console.log("featured matches fetched successfully");
 
     res.json(featuredMatches);
   } catch (err) {
-    console.error(err);
+    console.log("error at getfeaturedmatches in featuredmatchescontroller")
 
     res.status(500).json({
       message: "Server Error",

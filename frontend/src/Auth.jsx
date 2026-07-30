@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "./api/axios";
 import { GoogleLogin } from "@react-oauth/google";
 import "./Auth.css";
 
@@ -39,10 +39,10 @@ export default function Auth({ setUser }) {
 
   // input handler
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [e.target.name]: e.target.value,
-    });
+    }));
   };
 
   // submit handler
@@ -55,8 +55,8 @@ export default function Auth({ setUser }) {
       let response;
 
       if (isLogin) {
-        response = await axios.post(
-          "http://localhost:3000/auth/login", // ✅ FIXED
+        response = await api.post(
+          "/auth/login", // ✅ FIXED
           {
             email: formData.email,
             password: formData.password,
@@ -99,8 +99,8 @@ export default function Auth({ setUser }) {
           return;
         }
 
-        response = await axios.post(
-          "http://localhost:3000/auth/register", // ✅ FIXED
+        response = await api.post(
+          "/auth/register", // ✅ FIXED
           {
             name: formData.name,
             email: formData.email,
@@ -136,7 +136,7 @@ export default function Auth({ setUser }) {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:3000/auth/google", {
+      const response = await api.post("/auth/google", {
         token: credentialResponse.credential,
       });
 
@@ -161,14 +161,17 @@ export default function Auth({ setUser }) {
     <div className="auth-container">
       {/* LEFT */}
       <div className="auth-left">
-        <h1>Sportilo</h1>
+        <div className="auth-logo">
+          <img src="/images/icon_best-optimized.svg" alt="Sportilo" />
+          <h1>Sportilo</h1>
+        </div>
         <p>Find players. Join matches. Play together.</p>
       </div>
 
       {/* RIGHT */}
       <div className="auth-right">
         <div className="auth-box">
-          <h2>{isLogin ? "Login" : "Register"}</h2>
+          <h2>{isLogin ? "Login" : "Create Account"}</h2>
 
           {/* 🔥 ERROR MESSAGE */}
 

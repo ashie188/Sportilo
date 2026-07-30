@@ -103,8 +103,6 @@ function OnlineCreateMatch() {
         },
       );
 
-      console.log("Gaming Match Created");
-
       setCreatedLobby(response.data.gamingMatch);
 
       setShowSuccessModal(true);
@@ -121,10 +119,7 @@ function OnlineCreateMatch() {
         description: "",
       });
     } catch (error) {
-      console.error(
-        "Error creating gaming match:",
-        error.response?.data || error.message,
-      );
+      console.log("Error creating gaming match");
 
       setError(error.response?.data?.message || "Something went wrong");
     }

@@ -1,10 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Footer.css"
+import "./Footer.css";
 
 function Footer() {
-  const user = JSON.parse(localStorage.getItem("user"));
-
   const handleShareSportilo = async () => {
     const shareData = {
       title: "Sportilo",
@@ -31,10 +29,17 @@ function Footer() {
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-brand">
-          <h2>⚽ Sportilo</h2>
+          <div className="footer-logo-row">
+            <img
+              src="/images/icon_best-optimized.svg"
+              alt="Sportura"
+              className="footer-logo"
+            />
+            <h2>Sportilo</h2>
+          </div>
           <p>
-            Find players, join matches, and enjoy sports near you. Build your
-            team and never miss a game.
+            Find players. Create matches. Build communities. From local sports
+            to competitive gaming, Sportura brings every game together.
           </p>
         </div>
 
@@ -42,7 +47,7 @@ function Footer() {
           <h3>Quick Links</h3>
           <Link to="/">Home</Link>
           <Link to="/create-group">Create Match</Link>
-          <Link to="/join-group">join Matches</Link>
+          <Link to="/join-group">Join Matches</Link>
           <Link to="/account">Account</Link>
           <Link to="/legal">Terms & Privacy</Link>
           <Link to="/support">Help & Feedback</Link>
@@ -52,7 +57,8 @@ function Footer() {
           <h3>Community</h3>
 
           <p className="community-text">
-            Help Sportilo grow by inviting your teammates and friends.
+            Help Sportilo grow. Invite your teammates and make every match
+            easier to fill.
           </p>
 
           <button className="footer-share-btn" onClick={handleShareSportilo}>
@@ -60,9 +66,7 @@ function Footer() {
             Share Sportilo
           </button>
 
-          <p className="community-tag">
-            Every player makes the community stronger.
-          </p>
+          <p className="community-tag">One invite can start the next match.</p>
         </div>
 
         <div className="footer-social">

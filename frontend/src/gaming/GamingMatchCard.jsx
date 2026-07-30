@@ -1,5 +1,5 @@
 import React from "react";
-import { FaGamepad } from "react-icons/fa";
+import { FaGamepad } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import "./GamingMatchCard.css";
 
@@ -68,14 +68,6 @@ export default function GamingMatchCard({ match }) {
               width: `${(match.current_players / match.max_players) * 100}%`,
             }}
           />
-        </div>
-
-        {/* ROOM */}
-
-        <div className="gmc-room">
-          <span>🔐 Room Ready</span>
-
-          <span>🎧 Discord</span>
         </div>
 
         {/* ADMIN */}

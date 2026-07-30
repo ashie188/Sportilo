@@ -2,7 +2,6 @@ import pool from "../config/db.js";
 
 export const GetMatchDetails = async (req, res) => {
   try {
-    console.log("Fetching match details with params:", req.params);
     const { type, id } = req.params;
 
     let result;
@@ -39,7 +38,7 @@ export const GetMatchDetails = async (req, res) => {
 
     return res.json(result.rows[0]);
   } catch (err) {
-    console.error(err);
+    console.log("error at getmatchdetails in matchdetailscontroller");
 
     return res.status(500).json({
       message: "Server error",

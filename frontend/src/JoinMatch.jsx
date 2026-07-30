@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import api from "./api/axios";
 import MatchCard from "./components/MatchCard";
 import GamingMatchCard from "./gaming/GamingMatchCard";
-import "./joinMatch.css"
+import "./joinMatch.css";
 
 export default function JoinMatch({ token }) {
+  const navigate = useNavigate();
   const [matches, setMatches] = useState([]);
   const [mode, setMode] = useState("offline");
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [offset, setOffset] = useState(0);
   const [hasMore, setHasMore] = useState(true);
 
-  const LIMIT = 28;
+  const LIMIT = 16;
 
   useEffect(() => {
     setMatches([]);
@@ -31,10 +33,10 @@ export default function JoinMatch({ token }) {
 
       const url =
         mode === "offline"
-          ? `http://localhost:3000/joinmatch?limit=${LIMIT}&offset=${newOffset}`
-          : `http://localhost:3000/gaming?limit=${LIMIT}&offset=${newOffset}`;
+          ? `/joinmatch?limit=${LIMIT}&offset=${newOffset}`
+          : `/gaming?limit=${LIMIT}&offset=${newOffset}`;
 
-      const res = await axios.get(url);
+      const res = await api.get(url);
 
       if (res.data.length < LIMIT) {
         setHasMore(false);
@@ -46,7 +48,7 @@ export default function JoinMatch({ token }) {
         setMatches((prev) => [...prev, ...res.data]);
       }
     } catch (err) {
-      console.error(err);
+      console.log("error at join match page in fetch matches function");
     } finally {
       setLoading(false);
     }
@@ -58,10 +60,6 @@ export default function JoinMatch({ token }) {
     fetchMatches(newOffset);
   };
 
-  const handleJoin = async (id) => {
-    alert("Joined match " + id);
-  };
-
   // 🔍 FILTER
   const filteredMatches = matches.filter((m) =>
     mode === "offline"
@@ -71,9 +69,6 @@ export default function JoinMatch({ token }) {
 
   return (
     <div className="jm-wrapper">
-      {!loading && filteredMatches.length === 0 && (
-        <p className="jm-empty">No matches found</p>
-      )}
       {/* HERO stays same */}
 
       <section className="jm-hero">
@@ -89,13 +84,24 @@ export default function JoinMatch({ token }) {
           </div>
 
           <div className="jm-hero-image">
-            <img src="../images/SportMania-join_match.jpg" alt="sports" />
+            <img
+              src="/images/SportMania-join_match.webp"
+              alt="Players joining a sports match"
+              width="520"
+              height="355"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+            />
           </div>
         </div>
       </section>
 
       {/* MATCH SECTION */}
       <section className="jm-matches">
+        {!loading && filteredMatches.length === 0 && (
+          <p className="jm-empty">No matches found</p>
+        )}
         <div className="jm-container">
           <h2 className="jm-heading">Available Matches</h2>
 
@@ -120,7 +126,7 @@ export default function JoinMatch({ token }) {
           </div>
 
           {/* 🔍 SEARCH */}
-          <div className="jm-search">
+          {/*<div className="jm-search">
             <input
               type="text"
               placeholder={
@@ -131,7 +137,7 @@ export default function JoinMatch({ token }) {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-          </div>
+          </div>*/}
 
           {loading && <div className="jm-loading">Loading matches...</div>}
 
@@ -155,7 +161,7 @@ export default function JoinMatch({ token }) {
         ) : (
           <div className="jm-no-more">
             <p>No more matches available</p>
-            <button onClick={() => (window.location.href = "/create-group")}>
+            <button onClick={() => navigate("/create-group")}>
               Create Match
             </button>
           </div>
@@ -167,7 +173,7 @@ export default function JoinMatch({ token }) {
           {/* LEFT */}
           <div className="jm-bottom-left">
             <h2>Create Your Own Match</h2>
-            <button onClick={() => (window.location.href = "/create-group")}>
+            <button onClick={() => navigate("/create-group")}>
               Create Match
             </button>
           </div>

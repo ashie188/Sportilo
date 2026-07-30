@@ -4,22 +4,20 @@
   border-radius: 16px;
   padding: 18px;
   cursor: pointer;
-
-  border: 1px solid rgba(56,189,248,0.2);
-  transition: all 0.3s ease;
-
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
   position: relative;
   overflow: hidden;
 }
 
 /* HOVER */
 .accm-card:hover:not(.history-card) {
-
-  transform:
-    translateY(-6px);
-
-  box-shadow:
-    0 20px 40px rgba(56,189,248,0.25);
+  transform: translateY(-6px);
+  will-change: transform;
+  box-shadow: 0 20px 40px rgba(56, 189, 248, 0.25);
 }
 
 /* TOP STRIP */
@@ -98,129 +96,155 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-
   background: linear-gradient(135deg, #38bdf8, #2563eb);
   color: white;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-size: 12px;
   font-weight: bold;
 }
 
 /* Gaming Changes */
 .gaming-strip {
-
-  background:
-    linear-gradient(
-      90deg,
-      rgb(195,195,15),
-      #fde047,
-      rgb(195,195,15)
-    );
-
-  box-shadow:
-    0 0 12px rgba(250,204,21,0.35);
+  background: linear-gradient(
+    90deg,
+    rgb(195, 195, 15),
+    #fde047,
+    rgb(195, 195, 15)
+  );
+  box-shadow: 0 0 12px rgba(250, 204, 21, 0.35);
 }
 
 .gaming-card {
-  background:
-    linear-gradient(
-      135deg,
-      #eff6ff,
-      #dbeafe,
-      #bfdbfe
-    );
+  background: linear-gradient(135deg, #eff6ff, #dbeafe, #bfdbfe);
 }
 
 .gaming-card .accm-sport {
-
-  color: rgb(195,195,15);
-
+  color: rgb(195, 195, 15);
   font-weight: 700;
 }
 
 /* History card fix */
-.history-card{
-
-  cursor:default;
-
-  background:
-    linear-gradient(
-      135deg,
-      #f8fafc,
-      #eef2ff
-    );
+.history-card {
+  cursor: default;
+  background: linear-gradient(135deg, #f8fafc, #eef2ff);
 }
 
 /* share buttons*/
-.accm-actions{
-
-  display:flex;
-
-  align-items:center;
-
-  gap:10px;
+.accm-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.accm-admin{
-
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-  margin-top:12px;
+.accm-admin {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
 }
 
-.accm-admin-left{
-
-  display:flex;
-
-  align-items:center;
-
-  gap:8px;
+.accm-admin-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-
-
-.accm-share-btn{
-
-  display:flex;
-
-  align-items:center;
-
-  gap:6px;
-
-  padding:7px 12px;
-
-  border:none;
-
-  border-radius:10px;
-
-  cursor:pointer;
-
-  font-size:12px;
-
-  font-weight:600;
-
-  color:#7c3aed;
-
-  background:
-    rgba(124,58,237,.10);
-
-  transition:.25s;
+.accm-share-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: #7c3aed;
+  background: rgba(124, 58, 237, 0.1);
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
 }
 
-.accm-share-btn:hover{
-
-  background:
-    rgba(124,58,237,.18);
-
-  transform:
-    translateY(-1px);
+.accm-share-btn:hover {
+  background: rgba(124, 58, 237, 0.18);
+  transform: translateY(-1px);
 }
 
+@media (max-width: 768px) {
+  .accm-card {
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  .accm-card:hover:not(.history-card) {
+    transform: none; /* avoid sticky hover-state jank on touch taps */
+  }
+
+  .accm-strip {
+    height: 4px;
+  }
+
+  .accm-header {
+    margin-top: 6px;
+  }
+
+  .accm-sport {
+    font-size: 14px;
+  }
+
+  .accm-status {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+
+  .accm-location {
+    font-size: 12px;
+    margin-top: 6px;
+  }
+
+  .accm-time {
+    font-size: 11px;
+  }
+
+  .accm-players {
+    font-size: 13px;
+    margin-top: 4px;
+  }
+
+  .accm-admin {
+    margin-top: 10px;
+  }
+
+  .accm-avatar {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
+
+  .accm-admin-left span {
+    font-size: 12px;
+  }
+
+  .accm-share-btn {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 500px) {
+  .accm-card {
+    padding: 12px;
+  }
+
+  .accm-sport {
+    font-size: 13px;
+  }
+
+  .accm-location,
+  .accm-time {
+    font-size: 11px;
+  }
+}

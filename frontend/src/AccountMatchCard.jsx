@@ -1,10 +1,7 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import "./AccountMatchCard.css"
+import { memo } from "react";
+import "./AccountMatchCard.css";
 
-export default function AccountMatchCard({ match, onClick, isHistory }) {
-  const navigate = useNavigate();
-
+function AccountMatchCard({ match, onClick, isHistory }) {
   const isCompleted = match.status === "completed";
 
   const isGamingMatch = match.type === "gaming";
@@ -30,7 +27,7 @@ export default function AccountMatchCard({ match, onClick, isHistory }) {
       if (navigator.share) {
         await navigator.share({
           title: isGamingMatch ? `${match.game} Lobby` : `${match.sport} Match`,
-          text: "Join this match on SportMania",
+          text: "Join this match on Sportilo",
           url: matchUrl,
         });
       } else {
@@ -110,3 +107,4 @@ export default function AccountMatchCard({ match, onClick, isHistory }) {
     </div>
   );
 }
+export default memo(AccountMatchCard);

@@ -3,20 +3,24 @@
 /* ================================= */
 
 .bridge-section {
-  padding: 90px 30px 80px;
-
+  padding: 70px 30px;
   position: relative;
-
   overflow: hidden;
-
   background: linear-gradient(
     180deg,
-    #0f172a 0%,
-    #172554 25%,
-    #1e3a8a 55%,
-    #bfdbfe 85%,
+    #4f78dd 0%,
+    #3159c7 10%,
+    #1e3a8a 30%,
+    #233673 55%,
+    #213869 72%,
+    #1d2f6a 82%,
+    #4f78dd 92%,
     #dbeafe 100%
   );
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
+  will-change: auto;
+  isolation: isolate;
 }
 
 /* ================================= */
@@ -25,45 +29,35 @@
 
 .bridge-section::before {
   content: "";
-
   position: absolute;
-
   top: -180px;
   left: -180px;
-
   width: 500px;
   height: 500px;
-
   background: radial-gradient(
     circle,
     rgba(56, 189, 248, 0.18),
     transparent 70%
   );
-
-  filter: blur(80px);
-
+  filter: blur(40px);
+  opacity: 0.6;
   pointer-events: none;
 }
 
 .bridge-section::after {
   content: "";
-
   position: absolute;
-
   bottom: -200px;
   right: -200px;
-
   width: 550px;
   height: 550px;
-
   background: radial-gradient(
     circle,
     rgba(124, 58, 237, 0.18),
     transparent 70%
   );
-
-  filter: blur(90px);
-
+  filter: blur(40px);
+  opacity: 0.6;
   pointer-events: none;
 }
 
@@ -72,17 +66,13 @@
 /* ================================= */
 
 .bridge-header {
+  top: 0%;
   position: relative;
-
   z-index: 2;
-
   max-width: 950px;
-
   margin: auto;
-
   text-align: center;
-
-  margin-bottom: 50px;
+  margin-bottom: 35px;
 }
 
 /* ================================= */
@@ -91,27 +81,16 @@
 
 .bridge-badge {
   display: inline-flex;
-
   align-items: center;
-
   gap: 10px;
-
   padding: 12px 24px;
-
   border-radius: 999px;
-
   background: rgba(255, 255, 255, 0.08);
-
   border: 1px solid rgba(255, 255, 255, 0.12);
-
   backdrop-filter: blur(12px);
-
   color: #dbeafe;
-
   font-size: 14px;
-
   font-weight: 600;
-
   margin-bottom: 10px;
 }
 
@@ -122,23 +101,16 @@
 .bridge-header h2 {
   top: 0;
   font-size: 50px;
-
   line-height: 1.1;
-
   font-weight: 800;
-
   color: white;
-
   margin-bottom: 16px;
-
   letter-spacing: -1px;
 }
 
 .bridge-header h2 span {
   background: linear-gradient(135deg, #38bdf8, #7c3aed, #f59e0b);
-
   -webkit-background-clip: text;
-
   -webkit-text-fill-color: transparent;
 }
 
@@ -148,13 +120,9 @@
 
 .bridge-header p {
   max-width: 760px;
-
   margin: auto;
-
   color: #cbd5e1;
-
   font-size: 16px;
-
   line-height: 1.6;
 }
 
@@ -164,15 +132,10 @@
 
 .bridge-stats {
   position: relative;
-
   z-index: 2;
-
   display: flex;
-
   justify-content: center;
-
   gap: 60px;
-
   margin-top: 50px;
 }
 
@@ -182,17 +145,13 @@
 
 .bridge-stat h3 {
   font-size: 36px;
-
   font-weight: 800;
-
   color: #f59e0b;
-
   margin-bottom: 6px;
 }
 
 .bridge-stat p {
   color: #dbeafe;
-
   font-size: 15px;
 }
 
@@ -202,22 +161,15 @@
 
 .bridge-cards {
   position: relative;
-
   z-index: 2;
-
   max-width: 1200px;
-
   margin: auto;
-
   display: grid;
-
   grid-template-columns:
     minmax(320px, 1fr)
     120px
     minmax(320px, 1fr);
-
   align-items: start;
-
   gap: 35px;
 }
 
@@ -227,20 +179,14 @@
 
 .bridge-card {
   background: rgba(255, 255, 255, 0.92);
-
   backdrop-filter: blur(14px);
-
   border-radius: 28px;
-
   padding: 32px;
-
   position: relative;
-
   transition: 0.35s;
-
   display: flex;
-
   flex-direction: column;
+  contain: layout style;
 }
 
 /* ================================= */
@@ -249,13 +195,11 @@
 
 .sports-card {
   border: 1px solid rgba(56, 189, 248, 0.25);
-
   box-shadow: 0 20px 40px rgba(56, 189, 248, 0.12);
 }
 
 .sports-card:hover {
   transform: translateY(-10px);
-
   box-shadow: 0 30px 60px rgba(56, 189, 248, 0.18);
 }
 
@@ -265,13 +209,11 @@
 
 .gaming-card {
   border: 1px solid rgba(124, 58, 237, 0.25);
-
   box-shadow: 0 20px 40px rgba(124, 58, 237, 0.14);
 }
 
 .gaming-card:hover {
   transform: translateY(-10px);
-
   box-shadow: 0 30px 60px rgba(124, 58, 237, 0.18);
 }
 
@@ -281,11 +223,8 @@
 
 .card-top {
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
-
   margin-bottom: 12px;
 }
 
@@ -295,29 +234,21 @@
 
 .bridge-icon {
   width: 72px;
-
   height: 72px;
-
   border-radius: 18px;
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
   font-size: 34px;
 }
 
 .sports-card .bridge-icon {
   background: rgba(56, 189, 248, 0.12);
-
   color: #0284c7;
 }
 
 .gaming-card .bridge-icon {
   background: rgba(124, 58, 237, 0.12);
-
   color: #7c3aed;
 }
 
@@ -327,21 +258,15 @@
 
 .bridge-tag {
   padding: 8px 14px;
-
   border-radius: 999px;
-
   font-size: 13px;
-
   font-weight: 700;
-
   background: rgba(56, 189, 248, 0.12);
-
   color: #0284c7;
 }
 
 .gaming-tag {
   background: rgba(124, 58, 237, 0.12);
-
   color: #7c3aed;
 }
 
@@ -351,13 +276,9 @@
 
 .bridge-card h3 {
   font-size: 32px;
-
   font-weight: 800;
-
   color: #0f172a;
-
   margin-bottom: 10px;
-
   line-height: 1.2;
 }
 
@@ -367,9 +288,7 @@
 
 .bridge-card p {
   color: #64748b;
-
   line-height: 1.8;
-
   margin-bottom: 16px;
 }
 
@@ -379,27 +298,18 @@
 
 .bridge-sports {
   display: flex;
-
   flex-wrap: wrap;
-
   gap: 10px;
-
   margin-bottom: 20px;
 }
 
 .bridge-sports span {
   padding: 10px 14px;
-
   border-radius: 999px;
-
   background: #f8fafc;
-
   border: 1px solid rgba(15, 23, 42, 0.06);
-
   font-size: 14px;
-
   font-weight: 600;
-
   color: #334155;
 }
 
@@ -409,31 +319,22 @@
 
 .bridge-card button {
   width: 100%;
-
   border: none;
-
   border-radius: 14px;
-
   padding: 15px;
-
   font-size: 16px;
-
   font-weight: 700;
-
   cursor: pointer;
-
   transition: 0.3s;
 }
 
 .sports-card button {
   background: linear-gradient(135deg, #38bdf8, #2563eb);
-
   color: white;
 }
 
 .gaming-card button {
   background: linear-gradient(135deg, #7c3aed, #a855f7);
-
   color: white;
 }
 
@@ -443,31 +344,20 @@
 
 .bridge-center {
   display: flex;
-
   justify-content: center;
-
   align-items: center;
 }
 
 .energy-ring {
   width: 80px;
-
   height: 80px;
-
   border-radius: 50%;
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
   font-size: 30px;
-
   color: white;
-
   background: linear-gradient(135deg, #38bdf8, #7c3aed, #f59e0b);
-
   box-shadow:
     0 0 20px rgba(56, 189, 248, 0.35),
     0 0 40px rgba(124, 58, 237, 0.25),
@@ -475,62 +365,128 @@
 }
 
 /* ================================= */
-/* RESPONSIVE */
+/* RESPONSIVE — MOBILE ONLY          */
+/* DO NOT TOUCH ABOVE THIS LINE      */
 /* ================================= */
 
-@media (max-width: 950px) {
+@media (max-width: 768px) {
+  .bridge-section {
+    padding: 60px 16px;
+    contain-intrinsic-size: auto;
+  }
+
+  .bridge-badge {
+    font-size: 12px;
+    padding: 9px 16px;
+  }
+
+  .bridge-header {
+    margin-bottom: 28px;
+  }
+
+  .bridge-header h2 {
+    font-size: 28px;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+
+  .bridge-header p {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
   .bridge-cards {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .bridge-center {
     display: none;
   }
 
-  .bridge-header h2 {
-    font-size: 42px;
-  }
-
-  .bridge-stats {
-    flex-wrap: wrap;
-
-    gap: 30px;
-  }
-}
-
-@media (max-width: 600px) {
-  .bridge-section {
-    padding: 90px 20px;
-  }
-
-  .bridge-header h2 {
-    font-size: 34px;
-  }
-
-  .bridge-header p {
-    font-size: 17px;
-  }
-
   .bridge-card {
-    padding: 28px;
+    padding: 24px 20px;
+    border-radius: 20px;
   }
 
-  .bridge-card h3 {
-    font-size: 26px;
+  .card-top {
+    margin-bottom: 14px;
   }
 
   .bridge-icon {
-    width: 60px;
-    height: 60px;
-
-    font-size: 28px;
+    width: 52px;
+    height: 52px;
+    font-size: 24px;
+    border-radius: 14px;
   }
 
   .bridge-tag {
-    font-size: 12px;
+    font-size: 11px;
+    padding: 6px 12px;
   }
 
-  .bridge-stats {
-    gap: 20px;
+  .bridge-card h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+
+  .bridge-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .bridge-sports {
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .bridge-sports span {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .bridge-card button {
+    padding: 14px;
+    font-size: 15px;
+    border-radius: 12px;
+  }
+
+  /* Kill hover transforms on touch devices */
+  .sports-card:hover,
+  .gaming-card:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 375px) {
+  .bridge-section {
+    padding: 50px 14px;
+  }
+
+  .bridge-header h2 {
+    font-size: 24px;
+  }
+
+  .bridge-header p {
+    font-size: 14px;
+  }
+
+  .bridge-card {
+    padding: 20px 16px;
+  }
+
+  .bridge-card h3 {
+    font-size: 20px;
+  }
+
+  .bridge-sports span {
+    font-size: 12px;
+    padding: 7px 10px;
+  }
+
+  .bridge-card button {
+    font-size: 14px;
+    padding: 13px;
   }
 }

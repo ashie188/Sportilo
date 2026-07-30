@@ -1,17 +1,15 @@
 import pool from "../config/db.js";
 import { fetchMatchesModel } from "../models/joinMatchModel.js";
 
-
 export const joinMatch = async (req, res) => {
   const { id } = req.params;
   const user = req.user;
 
   try {
     // 1️⃣ Check match
-    const matchRes = await pool.query(
-      "SELECT * FROM matches WHERE id = $1",
-      [id]
-    );
+    const matchRes = await pool.query("SELECT * FROM matches WHERE id = $1", [
+      id,
+    ]);
 
     if (matchRes.rows.length === 0) {
       return res.status(404).json({ message: "Match not found" });
@@ -29,7 +27,7 @@ export const joinMatch = async (req, res) => {
     // 3️⃣ Prevent duplicate join
     const exists = await pool.query(
       "SELECT * FROM match_participants WHERE match_id = $1 AND user_id = $2",
-      [id, user.id]
+      [id, user.id],
     );
 
     if (exists.rows.length > 0) {
@@ -48,7 +46,7 @@ export const joinMatch = async (req, res) => {
     // 5️⃣ Insert participant
     await pool.query(
       "INSERT INTO match_participants (match_id, user_id) VALUES ($1, $2)",
-      [id, user.id]
+      [id, user.id],
     );
 
     // 6️⃣ Update players
@@ -62,20 +60,18 @@ export const joinMatch = async (req, res) => {
        SET current_players = $1, status = $2
        WHERE id = $3
        RETURNING *`,
-      [updatedPlayers, newStatus, id]
+      [updatedPlayers, newStatus, id],
     );
 
     res.json({
       message: "Joined successfully",
       match: updated.rows[0],
     });
-
   } catch (err) {
-    console.error(err);
+    console.log("error at joinmatch in joinmatchcontroller");
     res.status(500).json({ message: "Server error" });
   }
 };
-
 
 export const getParticipants = async (req, res) => {
   const { id } = req.params;
@@ -86,29 +82,25 @@ export const getParticipants = async (req, res) => {
        FROM match_participants
        JOIN users ON users.id = match_participants.user_id
        WHERE match_participants.match_id = $1`,
-      [id]
+      [id],
     );
 
     res.json(result.rows);
-
   } catch (err) {
-    console.error(err);
+    console.log("error at getparticipants in joinmatchcontroller");
     res.status(500).json({ message: "Server error" });
   }
 };
 
-
 export const fetchMatchesController = async (req, res) => {
   try {
-    const limit = parseInt(req.query.limit) || 28;
+    const limit = parseInt(req.query.limit) || 16;
     const offset = parseInt(req.query.offset) || 0;
 
     const matches = await fetchMatchesModel(limit, offset);
 
     res.status(200).json(matches);
-
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
-

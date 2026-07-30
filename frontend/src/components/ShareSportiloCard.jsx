@@ -1,6 +1,6 @@
-import React from "react";
+import { memo } from "react";
 
-export default function ShareSportiloCard({
+function ShareSportiloCard({
   icon = "🚀",
   title,
   description,
@@ -26,9 +26,7 @@ export default function ShareSportiloCard({
 
         alert("Sportilo link copied!");
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   return (
@@ -48,3 +46,4 @@ export default function ShareSportiloCard({
     </div>
   );
 }
+export default memo(ShareSportiloCard);

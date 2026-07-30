@@ -16,8 +16,6 @@ export const fetchMatchesModel = async (limit, offset) => {
 
   const expiredIds = getExpiredMatchIds(matches, "match_date", "match_time");
 
-  console.log("Expired IDs:", expiredIds);
-
   if (expiredIds.length > 0) {  
     await pool.query(
       `
@@ -27,8 +25,6 @@ export const fetchMatchesModel = async (limit, offset) => {
       `,
       [expiredIds],
     );
-
-    console.log(updateResult.rows);
 
     const expiredSet = new Set(expiredIds);
 

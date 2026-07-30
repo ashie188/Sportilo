@@ -4,6 +4,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 
 import Header from "./Header";
 import Footer from "./Footer";
+import BottomNav from "./mobile/BottomNav";
 
 const Home = lazy(() => import("./Home"));
 const Auth = lazy(() => import("./Auth"));
@@ -13,6 +14,7 @@ const Account = lazy(() => import("./Account"));
 const MatchDetailsPage = lazy(() => import("./components/MatchDetailsPage"));
 const Legal = lazy(() => import("./Legal&Support/Legal"));
 const Support = lazy(() => import("./Legal&Support/Support"));
+
 
 function PageLoader() {
   return (
@@ -90,6 +92,7 @@ export default function App() {
         </Suspense>
       </main>
       <Footer />
+      <BottomNav user={user}/>
     </BrowserRouter>
   );
 }

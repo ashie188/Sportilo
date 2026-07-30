@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import AccountMatchCard from "./AccountMatchCard";
 import ShareSportiloCard from "./components/ShareSportiloCard";
 import "./Account.css";
-import "./components/ShareSportiloCard.css"
+import "./components/ShareSportiloCard.css";
 
 function getInitials(name) {
   if (!name) return "U";
@@ -25,29 +25,18 @@ export default function Account({ user, setUser }) {
   const [activeTab, setActiveTab] = useState("active");
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/login", { replace: true });
-      return;
-    }
-
-    fetchMatches();
-  }, [user]);
-
-  const fetchMatches = async () => {
+  const fetchMatches = useCallback(async () => {
     try {
       setLoading(true);
 
       const token = localStorage.getItem("token");
+      const url = import.meta.env.VITE_API_URL;
 
-      const res = await fetch(
-        "http://localhost:3000/account/accountpagematches",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const res = await fetch(`${url}/account/accountpagematches`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
 
       if (res.status === 401) {
         localStorage.removeItem("token");
@@ -74,12 +63,23 @@ export default function Account({ user, setUser }) {
       setActiveMatches(data.activeMatches || []);
       setHistoryMatches(data.historyMatches || []);
     } catch (err) {
-      console.error(err);
+      if (import.meta.env.DEV) {
+        console.log("error at account page in fatchmatches function");
+      }
       setError("Failed to load matches");
     } finally {
       setLoading(false);
     }
-  };
+  }, [navigate, setUser]);
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login", { replace: true });
+      return;
+    }
+
+    fetchMatches();
+  }, [user, fetchMatches, navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -92,7 +92,7 @@ export default function Account({ user, setUser }) {
     return (
       <div className="acc-loader">
         <div className="acc-spinner" />
-        <p>Loading your profile...</p>
+        <p>Loading your Sportilo profile...</p>
       </div>
     );
   }
@@ -113,7 +113,7 @@ export default function Account({ user, setUser }) {
 
             <div className="acc-user-meta">
               <span>⚡ Active Player</span>
-              <span>📍 India</span>
+              <span>⚽ Ready to Play</span>
             </div>
           </div>
 
@@ -164,9 +164,9 @@ export default function Account({ user, setUser }) {
 
       <ShareSportiloCard
         icon="🚀"
-        title="Love Sportilo?"
+        title="Enjoying Sportilo?"
         description="Help more players discover local sports matches and gaming lobbies."
-        shareText="⚽ I've been using Sportilo to find local sports matches and gaming lobbies. Check it out!"
+        shareText="⚽ Found a great way to discover local sports matches and gaming lobbies with Sportilo. Check it out!"
       />
 
       {/* TABS */}
@@ -207,12 +207,15 @@ export default function Account({ user, setUser }) {
           ))
         ) : (
           <div className="acc-empty-modern">
-            <h3>No Matches Available</h3>
+            <div className="acc-empty-icon">
+              + {activeTab === "active" ? "📅" : "🏆"}+{" "}
+            </div>
+            <h3>Nothing Here Yet</h3>
 
             <p>
               {activeTab === "active"
-                ? "No active matches available."
-                : "No match history available."}
+                ? "You're not part of any upcoming matches yet."
+                : "Complete a match to see your history here."}
             </p>
             <Link to="/join-group" className="acc-empty-btn">
               Explore Matches

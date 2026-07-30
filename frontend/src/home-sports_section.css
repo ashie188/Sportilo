@@ -3,27 +3,34 @@
 /* ========================= */
 
 .sports-section {
-  padding: 110px 80px;
+  padding: 60px 80px 60px;
   position: relative;
   overflow: hidden;
   text-align: center;
   color: #0f172a;
-  background: linear-gradient(180deg, #dbeafe 0%, #c7d2fe 45%, #dbeafe 100%);
-  background: linear-gradient(135deg, #e0f2fe, #7dd3fc 40%, #8b5cf6);
-  background: linear-gradient(180deg, #dbeafe 0%, #bfdbfe 55%, #c7d2fe 100%);
+  background: linear-gradient(
+    180deg,
+    #dbeafe 0%,
+    #cfe4ff 28%,
+    #bdd8ff 55%,
+    #9ec5fe 78%,
+    #6ea8fe 92%,
+    #4f78dd 100%
+  );
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
 }
 /*sports badge Later Added */
 .sports-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 18px;
+  padding: 8px 14px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.55);
   border: 1px solid rgba(56, 189, 248, 0.15);
   color: #2563eb;
   font-weight: 600;
-  margin-bottom: 18px;
 }
 /* ========================= */
 /* AMBIENT GLOW EFFECTS */
@@ -41,7 +48,8 @@
     rgba(56, 189, 248, 0.18),
     transparent 70%
   );
-  filter: blur(40px);
+  filter: blur(24px);
+  opacity: 0.6;
   pointer-events: none;
 }
 
@@ -49,7 +57,8 @@
   content: "";
   position: absolute;
   right: -150px;
-  bottom: -150px;
+  bottom: 40px;
+  opacity: 0.7;
   width: 380px;
   height: 380px;
   background: radial-gradient(
@@ -57,7 +66,8 @@
     rgba(124, 58, 237, 0.16),
     transparent 70%
   );
-  filter: blur(40px);
+  filter: blur(24px);
+  opacity: 0.6;
   pointer-events: none;
 }
 
@@ -216,38 +226,80 @@
 /* RESPONSIVE */
 /* ========================= */
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .sports-section {
-    padding: 90px 28px;
+    padding: 60px 20px;
   }
 
   .sports-section h2 {
-    font-size: 38px;
-  }
-
-  .sports-section .section-subtitle {
-    margin-bottom: 50px;
-  }
-}
-
-@media (max-width: 600px) {
-  .sports-section {
-    padding: 80px 20px;
-  }
-
-  .sports-section h2 {
-    font-size: 32px;
+    font-size: 34px;
   }
 
   .sports-section .section-subtitle {
     font-size: 16px;
+    margin-bottom: 50px;
   }
 
-  .overlay h3 {
-    font-size: 24px;
+  /* force 2x2 grid instead of auto-fit collapsing to 1 column
+     (minmax(250px,1fr) needs 500px+ for 2 columns; phones don't have it) */
+  .sports-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
   }
 
   .sport-card {
-    aspect-ratio: 360/430;
+    aspect-ratio: 360 / 430;
+  }
+
+  .overlay {
+    padding: 14px;
+  }
+
+  .overlay h3 {
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+
+  .overlay p {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .overlay button {
+    padding: 7px 14px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 500px) {
+  .sports-section {
+    padding: 50px 16px;
+  }
+
+  .sports-section h2 {
+    font-size: 28px;
+  }
+
+  .sports-container {
+    gap: 10px;
+  }
+
+  .overlay {
+    padding: 10px;
+  }
+
+  .overlay h3 {
+    font-size: 17px;
+    margin-bottom: 4px;
+  }
+
+  .overlay p {
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+
+  .overlay button {
+    padding: 6px 12px;
+    font-size: 12px;
   }
 }

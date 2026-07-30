@@ -19,7 +19,7 @@ export const sendEmail = async ({ to, subject, html }) => {
 
     return data;
   } catch (err) {
-    console.error("Email Error:", err.message);
+    console.log("Email Error in sendemail at emailservice js");
     throw err;
   }
 };
@@ -110,9 +110,7 @@ export const processReminderEmails = async () => {
         );
       }
     }
-
-    console.log(`Processed ${reminders.length} reminder(s).`);
   } catch (err) {
-    console.error("Reminder email process failed:", err.message);
+    console.log("Reminder email process failed in emailservice.js");
   }
 };

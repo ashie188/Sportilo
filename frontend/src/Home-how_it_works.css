@@ -2,330 +2,360 @@
 /* HOW IT WORKS SECTION */
 /* ================================= */
 
-.how-wrapper{
-
-  padding:100px 0;
-
-  background:
-  linear-gradient(
-    180deg,
-    #0f172a 0%,
-    #172554 20%,
-    #dbeafe 75%,
-    #eff6ff 100%
+.how-wrapper {
+  position: relative;
+  overflow: hidden;
+  padding: 80px 0 110px;
+  background: linear-gradient(180deg, #dbeafe 0%, #bdd3eb 30%, #add3fc 100%);
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
+  isolation: isolate;
+}
+.how-wrapper::before {
+  content: "";
+  position: absolute;
+  top: -180px;
+  left: -180px;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(56, 189, 248, 0.12),
+    transparent 72%
   );
+  filter: blur(70px);
+  pointer-events: none;
+}
+.how-wrapper::after {
+  content: "";
+  position: absolute;
+  bottom: -180px;
+  right: -180px;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(124, 58, 237, 0.08),
+    transparent 70%
+  );
+  filter: blur(70px);
+  pointer-events: none;
 }
 
 /* ================================= */
 /* CONTAINER */
 /* ================================= */
 
-.how-container{
-
-  width:85%;
-
-  max-width:1400px;
-
-  margin:auto;
+.how-container {
+  width: 90%;
+  max-width: 1300px;
+  margin: auto;
 }
 
 /* ================================= */
 /* TOP FLEX */
 /* ================================= */
 
-.how-top{
+.how-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 65px;
+  margin-bottom: 65px;
+}
 
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:flex-start;
-
-  gap:60px;
-
-  margin-bottom:50px;
+.how-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.how-logo {
+  width: 95px;
+  height: 95px;
+  display: block;
+  flex: 0 0 95px;
+  object-fit: contain;
+  transform: translate(-8px, -4px);
 }
 
 /* ================================= */
 /* BADGE */
 /* ================================= */
 
-.how-badge{
-
-  display:inline-flex;
-
-  align-items:center;
-
-  gap:8px;
-
-  padding:10px 18px;
-
-  border-radius:999px;
-
-  background:
-  rgba(255,255,255,.08);
-
-  border:
-  1px solid rgba(255,255,255,.12);
-
-  backdrop-filter:blur(12px);
-
-  color:#f59e0b;
-
-  font-size:13px;
-
-  font-weight:700;
-
-  margin-bottom:22px;
+.how-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  color: #f59e0b;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 22px;
 }
 
 /* ================================= */
 /* HEADING */
 /* ================================= */
 
-.how-heading h2{
-
-  font-size:50px;
-
-  font-weight:800;
-
-  line-height:1.1;
-
-  letter-spacing:-1px;
-
-  color:white;
-
-  max-width:550px;
+.how-heading h2 {
+  font-size: 50px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  color: #0f172a;
+  max-width: 550px;
 }
 
 /* ================================= */
 /* INFO */
 /* ================================= */
 
-.how-info{
-
-  max-width:480px;
+.how-info {
+  margin-top: 20px;
+  max-width: 480px;
 }
 
-.how-info p{
-
-  color:#dbeafe;
-
-  font-size:17px;
-
-  line-height:1.8;
-}
-
-/* ================================= */
-/* Share Sportilo */
-/* ================================= */
-
-.home-share-section{
-
-  height:200px;
-  padding-top: 100px;
-  background:
-linear-gradient(
-  180deg,
-  #cad2fd 0%,
-  #8ba2e7 15%,
-  #3c64d3 35%,
-  #0c1221 100%
-);
+.how-info p {
+  color: #64748b;
+  font-size: 17px;
+  line-height: 1.8;
 }
 
 /* ================================= */
 /* BOTTOM GRID */
 /* ================================= */
 
-.how-bottom{
-
-  display:grid;
-
-  grid-template-columns:repeat(4,1fr);
-
-  background:
-rgba(255,255,255,.75);
-
-backdrop-filter:blur(18px);
-
-border:
-1px solid rgba(255,255,255,.5);
-
-  border-radius:24px;
-
-  padding:35px;
+.how-bottom {
+  max-width: 1200px;
+  margin-left: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 24px;
+  padding: 40px;
+  gap: 10px;
+  contain: layout style;
 }
 
 /* ================================= */
 /* STEP BOX */
 /* ================================= */
 
-.how-box{
-
-  position:relative;
-
-  padding:20px;
-
-  transition:.3s;
-
-  counter-increment:step;
+.how-box {
+  position: relative;
+  padding: 20px;
+  transition: 0.3s;
+  counter-increment: step;
 }
 
 /* ================================= */
 /* DIVIDER */
 /* ================================= */
 
-.how-box:not(:last-child)::after{
-
-  content:"";
-
-  position:absolute;
-
-  right:0;
-
-  top:20%;
-
-  height:60%;
-
-  width:1px;
-
-  background:
-rgba(15,23,42,.1);
+.how-box:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background: rgba(15, 23, 42, 0.1);
 }
 
 /* ================================= */
 /* STEP NUMBER */
 /* ================================= */
 
-.how-box h3::before{
-
-  content:"0" counter(step);
-
-  display:block;
-
-  margin-bottom:12px;
-
-  color:#2563eb;
-
-  font-size:13px;
-
-  font-weight:700;
-
-  letter-spacing:2px;
+.how-box h3::before {
+  content: "0" counter(step);
+  display: block;
+  margin-bottom: 12px;
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
 }
 
 /* ================================= */
 /* TITLE */
 /* ================================= */
 
-.how-box h3{
-
-  margin-bottom:12px;
-
-  color:#0f172a;
-
-  font-size:20px;
-
-  font-weight:700;
+.how-box h3 {
+  margin-bottom: 12px;
+  color: #0f172a;
+  font-size: 22px;
+  font-weight: 700;
 }
 
 /* ================================= */
 /* TEXT */
 /* ================================= */
 
-.how-box p{
-
-  color:#475569;
-
-  font-size:14px;
-
-  line-height:1.7;
+.how-box p {
+  color: #475569;
+  font-size: 15px;
+  line-height: 1.7;
 }
 
 /* ================================= */
 /* HOVER */
 /* ================================= */
 
-.how-box:hover{
-
-  transform:
-  translateY(-6px);
+.how-box:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 35px rgba(37, 99, 235, 0.08);
 }
 
-.how-box:hover h3{
-
-  color:#2563eb;
+.how-box:hover h3 {
+  color: #2563eb;
 }
 
 /* ================================= */
-/* RESPONSIVE */
+/* RESPONSIVE — MOBILE ONLY          */
+/* DO NOT TOUCH ABOVE THIS LINE      */
 /* ================================= */
 
-@media(max-width:1000px){
-
-  .how-top{
-
-    flex-direction:column;
-
-    gap:30px;
+@media (max-width: 768px) {
+  .how-wrapper {
+    padding: 60px 0 80px;
+    contain-intrinsic-size: auto;
   }
 
-  .how-heading h2{
-
-    font-size:44px;
-
-    max-width:100%;
+  .how-container {
+    width: 92%;
   }
 
-  .how-info{
-
-    max-width:100%;
+  .how-top {
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
   }
 
-  .how-bottom{
-
-    grid-template-columns:
-    repeat(2,1fr);
+  .how-heading {
+    align-items: flex-start;
   }
 
-  .how-box:nth-child(2)::after{
+  .how-logo {
+    margin-top: 15px;
+    width: 72px;
+    height: 72px;
+    flex: 0 0 72px;
+    transform: translate(-4px, -2px);
+  }
 
-    display:none;
+  .how-heading h2 {
+    font-size: 28px;
+    max-width: 100%;
+    letter-spacing: -0.5px;
+  }
+
+  .how-info {
+    max-width: 100%;
+    margin-top: 0;
+  }
+
+  .how-info p {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .how-bottom {
+    grid-template-columns: repeat(2, 1fr);
+    margin-left: 0;
+    padding: 24px 20px;
+    border-radius: 20px;
+    gap: 0;
+  }
+
+  .how-box {
+    padding: 20px 16px;
+  }
+
+  /* Kill all vertical dividers on mobile */
+  .how-box::after {
+    display: none;
+  }
+
+  /* Add horizontal divider between rows instead */
+  .how-box:nth-child(1),
+  .how-box:nth-child(2) {
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  }
+
+  /* Vertical divider only between col 1 and col 2 */
+  .how-box:nth-child(1),
+  .how-box:nth-child(3) {
+    border-right: 1px solid rgba(15, 23, 42, 0.08);
+  }
+
+  .how-box h3 {
+    font-size: 18px;
+  }
+
+  .how-box p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* Kill hover transform on touch */
+  .how-box:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .how-box:hover h3 {
+    color: #0f172a;
   }
 }
 
-@media(max-width:700px){
-
-  .how-wrapper{
-
-    padding:80px 0;
+@media (max-width: 375px) {
+  .how-wrapper {
+    padding: 50px 0 60px;
   }
 
-  .how-container{
-
-    width:92%;
+  .how-logo {
+    width: 60px;
+    height: 60px;
+    flex: 0 0 60px;
   }
 
-  .how-heading h2{
-
-    font-size:34px;
+  .how-heading h2 {
+    font-size: 24px;
   }
 
-  .how-image img{
-
-    height:300px;
+  .how-info p {
+    font-size: 14px;
   }
 
-  .how-bottom{
-
-    grid-template-columns:1fr;
-
-    padding:20px;
+  .how-bottom {
+    grid-template-columns: 1fr;
+    padding: 20px 16px;
   }
 
-  .how-box::after{
+  /* Reset 2-col borders, switch to single col horizontal dividers */
+  .how-box:nth-child(1),
+  .how-box:nth-child(3) {
+    border-right: none;
+  }
 
-    display:none;
+  .how-box:nth-child(1),
+  .how-box:nth-child(2),
+  .how-box:nth-child(3) {
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  }
+
+  .how-box h3 {
+    font-size: 17px;
+  }
+
+  .how-box p {
+    font-size: 13px;
   }
 }

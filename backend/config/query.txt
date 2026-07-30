@@ -1,19 +1,17 @@
 1) user table query
 
 CREATE TABLE users (
-
     id SERIAL PRIMARY KEY,
 
     name VARCHAR(100) NOT NULL,
 
     email VARCHAR(100) UNIQUE NOT NULL,
 
-    password VARCHAR(255),
+    password TEXT,
 
     provider VARCHAR(20) NOT NULL,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-
 );
 
 
@@ -41,80 +39,74 @@ CREATE TABLE matches (
 
     -- STATUS
     status VARCHAR(20) DEFAULT 'open',
+    type VARCHAR(20) DEFAULT 'offline',
+
+    -- EMAIL
+    email_sent BOOLEAN DEFAULT FALSE,
+
+    -- UPDATE NOTE
+    update_note TEXT,
+    update_note_updated_at TIMESTAMP,
 
     -- TIMESTAMPS
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-ALTER TABLE matches
-ADD COLUMN email_sent BOOLEAN DEFAULT FALSE;
-
-ALTER TABLE matches
-ADD COLUMN Update_Note TEXT;
-
-ALTER TABLE matches
-ADD COLUMN Update_Note_Updated_At TIMESTAMP;
-
 
 
 3)participants table
+CREATE TABLE match_participants (
+    id SERIAL PRIMARY KEY,
 
+    match_id INTEGER REFERENCES matches(id) ON DELETE CASCADE,
+
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+
+    gaming_match_id INTEGER,
+
+    joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    UNIQUE(match_id, user_id)
+);
 
 4)gaming-groups query
 CREATE TABLE gaming_groups (
     id SERIAL PRIMARY KEY,
 
+    -- ADMIN INFO
     admin_name VARCHAR(100) NOT NULL,
     admin_email VARCHAR(100) NOT NULL,
 
+    -- GAME INFO
     game VARCHAR(100) NOT NULL,
     platform VARCHAR(50),
 
+    -- EVENT INFO
     event_date DATE NOT NULL,
     event_time TIME NOT NULL,
 
+    -- PLAYERS
     current_players INT DEFAULT 1,
     max_players INT NOT NULL,
 
+    -- JOIN INFO
     discord_link TEXT,
     room_code VARCHAR(100),
 
+    -- DETAILS
     description TEXT,
 
+    -- STATUS
     status VARCHAR(20) DEFAULT 'open',
+    type VARCHAR(20) DEFAULT 'gaming',
 
+    -- EMAIL
+    email_sent BOOLEAN DEFAULT FALSE,
+
+    -- UPDATE NOTE
+    update_note TEXT,
+    update_note_updated_at TIMESTAMP,
+
+    -- TIMESTAMPS
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
-ALTER TABLE gaming_groups
-ADD COLUMN email_sent BOOLEAN DEFAULT FALSE;
-
-ALTER TABLE gaming_groups
-ADD COLUMN Update_Note TEXT;
-
-ALTER TABLE gaming_groups
-ADD COLUMN Update_Note_Updated_At TIMESTAMP;
-
-
-
-    <link href="./App.css" rel="stylesheet" />
-    <link href="./index.css" rel="stylesheet" />
-    <link href="./Header.css" rel="stylesheet" />
-    <link href="./Footer.css" rel="stylesheet" />
-    <link href="./Home.css" rel="stylesheet" />
-    <link href="./Home-hero_section.css" rel="stylesheet" />
-    <link href="./home-sports_section.css" rel="stylesheet" />
-    <link href="./Home-featured_matches.css" rel="stylesheet" />
-    <link href="./Home-how_it_works.css" rel="stylesheet" />
-    <link href="./Auth.css" rel="stylesheet" />
-    <link href="./CreateGroup.css" rel="stylesheet" />
-    <link href="./joinMatch.css" rel="stylesheet" />
-    <link href="./MatchCard.css" rel="stylesheet" />
-    <link href="./Account.css" rel="stylesheet" />
-    <link href="./AccountMatchCard.css" rel="stylesheet" />
-    <link href="./MatchDetailsPage.css" rel="stylesheet" />
-    <link href="./gaming/GamingMatchCard.css" rel="stylesheet" />
-    <link href="./home-dual_section.css" rel="stylesheet" />
-    <link href="./Legal&Support/Legal.css" rel="stylesheet" />
-    <link href="./Legal&Support/Support.css" rel="stylesheet" />
-    <link href="./ShareSportiloCard.css" rel="stylesheet" />

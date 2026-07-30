@@ -15,8 +15,7 @@ export const createMatchModel = async ({
   // ✅ initial status logic
   const current = Number(currentPlayers);
   const max = Number(max_players);
-
-  console.log({current, max,});
+  
   const status = current >= max ? "full" : "open";
 
   const query = `

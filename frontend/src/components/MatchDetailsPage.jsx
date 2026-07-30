@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../api/axios";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import "./MatchDetailsPage.css"
+import "./MatchDetailsPage.css";
 
 export default function MatchDetailsPage() {
   const location = useLocation();
@@ -29,16 +29,14 @@ export default function MatchDetailsPage() {
   //fech match details if not passed via state
   const fetchMatch = async () => {
     try {
-      console.log("calling matchdetails fetch", type, id);
-
-      const result = await axios.get(
-        `http://localhost:3000/details/${type}/${id}`,
+      const result = await api.get(
+        `/details/${type}/${id}`,
       );
 
       setCurrentMatch(result.data);
       setUpdateNote(result.data.update_note || "");
     } catch (err) {
-      console.error(err);
+      console.log("error at matchdeatilpage fetchmatch");
     } finally {
       setLoading(false);
     }
@@ -48,14 +46,14 @@ export default function MatchDetailsPage() {
   const fetchParticipants = async () => {
     try {
       const participantsUrl = isGamingMatch
-        ? `http://localhost:3000/gaming/participants/${currentMatch.id}`
-        : `http://localhost:3000/joinmatch/participants/${currentMatch.id}`;
+        ? `/gaming/participants/${currentMatch.id}`
+        : `/joinmatch/participants/${currentMatch.id}`;
 
-      const res = await axios.get(participantsUrl);
+      const res = await api.get(participantsUrl);
 
       setParticipants(res.data);
     } catch (err) {
-      console.error(err);
+      console.log("error at matchdetailspage fetchparticipants");
     }
   };
 
@@ -118,10 +116,10 @@ export default function MatchDetailsPage() {
       }
 
       const joinUrl = isGamingMatch
-        ? `http://localhost:3000/gaming/join/${currentMatch.id}`
-        : `http://localhost:3000/matches/join/${currentMatch.id}`;
+        ? `/gaming/join/${currentMatch.id}`
+        : `/matches/join/${currentMatch.id}`;
 
-      const res = await axios.post(
+      const res = await api.post(
         joinUrl,
         {},
         {
@@ -134,8 +132,6 @@ export default function MatchDetailsPage() {
       setCurrentMatch(res.data.match);
 
       await fetchParticipants();
-
-      alert("Joined successfully");
       setShowJoinSuccessModal(true);
     } catch (err) {
       setError(err.response?.data?.message || "Error joining match");
@@ -166,7 +162,7 @@ export default function MatchDetailsPage() {
         alert("Match link copied to clipboard!");
       }
     } catch (err) {
-      console.log(err);
+      console.log("error at matdetailspage handleshare function");
     }
   };
 
@@ -177,8 +173,8 @@ export default function MatchDetailsPage() {
 
       const token = localStorage.getItem("token");
 
-      const res = await axios.patch(
-        `http://localhost:3000/admin_final_update/${type}/${currentMatch.id}`,
+      const res = await api.patch(
+        `/admin_final_update/${type}/${currentMatch.id}`,
         {
           Update_Note: updateNote,
         },
@@ -192,10 +188,6 @@ export default function MatchDetailsPage() {
       const updatedMatch = res.data.match;
 
       setCurrentMatch(res.data.match);
-
-      setTimeout(() => {
-        console.log("After setCurrentMatch (closure):", currentMatch);
-      }, 100);
       setUpdateNote(updatedMatch.update_note || "");
 
       setUpdateError(false);
@@ -226,7 +218,15 @@ export default function MatchDetailsPage() {
     <div className="mdp-page">
       {/* HERO */}
       <div className="mdp-hero">
-        <img src="/images/SportsMania_matchdetailspage9.png" alt="ground" />
+        <img
+          src="/images/SportsMania_matchdetailspage.webp"
+          alt="Sportilo Match"
+          width="1600"
+          height="360"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+        />
 
         <div className="mdp-hero-overlay">
           <div className="mdp-hero-text">
@@ -261,13 +261,13 @@ export default function MatchDetailsPage() {
       <div className="mdp-container">
         {/* LEFT */}
         <div className="mdp-left">
-          <div className="mdp-card-top">
+          <div className="mdp-card-top glow-blue">
             <h3>About this match</h3>
             <p>{currentMatch.description}</p>
           </div>
 
           {(isOrganizer || currentMatch.update_note) && (
-            <div className="mdp-card">
+            <div className="mdp-card glow-blue">
               <h3>📢 Match Update</h3>
 
               {isOrganizer && !currentMatch.update_note ? (
@@ -308,7 +308,13 @@ export default function MatchDetailsPage() {
                   <p>{currentMatch.update_note}</p>
 
                   {currentMatch.update_note_updated_at && (
-                    <small style={{ display: "block", marginTop: "8px", color: "#555" }}>
+                    <small
+                      style={{
+                        display: "block",
+                        marginTop: "8px",
+                        color: "#555",
+                      }}
+                    >
                       Updated{" "}
                       {new Date(
                         currentMatch.update_note_updated_at,
@@ -320,7 +326,7 @@ export default function MatchDetailsPage() {
             </div>
           )}
 
-          <div className="mdp-card">
+          <div className="mdp-card glow-blue">
             <h3>{isGamingMatch ? "Lobby Details" : "Match Details"}</h3>
 
             <div className="mdp-detail-row">
@@ -377,7 +383,9 @@ export default function MatchDetailsPage() {
         {/* RIGHT */}
         <div className="mdp-right">
           {/* JOIN CARD */}
-          <div className="mdp-join-card">
+          <div
+            className={`mdp-join-card glow-violet ${iscompleted ? "is-completed" : isFull ? "is-full" : ""}`}
+          >
             <h2>
               {iscompleted
                 ? "Match Completed"
@@ -428,7 +436,7 @@ export default function MatchDetailsPage() {
             </button>
 
             <button className="mdp-share-btn" onClick={handleShare}>
-              🔗 Share Match
+              🔗 Invite Players
             </button>
 
             <p className="mdp-note">
@@ -439,7 +447,7 @@ export default function MatchDetailsPage() {
           </div>
 
           {/* ✅ PARTICIPANTS */}
-          <div className="mdp-participants mdp-card">
+          <div className="mdp-participants mdp-card glow-violet">
             <h3>{isGamingMatch ? "Lobby Members" : "Players Joined"}</h3>
 
             {participants.length === 0 ? (
@@ -457,7 +465,7 @@ export default function MatchDetailsPage() {
           </div>
 
           {/* ORGANIZER */}
-          <div className="mdp-organizer">
+          <div className="mdp-organizer glow-violet">
             <h4>{isGamingMatch ? "Lobby Host" : "Organizer"}</h4>
 
             <div className="mdp-organizer-box">
@@ -490,10 +498,12 @@ export default function MatchDetailsPage() {
 
             <h2>You're In!</h2>
 
-            <p className="join-success-subtitle">Welcome to the team!</p>
+            <p className="join-success-subtitle">
+              You're all set for the match.
+            </p>
 
             <div className="join-share-tip">
-              <strong>👥 Invite Your Friends</strong>
+              <strong>👥 Invite More Players</strong>
 
               <p>
                 Know someone who'd enjoy this match? Invite your teammates and

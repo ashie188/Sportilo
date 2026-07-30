@@ -1,0 +1,179 @@
+/* ================================= */
+/* BOTTOM NAV — HIDDEN ON DESKTOP    */
+/* ================================= */
+
+.bottom-nav {
+  display: none;
+}
+
+/* ================================= */
+/* MOBILE ONLY                       */
+/* ================================= */
+
+@media (max-width: 768px) {
+  .bottom-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    /* Dark glass — matches your #0f172a base */
+    background: rgba(10, 16, 40, 0.82);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(56, 189, 248, 0.1);
+    box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.35);
+
+    height: 64px;
+    padding-bottom: env(safe-area-inset-bottom);
+
+    /* Contain repaints to this element */
+    contain: layout style;
+    will-change: auto;
+  }
+
+  /* ================================= */
+  /* BACKDROP FALLBACK — LOW-END ANDROID */
+  /* ================================= */
+
+  @supports not (backdrop-filter: blur(1px)) {
+    .bottom-nav {
+      background: rgba(10, 16, 40, 0.97);
+    }
+  }
+
+  /* ================================= */
+  /* NAV ITEM                          */
+  /* ================================= */
+
+  .bottom-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    text-decoration: none;
+    color: rgba(148, 163, 184, 0.7); /* slate-400 muted */
+    padding: 8px 0;
+    position: relative;
+    transition: color 0.2s ease;
+
+    /* Prevent tap highlight flash on Android */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ================================= */
+  /* ACTIVE INDICATOR — TOP BORDER     */
+  /* ================================= */
+
+  .bottom-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 32px;
+    height: 2px;
+    border-radius: 0 0 4px 4px;
+    background: linear-gradient(90deg, #38bdf8, #2563eb);
+    transition: transform 0.25s ease;
+  }
+
+  .bottom-item.active::before {
+    transform: translateX(-50%) scaleX(1);
+  }
+
+  /* ================================= */
+  /* ACTIVE STATE                      */
+  /* ================================= */
+
+  .bottom-item.active {
+    color: #38bdf8;
+  }
+
+  /* ================================= */
+  /* ICON                              */
+  /* ================================= */
+
+  .bottom-icon {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+  }
+
+  .bottom-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .bottom-item.active .bottom-icon {
+    transform: translateY(-1px);
+  }
+
+  /* ================================= */
+  /* CREATE — ACCENT ICON              */
+  /* ================================= */
+
+  .create-icon svg {
+    width: 26px;
+    height: 26px;
+    stroke: url(#create-gradient);
+  }
+
+  /* Inline SVG gradient for create icon */
+  .bottom-nav svg defs {
+    display: none;
+  }
+
+  /* ================================= */
+  /* LABEL                             */
+  /* ================================= */
+
+  .bottom-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    line-height: 1;
+  }
+
+  /* ================================= */
+  /* TAP FEEDBACK                      */
+  /* ================================= */
+
+  .bottom-item:active {
+    transform: scale(0.92);
+    transition: transform 0.1s ease;
+  }
+
+  /* ================================= */
+/* CREATE ICON — FIX                 */
+/* ================================= */
+
+.bottom-item .create-icon svg {
+  stroke: rgba(148, 163, 184, 0.7); /* matches default muted color */
+}
+
+.bottom-item.active .create-icon svg {
+  stroke: #38bdf8; /* matches active cyan */
+}
+
+  /* ================================= */
+  /* REDUCED MOTION                    */
+  /* ================================= */
+
+  @media (prefers-reduced-motion: reduce) {
+    .bottom-item,
+    .bottom-item::before,
+    .bottom-icon {
+      transition: none;
+    }
+  }
+}

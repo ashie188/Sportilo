@@ -31,13 +31,6 @@
   gap: 50px;
 }
 
-@media (max-width: 768px) {
-  .jm-hero .jm-container {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
 .jm-hero-content h1 {
   font-size: 48px;
   line-height: 1.2;
@@ -53,9 +46,19 @@
   color: #334155;
 }
 
+.jm-hero-image {
+  flex: 0 0 420px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .jm-hero-image img {
+  display: block;
   width: 100%;
   max-width: 420px;
+  height: auto;
+  aspect-ratio: 520/355;
   border-radius: 20px;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
 }
@@ -95,7 +98,7 @@
   background: rgba(255, 255, 255, 0.18);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-bottom: 1px solid rgba(19, 18, 18, 0.292);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(12px);
   border-radius: 18px;
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
 }
@@ -108,7 +111,9 @@
   background: rgba(255, 255, 255, 0.55);
   font-weight: 600;
   cursor: pointer;
-  transition: 0.25s;
+  transition:
+    background 0.25s,
+    transform 0.25s;
 }
 
 .active-toggle {
@@ -131,15 +136,10 @@
 
 .jm-search input {
   width: 420px;
-
   padding: 14px 18px;
-
   border-radius: 14px;
-
   border: none;
-
   background: white;
-
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
@@ -150,26 +150,18 @@
 /* LOADING */
 .jm-loading {
   text-align: center;
-
   margin-bottom: 24px;
-
   color: #2563eb;
-
   font-weight: 600;
-
   font-size: 16px;
 }
 
 /* GRID */
 .jm-grid {
   margin-top: 20px;
-
   display: grid;
-
   grid-template-columns: repeat(auto-fill, minmax(260px, 260px));
-
   justify-content: center;
-
   gap: 30px;
 }
 
@@ -198,7 +190,10 @@
   color: #0ea5e9;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s,
+    background 0.25s;
 }
 
 .jm-cta button:hover {
@@ -239,7 +234,9 @@
   background: linear-gradient(135deg, #38bdf8, #2563eb);
   color: white;
   cursor: pointer;
-  transition: 0.3s;
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
 }
 
 .jm-bottom-left button:hover {
@@ -272,18 +269,15 @@
 
 .jm-load-btn {
   padding: 14px 32px;
-
   border: none;
-
   border-radius: 14px;
-
   background: linear-gradient(135deg, #c238f8, #2563eb);
-
   font-weight: 600;
-
   box-shadow: 0 12px 30px rgba(37, 99, 235, 0.25);
   cursor: pointer;
-  transition: 0.3s;
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
 }
 
 .jm-load-btn:hover {
@@ -303,10 +297,81 @@
   background: linear-gradient(135deg, #38bdf8, #2563eb);
   color: white;
   cursor: pointer;
-  transition: 0.3s;
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
   margin-bottom: 8px;
 }
 
 .jm-no-more button:hover {
   transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .jm-wrapper {
+    padding-bottom: 80px;
+  }
+  .jm-hero {
+    display: none;
+  }
+  .jm-container {
+    padding: 0 16px;
+  }
+
+  .jm-matches {
+    padding: 50px 0;
+  }
+
+  .jm-heading {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+
+  .create-toggle {
+    width: 100%;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .create-toggle button {
+    min-width: 0;
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .jm-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: stretch;
+    gap: 14px;
+  }
+
+  .jm-load-btn {
+    width: 100%;
+  }
+
+  .jm-bottom-flex {
+    flex-direction: column;
+    text-align: center;
+    gap: 24px;
+  }
+
+  .jm-bottom-right {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .jm-heading {
+    font-size: 20px;
+  }
+
+  .create-toggle button {
+    font-size: 12px;
+    padding: 9px 8px;
+  }
+
+  .jm-grid {
+    gap: 10px;
+  }
 }

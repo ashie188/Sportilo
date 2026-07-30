@@ -39,7 +39,7 @@ export const createGamingMatch = async (req, res) => {
 
   } catch (error) {
 
-    console.error(error);
+    console.log("error at creategamingmatch in gamingcreatematchcontroller")
 
     res.status(500).json({
       message: "Server Error"

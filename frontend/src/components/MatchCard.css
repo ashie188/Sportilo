@@ -1,30 +1,17 @@
 /* CARD */
 
 .mc-card {
-  background: linear-gradient(
-    135deg,
-    #e0f2fe 0%,
-    #7dd3fc 70%
-);
-
+  background: linear-gradient(135deg, #e0f2fe 0%, #7dd3fc 70%);
   border-radius: 22px;
-
   padding: 20px;
-
   cursor: pointer;
-
   transition: all 0.35s ease;
-
   position: relative;
-
   overflow: hidden;
-
-  border: 1px solid rgba(56,189,248,0.18);
-
+  border: 1px solid rgba(56, 189, 248, 0.18);
   box-shadow:
-  0 8px 22px rgba(15,23,42,0.06),
-  0 2px 8px rgba(59,130,246,0.06);
-
+    0 8px 22px rgba(15, 23, 42, 0.06),
+    0 2px 8px rgba(59, 130, 246, 0.06);
   backdrop-filter: blur(12px);
 }
 
@@ -32,67 +19,43 @@
 
 .mc-card::before {
   content: "";
-
   position: absolute;
-
   top: 0;
   left: 0;
-
   width: 100%;
   height: 4px;
-
-  background:
-  linear-gradient(
-    90deg,
-    #2563eb,
-    #38bdf8,
-    #0ea5e9
-  );
-
-  box-shadow:
-    0 4px 14px rgba(59,130,246,0.25);
+  background: linear-gradient(90deg, #2563eb, #38bdf8, #0ea5e9);
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.25);
 }
 
 /* GLOW */
 
 .mc-card::after {
   content: "";
-
   position: absolute;
-
   inset: 0;
-
-  background:
-    radial-gradient(
-      circle at top right,
-      rgba(195,195,15,0.04)
-      transparent 40%
-    );
-
+  background: radial-gradient(
+    circle at top right,
+    rgba(195, 195, 15, 0.04) transparent 40%
+  );
   pointer-events: none;
 }
 
 /* HOVER */
 
 .mc-card:hover {
-  transform:
-  translateY(-6px)
-  scale(1.01);
-
+  transform: translateY(-6px) scale(1.01);
   box-shadow:
-    0 24px 50px rgba(37,99,235,0.18),
-    0 8px 24px rgba(15,23,42,0.12);
+    0 24px 50px rgba(37, 99, 235, 0.18),
+    0 8px 24px rgba(15, 23, 42, 0.12);
 }
 
 /* HEADER */
 
 .mc-header {
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
-
   margin-bottom: 14px;
 }
 
@@ -101,54 +64,38 @@
 .mc-sport-icon {
   width: 42px;
   height: 42px;
-
   border-radius: 14px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-size: 20px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #2563eb,
-      #38bdf8
-    );
-
+  background: linear-gradient(135deg, #2563eb, #38bdf8);
   color: white;
-
-  box-shadow:
-    0 10px 20px rgba(37,99,235,0.25);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
 }
 
 /* STATUS */
 
 .mc-status {
   font-size: 12px;
-
   padding: 6px 12px;
-
   border-radius: 999px;
-
   font-weight: 600;
-
   letter-spacing: 0.3px;
 }
 
 .mc-status.open {
-  background: rgba(16,185,129,0.12);
+  background: rgba(16, 185, 129, 0.12);
   color: #047857;
 }
 
 .mc-status.completed {
-  background: rgba(239,68,68,0.12);
+  background: rgba(239, 68, 68, 0.12);
   color: #b91c1c;
 }
 
 .mc-status.full {
-  background: rgba(234,179,8,0.12);
+  background: rgba(234, 179, 8, 0.12);
   color: #92400e;
 }
 
@@ -156,11 +103,8 @@
 
 .mc-body h3 {
   margin-top: 8px;
-
   font-size: 22px;
-
   color: #0f172a;
-
   font-weight: 700;
 }
 
@@ -168,9 +112,7 @@
 
 .mc-location {
   color: #475569;
-
   font-size: 14px;
-
   margin-top: 4px;
 }
 
@@ -178,11 +120,8 @@
 
 .mc-time {
   margin-top: 10px;
-
   font-size: 13px;
-
   color: #64748b;
-
   display: flex;
   align-items: center;
   gap: 6px;
@@ -192,9 +131,7 @@
 
 .mc-players {
   margin-top: 18px;
-
   font-weight: 700;
-
   color: #0f172a;
 }
 
@@ -203,51 +140,33 @@
 .mc-player-bar {
   width: 100%;
   height: 8px;
-
   margin-top: 8px;
-
   border-radius: 999px;
-
   overflow: hidden;
-
-  background: rgba(148,163,184,0.18);
+  background: rgba(148, 163, 184, 0.18);
 }
 
 .mc-player-fill {
   height: 100%;
-
   border-radius: 999px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #2563eb,
-      rgb(195,195,15)
-    );
+  background: linear-gradient(90deg, #2563eb, rgb(195, 195, 15));
 }
 
 /* ADMIN */
 
 .mc-admin {
   display: flex;
-
   align-items: center;
-
   gap: 10px;
-
   margin-top: 18px;
-
   padding-top: 14px;
-
-  border-top:
-    1px solid rgba(148,163,184,0.18);
+  border-top: 1px solid rgba(148, 163, 184, 0.18);
 }
 
 /* USER ICON */
 
 .mc-user-icon {
   font-size: 30px;
-
   color: #2563eb;
 }
 
@@ -255,8 +174,90 @@
 
 .mc-admin span {
   font-size: 14px;
-
   font-weight: 600;
-
   color: #1e293b;
+}
+
+@media (max-width: 768px) {
+  .mc-card {
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  /* scale() on hover is fine on desktop but causes jank/overflow on
+     touch taps where hover state can stick — disable at this width */
+  .mc-card:hover {
+    transform: none;
+  }
+
+  .mc-header {
+    margin-bottom: 8px;
+  }
+
+  .mc-sport-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 15px;
+    border-radius: 10px;
+  }
+
+  .mc-status {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+
+  .mc-body h3 {
+    font-size: 15px;
+    margin-top: 4px;
+  }
+
+  .mc-location {
+    font-size: 11px;
+  }
+
+  .mc-time {
+    font-size: 10px;
+    margin-top: 6px;
+    gap: 4px;
+  }
+
+  .mc-players {
+    margin-top: 10px;
+    font-size: 12px;
+  }
+
+  .mc-player-bar {
+    height: 6px;
+    margin-top: 5px;
+  }
+
+  .mc-admin {
+    margin-top: 10px;
+    padding-top: 8px;
+    gap: 6px;
+  }
+
+  .mc-user-icon {
+    font-size: 20px;
+  }
+
+  .mc-admin span {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 500px) {
+  .mc-card {
+    padding: 10px;
+  }
+
+  .mc-body h3 {
+    font-size: 14px;
+  }
+
+  .mc-sport-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 13px;
+  }
 }

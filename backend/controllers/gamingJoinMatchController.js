@@ -6,7 +6,7 @@ import {
 
 export const getGamingMatches = async (req, res) => {
   try {
-    const limit = parseInt(req.query.limit) || 28;
+    const limit = parseInt(req.query.limit) || 16;
 
     const offset = parseInt(req.query.offset) || 0;
 
@@ -14,7 +14,7 @@ export const getGamingMatches = async (req, res) => {
 
     res.status(200).json(matches);
   } catch (error) {
-    console.error(error);
+    console.log("error at getgamingmatches in gamingjoinmatchcontroller")
 
     res.status(500).json({
       message: "Server Error",
@@ -49,7 +49,7 @@ export const getGamingParticipants = async (req, res) => {
 
     res.status(200).json(participants);
   } catch (error) {
-    console.error(error);
+    console.log("error at getgamingparticipants in gamingjoinmatchcontroller");
 
     res.status(500).json({
       message: "Server Error",

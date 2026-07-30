@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "./api/axios";
 import OnlineCreateMatch from "./gaming/OnlineCreateMatch";
 import "./CreateGroup.css";
 
@@ -72,8 +72,8 @@ function CreateGroup() {
         return;
       }
 
-      const response = await axios.post(
-        "http://localhost:3000/matches/create",
+      const response = await api.post(
+        "/matches/create",
         {
           sport: formData.sport,
           location: formData.location,
@@ -103,9 +103,8 @@ function CreateGroup() {
         description: "",
       });
     } catch (error) {
-      console.error(
-        "Error creating match:",
-        error.response?.data || error.message,
+      console.log(
+        "Error creating match, at createGroup handlesubmit",
       );
       setError(error.response?.data || error.message);
     } finally {
@@ -131,7 +130,7 @@ function CreateGroup() {
         alert("Match link copied!");
       }
     } catch (err) {
-      console.error("Failed to share match:", err);
+      console.log("error at handlesharematch in creategroup");
     }
   };
 

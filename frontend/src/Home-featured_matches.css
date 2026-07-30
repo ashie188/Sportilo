@@ -4,61 +4,46 @@
 
 .featured-section {
   padding: 90px 30px;
-
   background: linear-gradient(
     180deg,
-    #d6dcff 0%,
-    #9fb7ff 15%,
-    #3159c7 35%,
-    #0f172a 100%
+    #0f172a 0%,
+    #172554 18%,
+    #3159c7 40%,
+    #9ec5fe 72%,
+    #dbeafe 100%
   );
-
   color: white;
-
   overflow: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
+  margin-bottom: 0%;
 }
 
 .featured-title-row {
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
-
   margin-bottom: 28px;
 }
 
 .featured-section h2 {
   font-size: 42px;
-
   font-weight: 800;
-
   letter-spacing: -1px;
-
   color: white;
-
   margin: 0;
 }
 
 .featured-pill {
   display: flex;
-
   align-items: center;
-
   gap: 8px;
-
   padding: 10px 16px;
-
   border-radius: 999px;
-
   background: rgba(255, 255, 255, 0.12);
-
   border: 1px solid rgba(255, 255, 255, 0.18);
-
   color: #fbbf24;
-
   font-size: 13px;
-
   font-weight: 700;
 }
 
@@ -72,13 +57,9 @@
     rgba(232, 240, 255, 0.95),
     rgba(220, 232, 255, 0.95)
   );
-
   border-radius: 24px;
-
   padding: 24px 18px;
-
   overflow: hidden;
-
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
@@ -88,11 +69,8 @@
 
 .matches-scroll {
   display: flex;
-
   gap: 22px;
-
   width: max-content;
-
   animation: scrollLeft 35s linear infinite;
 }
 
@@ -116,7 +94,6 @@
 
 .match-card:hover {
   transform: translateY(-8px);
-
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
 }
 
@@ -125,23 +102,16 @@
 /* ================================= */
 .match-card {
   min-width: 260px;
-
   padding: 20px;
-
   border-radius: 20px;
-
   flex-shrink: 0;
-
   cursor: pointer;
-
   transition: 0.35s;
 }
 
 .offline-card-featured {
   background: linear-gradient(135deg, #172554, #2563eb);
-
   border: 1px solid rgba(56, 189, 248, 0.35);
-
   box-shadow: 0 12px 30px rgba(56, 189, 248, 0.22);
 }
 
@@ -155,9 +125,7 @@
 
 .gaming-card-featured {
   background: linear-gradient(135deg, #2e1065, #5b21b6);
-
   border: 1px solid rgba(124, 58, 237, 0.35);
-
   box-shadow: 0 12px 30px rgba(91, 33, 182, 0.22);
 }
 
@@ -171,11 +139,8 @@
 
 .match-header {
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
-
   margin-bottom: 14px;
 }
 
@@ -185,21 +150,15 @@
 
 .match-type {
   display: inline-flex;
-
   align-items: center;
-
   padding: 6px 12px;
-
   border-radius: 999px;
-
   font-size: 12px;
-
   font-weight: 600;
-
   background: rgba(255, 255, 255, 0.08);
-
   color: #e2e8f0;
 }
+
 .gaming-card-featured .match-type {
   background: rgba(255, 255, 255, 0.12);
 }
@@ -213,25 +172,19 @@
 
 .match-status {
   padding: 6px 10px;
-
   border-radius: 999px;
-
   font-size: 11px;
-
   font-weight: 700;
-
   text-transform: uppercase;
 }
 
 .match-status.open {
   background: rgba(34, 197, 94, 0.15);
-
   color: #22c55e;
 }
 
 .match-status.full {
   background: rgba(239, 68, 68, 0.15);
-
   color: #ef4444;
 }
 
@@ -241,17 +194,13 @@
 
 .match-card h3 {
   font-size: 24px;
-
   margin-bottom: 14px;
-
   color: white;
 }
 
 .match-card p {
   color: #cbd5e1;
-
   margin-bottom: 8px;
-
   font-size: 14px;
 }
 
@@ -261,23 +210,14 @@
 
 .match-card button {
   width: 100%;
-
   margin-top: 16px;
-
   padding: 12px;
-
   border: none;
-
   border-radius: 12px;
-
   color: white;
-
   font-weight: 600;
-
   cursor: pointer;
-
   transition: 0.3s;
-
   background: linear-gradient(135deg, #38bdf8, #2563eb);
 }
 
@@ -290,17 +230,21 @@
 }
 
 /* ================================= */
-/* RESPONSIVE */
+/* RESPONSIVE — MOBILE (<768px)      */
+/* Scroll/marquee becomes a static   */
+/* 2-column grid. Desktop rules      */
+/* above are completely untouched.   */
 /* ================================= */
 
 @media (max-width: 768px) {
   .featured-section {
+    content-visibility: visible; /* stop guessing height on mobile */
+    contain-intrinsic-size: auto;
     padding: 70px 20px;
   }
 
   .featured-title-row {
     gap: 15px;
-
     flex-wrap: wrap;
   }
 
@@ -308,7 +252,86 @@
     font-size: 34px;
   }
 
+  .scroll-background {
+    padding: 18px 14px;
+    overflow: visible;
+  }
+
+  /* kill the marquee, switch to a static grid */
+  .matches-scroll {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    width: 100%;
+    height: auto;
+    animation: none;
+    transform: none;
+  }
+
   .match-card {
-    min-width: 240px;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px;
+    align-self: start;
+  }
+
+  .match-card h3 {
+    font-size: 17px;
+    margin-bottom: 8px;
+  }
+
+  .match-card p {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+
+  .match-type {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+
+  .match-status {
+    font-size: 9px;
+    padding: 4px 7px;
+  }
+
+  .match-card button {
+    padding: 9px;
+    font-size: 13px;
+    margin-top: 10px;
+  }
+}
+
+/* ================================= */
+/* EXTRA SMALL (<500px)              */
+/* Tighter spacing only — still      */
+/* 2 columns, just squeezed further  */
+/* for narrower devices like 360px   */
+/* ================================= */
+
+@media (max-width: 500px) {
+  .scroll-background {
+    padding: 14px 10px;
+  }
+
+  .matches-scroll {
+    gap: 10px;
+  }
+
+  .match-card {
+    padding: 12px;
+  }
+
+  .match-card h3 {
+    font-size: 15px;
+  }
+
+  .match-card p {
+    font-size: 11px;
+  }
+
+  .match-header {
+    margin-bottom: 10px;
   }
 }

@@ -1,53 +1,62 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "./api/axios";
 import { useNavigate } from "react-router-dom";
 import HomeMatchCard from "./HomeMatchCard";
-import ShareSportiloCard from "./components/ShareSportiloCard";
-import "./Home.css";
 import "./Home-hero_section.css";
 import "./home-sports_section.css";
 import "./Home-featured_matches.css";
 import "./Home-how_it_works.css";
 import "./home-dual_section.css";
-import "./components/ShareSportiloCard.css";
 
 function Home() {
   const [matches, setMatches] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
+    const controller = new AbortController();
     const fetchFeaturedMatches = async () => {
       try {
-        const result = await axios.get(
-          `http://localhost:3000/home/featuredmatches`,
+        const { data } = await api.get(
+          "/home/featuredmatches",
+          { signal: controller.signal },
         );
-        console.log(result.data);
-        setMatches(result.data);
+        setMatches(data);
       } catch (err) {
-        console.log(err);
+        if (err.name !== "CanceledError" && err.name !== "AbortError")
+          console.log("error at home in fetchfeaturedmatches");
       }
     };
-
     fetchFeaturedMatches();
+    return () => controller.abort();
   }, []);
 
   return (
     <div className="home">
       {/* HERO SECTION */}
       <section className="hero">
+        <img
+          className="hero-bg"
+          src="/images/Sportmania-home-background1.webp"
+          alt=""
+          aria-hidden="true"
+          fetchPriority="high"
+          decoding="async"
+        />
         <div className="hero-overlay"></div>
 
         <div className="hero-content">
           <div className="hero-badge">
-            India’s Sports & Gaming Community Platform
+            <img
+              src="/images/icon_best-optimized.svg"
+              alt="Sportilo"
+              className="hero-badge-logo"
+            />
+            <span>SPORTILO</span>
+            <span className="hero-divider"></span>
+            <span>India's Sports & Gaming Community</span>
           </div>
           <h1>
             Find Players. <span>Play Sports.</span> Build Your Team.
           </h1>
-
-          {/* <p>
-            Discover matches happening near you or create your own sports group
-            and start playing instantly.
-          </p> */}
 
           <div className="hero-buttons">
             <button
@@ -69,7 +78,7 @@ function Home() {
       {/* FEATURED MATCHES */}
       <section className="featured-section">
         <div className="featured-title-row">
-          <h2>Featured Matches</h2>
+          <h2>Live Matches</h2>
 
           <div className="featured-pill">🔥 Live</div>
         </div>
@@ -83,77 +92,10 @@ function Home() {
         </div>
       </section>
 
-      {/* DUAL MODE BRIDGE SECTION */}
-      <section className="bridge-section">
-        <div className="bridge-header">
-          <span className="bridge-badge">⚡ Play Anywhere</span>
-
-          <h2>
-            Sports on the field. Gaming on the screen.
-            <br />
-            <span>One community.</span>
-          </h2>
-
-          <p>
-            Find teammates for local sports matches or gaming squads instantly.
-          </p>
-        </div>
-
-        <div className="bridge-cards">
-          <div className="bridge-card sports-card">
-            <div className="card-top">
-              <div className="bridge-icon">⚽</div>
-
-              <div className="bridge-tag">Offline Sports</div>
-            </div>
-
-            <h3>Play in the real world</h3>
-
-            <p>Join local football, cricket and tennis matches near you.</p>
-
-            <div className="bridge-sports">
-              <span>⚽ Football</span>
-              <span>🏏 Cricket</span>
-              <span>🎾 Tennis</span>
-            </div>
-
-            <button onClick={() => navigate("/join-group")}>
-              Explore Matches →
-            </button>
-          </div>
-
-          <div className="bridge-center">
-            <div className="energy-ring">⚡</div>
-          </div>
-
-          <div className="bridge-card gaming-card">
-            <div className="card-top">
-              <div className="bridge-icon">🎮</div>
-
-              <div className="bridge-tag gaming-tag">Online Gaming</div>
-            </div>
-
-            <h3>Find Your Squad</h3>
-
-            <p>Join squads and compete with players at your level.</p>
-
-            <div className="bridge-sports">
-              <span>🔫 BGMI</span>
-              <span>🎯 Valorant</span>
-              <span>🎯 Free Fire</span>
-            </div>
-
-            <button onClick={() => navigate("/join-group")}>
-              Find Squad →
-            </button>
-          </div>
-        </div>
-      </section>
-
       {/* SPORTS SECTION */}
       <section className="sports-section">
-        <div className="sports-badge">⚡ Explore Communities</div>
-        <h2>Choose Your Arena</h2>
+        <div className="sports-badge">⚡ Choose Your Game</div>
+        <h2>Every Game. One Community.</h2>
         <p className="section-subtitle">
           Compete, connect and discover communities built around your favorite
           games.
@@ -222,16 +164,72 @@ function Home() {
         </div>
       </section>
 
-      <div className="home-share-section">
-        <ShareSportiloCard
-          icon="⚽"
-          title="Grow the Sportilo Community"
-          description="Every new player makes local matches easier to fill. Share Sportilo with your teammates and help build a stronger sports community."
-          shareTitle="Sportilo"
-          shareText="⚽ Looking for players nearby? Join me on Sportilo to create or join local sports matches and gaming lobbies!"
-          buttonText="🚀 Share Sportilo"
-        />
-      </div>
+      {/* DUAL MODE BRIDGE SECTION */}
+      <section className="bridge-section">
+        <div className="bridge-header">
+          <span className="bridge-badge">⚡ Play Anywhere</span>
+
+          <h2>
+            Sports on the field. Gaming on the screen.
+            <br />
+            <span>One Platform.</span>
+          </h2>
+
+          <p>
+            Find teammates for local sports matches or gaming squads instantly.
+          </p>
+        </div>
+
+        <div className="bridge-cards">
+          <div className="bridge-card sports-card">
+            <div className="card-top">
+              <div className="bridge-icon">⚽</div>
+
+              <div className="bridge-tag">Offline Sports</div>
+            </div>
+
+            <h3>Play in the real world</h3>
+
+            <p>Join local football, cricket and tennis matches near you.</p>
+
+            <div className="bridge-sports">
+              <span>⚽ Football</span>
+              <span>🏏 Cricket</span>
+              <span>🎾 Tennis</span>
+            </div>
+
+            <button onClick={() => navigate("/join-group")}>
+              Explore Matches →
+            </button>
+          </div>
+
+          <div className="bridge-center">
+            <div className="energy-ring">⚡</div>
+          </div>
+
+          <div className="bridge-card gaming-card">
+            <div className="card-top">
+              <div className="bridge-icon">🎮</div>
+
+              <div className="bridge-tag gaming-tag">Online Gaming</div>
+            </div>
+
+            <h3>Find Your Squad</h3>
+
+            <p>Join squads and compete with players at your level.</p>
+
+            <div className="bridge-sports">
+              <span>🔫 BGMI</span>
+              <span>🎯 Valorant</span>
+              <span>🎯 Free Fire</span>
+            </div>
+
+            <button onClick={() => navigate("/join-group")}>
+              Find Squad →
+            </button>
+          </div>
+        </div>
+      </section>
 
       {/* HOW IT WORKS */}
 
@@ -240,7 +238,8 @@ function Home() {
           {/* TOP FLEX */}
           <div className="how-top">
             <div className="how-heading">
-              <h2>Play Smarter with SportMania</h2>
+              <img src="/images/icon_best-optimized.svg" className="how-logo" />
+              <h2>Play Smarter with Sportilo</h2>
             </div>
 
             <div className="how-info">
