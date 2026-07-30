@@ -1,7 +1,7 @@
 import express from "express";
 import { createMatch } from "../controllers/matchController.js";
 import authMiddleware from "../middleware/authMiddleware.js";
-import { joinMatch } from "../controllers/joinmatchController.js";
+import { joinMatch } from "../controllers/joinMatchController.js";
 
 
 const router = express.Router();
