@@ -21,6 +21,8 @@ dotenv.config();
 
 const port = process.env.PORT || process.env.backend_port || 3000;
 const app = express();
+//express-rate-limit render issue
+app.set("trust proxy", 1);
 app.use(helmet());
 app.use(compression());
 const allowedOrigins = ["http://localhost:5173", process.env.FRONTEND_URL];
