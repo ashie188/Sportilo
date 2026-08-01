@@ -60,7 +60,7 @@ export default function Support() {
           <div className="support-contact">
             <h3>Email</h3>
 
-            <a href="mailto:support@sportilo.in">support@sportilo.in</a>
+            <a href="mailto:sportilo151@gmail.com">sportilo151@gmail.com</a>
 
             <p>
               For support, bug reports, feature requests or any general

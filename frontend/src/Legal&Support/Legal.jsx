@@ -133,7 +133,7 @@ export default function Legal() {
           <div className="legal-contact">
             <p>Questions, feedback or privacy concerns?</p>
 
-            <p>support@sportilo.in</p>
+            <p>sportilo151@gmail.com</p>
 
             <p>We usually respond within 24–48 hours.</p>
           </div>
