@@ -25,7 +25,10 @@ const app = express();
 app.set("trust proxy", 1);
 app.use(helmet());
 app.use(compression());
-const allowedOrigins = ["http://localhost:5173", process.env.FRONTEND_URL];
+const allowedOrigins = [
+  "http://localhost:5173",
+  ...( process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(",") : [])
+];
 
 app.use(
   cors({
