@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sportilo.com/sitemap.xml
+Sitemap: https://sportilo.in/sitemap.xml
