@@ -27,22 +27,27 @@ app.use(helmet());
 app.use(compression());
 const allowedOrigins = [
   "http://localhost:5173",
-  ...( process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(",") : [])
+  ...(process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(",") : []),
 ];
+console.log("FRONTEND_URL:", process.env.FRONTEND_URL);
+console.log("Allowed Origins:", allowedOrigins);
 
 app.use(
   cors({
     origin(origin, callback) {
+      console.log("Request Origin:", origin);
+
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
+        console.log("Blocked Origin:", origin);
         callback(new Error("Not allowed by CORS"));
       }
     },
   }),
 );
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true })); 
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes

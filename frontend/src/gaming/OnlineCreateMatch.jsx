@@ -119,7 +119,7 @@ function OnlineCreateMatch() {
         description: "",
       });
     } catch (error) {
-      console.log("Error creating gaming match");
+      console.log("Error creating gaming match", error);
 
       setError(error.response?.data?.message || "Something went wrong");
     }
