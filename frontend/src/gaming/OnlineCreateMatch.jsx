@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { memo } from "react";
 import axios from "axios";
+import api from "./api/axios";
 import { useNavigate } from "react-router-dom";
 
 function OnlineCreateMatch() {
@@ -81,9 +82,8 @@ function OnlineCreateMatch() {
         return;
       }
 
-      const response = await axios.post(
-        "http://localhost:3000/gaming/create",
-
+      const response = await api.post(
+        "/gaming/create",
         {
           game: formData.game,
           platform: formData.platform,
@@ -119,7 +119,7 @@ function OnlineCreateMatch() {
         description: "",
       });
     } catch (error) {
-      console.log("Error creating gaming match", error);
+      console.log("Error creating gaming match");
 
       setError(error.response?.data?.message || "Something went wrong");
     }
