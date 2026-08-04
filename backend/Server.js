@@ -86,9 +86,4 @@ app.get("/health", (req, res) => {
 
 app.listen(port, () => {
   console.log("the port is started at", port);
-
-  console.log("Server now:", new Date());
-  console.log("Server ISO:", new Date().toISOString());
-  console.log("Timezone:", Intl.DateTimeFormat().resolvedOptions().timeZone);
-  console.log("Timezone Offset:", new Date().getTimezoneOffset());
 });
