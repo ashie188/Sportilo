@@ -103,9 +103,7 @@ function CreateGroup() {
         description: "",
       });
     } catch (error) {
-      console.log(
-        "Error creating match, at createGroup handlesubmit",
-      );
+      console.log("Error creating match, at createGroup handlesubmit");
       setError(error.response?.data || error.message);
     } finally {
       setCreatingMatch(false);
@@ -152,19 +150,19 @@ function CreateGroup() {
 
               <div className="suggestions">
                 <div className="suggestion-card">
-                  • Matches near popular grounds usually fill up faster.
+                  • Specifically mention the exact location to avoid confusion.
+                </div>
+
+                <div className="suggestion-card">
+                  • create any match atleast 6 hours before the match to give players enough time to join.
+                </div>
+
+                <div className="suggestion-card">
+                  • clearly describe the match format,rules and duration.
                 </div>
 
                 <div className="suggestion-card">
                   • Keep team sizes realistic to get more join requests.
-                </div>
-
-                <div className="suggestion-card">
-                  • Evening and weekend matches attract the most players.
-                </div>
-
-                <div className="suggestion-card">
-                  • A clear match description increases participation.
                 </div>
               </div>
 
@@ -190,12 +188,11 @@ function CreateGroup() {
                 </div>
 
                 <div className="suggestion-card gaming-card-info">
-                  • Full squads usually form faster than random player searches.
+                  • create any match atleast 3 hours before the match time to give players enough time to join.
                 </div>
 
                 <div className="suggestion-card gaming-card-info">
-                  • Schedule sessions during peak evening hours for quicker
-                  joins.
+                  • clearly describe the match format and rules,mention the duration.
                 </div>
 
                 <div className="suggestion-card gaming-card-info">
