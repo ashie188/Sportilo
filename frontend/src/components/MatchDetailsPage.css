@@ -464,6 +464,31 @@
   flex-shrink: 0;
 }
 
+.mdp-player-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mdp-player-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.mdp-player-id {
+  margin-top: 3px;
+  font-size: 0.87rem;
+  color: #64748b;
+}
+
+.mdp-player-skill {
+  margin-top: 2px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #d97706;
+}
+
 /* ========================= */
 /* ORGANIZER                 */
 /* ========================= */
@@ -770,13 +795,133 @@
 .join-continue-btn:hover {
   background: #ede9fe;
 }
+/* ===========================
+   JOIN DETAILS MODAL
+=========================== */
 
+.join-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(6px);
+}
+
+.join-modal {
+  width: min(92%, 430px);
+  background: #fff;
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+  animation: joinModalPop 0.25s ease;
+}
+
+@keyframes joinModalPop {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.join-modal h2 {
+  margin: 0;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.join-modal-subtitle {
+  margin: 10px 0 24px;
+  font-size: 0.95rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.join-form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.join-form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #374151;
+}
+
+.join-form-group input,
+.join-form-group select {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: 0.25s;
+  box-sizing: border-box;
+}
+
+.join-form-group input:focus,
+.join-form-group select:focus {
+  border-color: #facc15;
+  box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.18);
+}
+
+.join-modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.join-cancel-btn,
+.join-confirm-btn {
+  flex: 1;
+  padding: 13px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.join-cancel-btn {
+  background: #ececec;
+  color: #374151;
+}
+
+.join-cancel-btn:hover {
+  background: #dddddd;
+}
+
+.join-confirm-btn {
+  background: linear-gradient(135deg, rgb(195, 195, 15), #facc15);
+  color: #111827;
+  box-shadow: 0 8px 20px rgba(250, 204, 21, 0.22);
+}
+
+.join-confirm-btn:hover {
+  transform: translateY(-1px);
+}
+
+.join-confirm-btn:disabled,
+.join-cancel-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
 /* ========================= */
 /* RESPONSIVE — MOBILE <768  */
 /* ========================= */
 
 @media (max-width: 768px) {
-  .mdp-page{
+  .mdp-page {
     margin-bottom: 80px;
   }
   .mdp-hero {
@@ -986,6 +1131,14 @@
 
   .join-success-modal h2 {
     font-size: 20px;
+  }
+  .mdp-player-name {
+    font-size: 0.95rem;
+  }
+
+  .mdp-player-id,
+  .mdp-player-skill {
+    font-size: 0.8rem;
   }
 }
 

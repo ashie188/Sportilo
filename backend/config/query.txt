@@ -69,6 +69,10 @@ CREATE TABLE match_participants (
     UNIQUE(match_id, user_id)
 );
 
+ALTER TABLE match_participants
+ADD COLUMN player_identifier VARCHAR(100) DEFAULT NULL,
+ADD COLUMN skill_level VARCHAR(30) NOT NULL DEFAULT 'Beginner';
+
 4)gaming-groups query
 CREATE TABLE gaming_groups (
     id SERIAL PRIMARY KEY,

@@ -39,7 +39,27 @@ export const getGamingMatchesModel = async (limit, offset) => {
   return matches;
 };
 
-export const joinGamingLobbyModel = async (gaming_match_id, user_id) => {
+export const joinGamingLobbyModel = async (
+  gaming_match_id,
+  user_id,
+  user_email,
+  player_identifier,
+  skill_level,
+) => {
+  const allowedSkillLevels = [
+    "Beginner",
+    "Intermediate",
+    "Advanced",
+    "Professional",
+  ];
+
+  if (!player_identifier?.trim()) {
+    throw new Error("Game Username / ID is required.");
+  }
+
+  if (!allowedSkillLevels.includes(skill_level)) {
+    throw new Error("Invalid skill level.");
+  }
   // CHECK IF ALREADY JOINED
 
   const alreadyJoined = await pool.query(
@@ -75,6 +95,12 @@ export const joinGamingLobbyModel = async (gaming_match_id, user_id) => {
 
   const match = currentMatch.rows[0];
 
+  // PREVENT HOST FROM JOINING THEIR OWN LOBBY
+
+  if (match.admin_email === user_email) {
+    throw new Error("You are the organizer.");
+  }
+
   // CHECK IF FULL
 
   if (match.current_players >= match.max_players) {
@@ -85,15 +111,23 @@ export const joinGamingLobbyModel = async (gaming_match_id, user_id) => {
 
   await pool.query(
     `
-    INSERT INTO match_participants
-    (
-      user_id,
-      gaming_match_id
-    )
+INSERT INTO match_participants
+(
+  user_id,
+  gaming_match_id,
+  player_identifier,
+  skill_level
+)
 
-    VALUES ($1, $2)
-    `,
-    [user_id, gaming_match_id],
+VALUES
+(
+  $1,
+  $2,
+  $3,
+  $4
+)
+`,
+    [user_id, gaming_match_id, player_identifier.trim(), skill_level],
   );
 
   // UPDATE PLAYER COUNT
@@ -118,16 +152,21 @@ export const joinGamingLobbyModel = async (gaming_match_id, user_id) => {
 export const getGamingParticipantsModel = async (gaming_match_id) => {
   const result = await pool.query(
     `
-      SELECT users.id, users.name
+    SELECT
+      users.id,
+      users.name,
+      match_participants.player_identifier,
+      match_participants.skill_level
 
-      FROM match_participants
+    FROM match_participants
 
-      JOIN users
-
+    JOIN users
       ON match_participants.user_id = users.id
 
-      WHERE match_participants.gaming_match_id = $1
-      `,
+    WHERE match_participants.gaming_match_id = $1
+
+    ORDER BY match_participants.joined_at ASC
+    `,
     [gaming_match_id],
   );
 

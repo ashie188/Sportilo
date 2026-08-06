@@ -14,7 +14,7 @@ export const getGamingMatches = async (req, res) => {
 
     res.status(200).json(matches);
   } catch (error) {
-    console.log("error at getgamingmatches in gamingjoinmatchcontroller")
+    console.log("error at getgamingmatches in gamingjoinmatchcontroller");
 
     res.status(500).json({
       message: "Server Error",
@@ -27,8 +27,17 @@ export const joinGamingLobby = async (req, res) => {
     const gaming_match_id = req.params.id;
 
     const user_id = req.user.id;
+    const user_email = req.user.email;
 
-    const updatedMatch = await joinGamingLobbyModel(gaming_match_id, user_id);
+    const { player_identifier, skill_level } = req.body;
+
+    const updatedMatch = await joinGamingLobbyModel(
+      gaming_match_id,
+      user_id,
+      user_email,
+      player_identifier,
+      skill_level,
+    );
 
     res.status(200).json({
       message: "Joined successfully",
@@ -40,6 +49,7 @@ export const joinGamingLobby = async (req, res) => {
     });
   }
 };
+
 
 export const getGamingParticipants = async (req, res) => {
   try {

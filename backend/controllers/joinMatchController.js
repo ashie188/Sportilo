@@ -44,9 +44,38 @@ export const joinMatch = async (req, res) => {
     }
 
     // 5️⃣ Insert participant
+    const allowedSkillLevels = [
+      "Beginner",
+      "Intermediate",
+      "Advanced",
+      "Professional",
+    ];
+
+    const { skill_level } = req.body;
+
+    if (!allowedSkillLevels.includes(skill_level)) {
+      return res.status(400).json({
+        message: "Invalid skill level",
+      });
+    }
+
     await pool.query(
-      "INSERT INTO match_participants (match_id, user_id) VALUES ($1, $2)",
-      [id, user.id],
+      `
+  INSERT INTO match_participants
+  (
+    match_id,
+    user_id,
+    skill_level
+  )
+
+  VALUES
+  (
+    $1,
+    $2,
+    $3
+  )
+  `,
+      [id, user.id, skill_level],
     );
 
     // 6️⃣ Update players
@@ -78,17 +107,33 @@ export const getParticipants = async (req, res) => {
 
   try {
     const result = await pool.query(
-      `SELECT users.id, users.name, users.email
-       FROM match_participants
-       JOIN users ON users.id = match_participants.user_id
-       WHERE match_participants.match_id = $1`,
+      `
+      SELECT
+        users.id,
+        users.name,
+        users.email,
+        match_participants.player_identifier,
+        match_participants.skill_level
+
+      FROM match_participants
+
+      JOIN users
+        ON users.id = match_participants.user_id
+
+      WHERE match_participants.match_id = $1
+
+      ORDER BY match_participants.joined_at ASC
+      `,
       [id],
     );
 
     res.json(result.rows);
   } catch (err) {
     console.log("error at getparticipants in joinmatchcontroller");
-    res.status(500).json({ message: "Server error" });
+
+    res.status(500).json({
+      message: "Server error",
+    });
   }
 };
 

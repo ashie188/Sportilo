@@ -13,6 +13,12 @@ export default function MatchDetailsPage() {
   const [participants, setParticipants] = useState([]);
   const [joining, setJoining] = useState(false);
   const [error, setError] = useState("");
+  const [showJoinModal, setShowJoinModal] = useState(false);
+
+  const [joinForm, setJoinForm] = useState({
+    player_identifier: "",
+    skill_level: "Beginner",
+  });
   const [showJoinSuccessModal, setShowJoinSuccessModal] = useState(false);
   //new states for update note
   const [updateNote, setUpdateNote] = useState("");
@@ -29,9 +35,7 @@ export default function MatchDetailsPage() {
   //fech match details if not passed via state
   const fetchMatch = async () => {
     try {
-      const result = await api.get(
-        `/details/${type}/${id}`,
-      );
+      const result = await api.get(`/details/${type}/${id}`);
 
       setCurrentMatch(result.data);
       setUpdateNote(result.data.update_note || "");
@@ -107,11 +111,16 @@ export default function MatchDetailsPage() {
     try {
       setError("");
       setJoining(true);
+
       const token = localStorage.getItem("token");
 
       if (!token) {
         setError("Please login to join the match");
-        setJoining(false);
+        return;
+      }
+
+      if (isGamingMatch && !joinForm.player_identifier.trim()) {
+        setError("Game Username / ID is required.");
         return;
       }
 
@@ -119,19 +128,26 @@ export default function MatchDetailsPage() {
         ? `/gaming/join/${currentMatch.id}`
         : `/matches/join/${currentMatch.id}`;
 
-      const res = await api.post(
-        joinUrl,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const payload = {
+        skill_level: joinForm.skill_level,
+      };
+
+      if (isGamingMatch) {
+        payload.player_identifier = joinForm.player_identifier.trim();
+      }
+
+      const res = await api.post(joinUrl, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
 
       setCurrentMatch(res.data.match);
 
       await fetchParticipants();
+
+      setShowJoinModal(false);
+
       setShowJoinSuccessModal(true);
     } catch (err) {
       setError(err.response?.data?.message || "Error joining match");
@@ -421,8 +437,24 @@ export default function MatchDetailsPage() {
             )}
             <button
               className="mdp-join-btn"
-              onClick={handleJoin}
               disabled={joining || isFull || iscompleted}
+              onClick={() => {
+                setError("");
+
+                const token = localStorage.getItem("token");
+
+                if (!token) {
+                  setError("Please login to join the match");
+                  return;
+                }
+
+                setJoinForm({
+                  player_identifier: "",
+                  skill_level: "Beginner",
+                });
+
+                setShowJoinModal(true);
+              }}
             >
               {joining
                 ? "Joining..."
@@ -458,7 +490,18 @@ export default function MatchDetailsPage() {
               participants.map((p) => (
                 <div key={p.id} className="mdp-player">
                   <span className="mdp-avatar">{p.name?.charAt(0) || "U"}</span>
-                  <span>{p.name}</span>
+
+                  <div className="mdp-player-details">
+                    <div className="mdp-player-name">{p.name}</div>
+
+                    {isGamingMatch && p.player_identifier && (
+                      <div className="mdp-player-id">
+                        🎮 {p.player_identifier}
+                      </div>
+                    )}
+
+                    <div className="mdp-player-skill">⭐ {p.skill_level}</div>
+                  </div>
                 </div>
               ))
             )}
@@ -490,6 +533,85 @@ export default function MatchDetailsPage() {
           Explore Matches →
         </button>
       </div>
+      {showJoinModal && (
+        <div
+          className="join-modal-overlay"
+          onClick={() => {
+            if (!joining) {
+              setShowJoinModal(false);
+            }
+          }}
+        >
+          <div className="join-modal" onClick={(e) => e.stopPropagation()}>
+            <h2>{isGamingMatch ? "Join Gaming Lobby" : "Join Match"}</h2>
+
+            <p className="join-modal-subtitle">
+              {isGamingMatch
+                ? "Complete your gaming profile before joining."
+                : "Tell other players your experience level."}
+            </p>
+
+            {isGamingMatch && (
+              <div className="join-form-group">
+                <label>Game Username / ID</label>
+
+                <input
+                  type="text"
+                  maxLength={100}
+                  placeholder="Example: Ash#1234"
+                  value={joinForm.player_identifier}
+                  onChange={(e) =>
+                    setJoinForm((prev) => ({
+                      ...prev,
+                      player_identifier: e.target.value,
+                    }))
+                  }
+                />
+              </div>
+            )}
+
+            <div className="join-form-group">
+              <label>Skill Level</label>
+
+              <select
+                value={joinForm.skill_level}
+                onChange={(e) =>
+                  setJoinForm((prev) => ({
+                    ...prev,
+                    skill_level: e.target.value,
+                  }))
+                }
+              >
+                <option value="Beginner">Beginner</option>
+
+                <option value="Intermediate">Intermediate</option>
+
+                <option value="Advanced">Advanced</option>
+
+                <option value="Professional">Professional</option>
+              </select>
+            </div>
+
+            <div className="join-modal-actions">
+              <button
+                className="join-cancel-btn"
+                disabled={joining}
+                onClick={() => setShowJoinModal(false)}
+              >
+                Cancel
+              </button>
+
+              <button
+                className="join-confirm-btn"
+                disabled={joining}
+                onClick={handleJoin}
+              >
+                {joining ? "Joining..." : "Join"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {showJoinSuccessModal && (
         <div className="join-success-overlay">
