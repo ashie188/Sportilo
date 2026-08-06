@@ -115,6 +115,17 @@ export default function JoinMatch({ token }) {
                 ⚽ Offline Sports
               </button>
 
+              <div
+                className={`mode-switch ${mode === "online" ? "online" : ""}`}
+                onClick={() => {
+                  if (!loading) {
+                    setMode(mode === "offline" ? "online" : "offline");
+                  }
+                }}
+              >
+                <div className="mode-switch-thumb"></div>
+              </div>
+
               <button
                 disabled={loading}
                 className={mode === "online" ? "active-toggle" : ""}

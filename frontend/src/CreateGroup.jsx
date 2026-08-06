@@ -154,7 +154,8 @@ function CreateGroup() {
                 </div>
 
                 <div className="suggestion-card">
-                  • create any match atleast 6 hours before the match to give players enough time to join.
+                  • create any match atleast 6 hours before the match to give
+                  players enough time to join.
                 </div>
 
                 <div className="suggestion-card">
@@ -188,11 +189,13 @@ function CreateGroup() {
                 </div>
 
                 <div className="suggestion-card gaming-card-info">
-                  • create any match atleast 3 hours before the match time to give players enough time to join.
+                  • create any match atleast 3 hours before the match time to
+                  give players enough time to join.
                 </div>
 
                 <div className="suggestion-card gaming-card-info">
-                  • clearly describe the match format and rules,mention the duration.
+                  • clearly describe the match format and rules,mention the
+                  duration.
                 </div>
 
                 <div className="suggestion-card gaming-card-info">
@@ -224,6 +227,13 @@ function CreateGroup() {
             >
               ⚽ Offline Sports
             </button>
+
+            <div
+              className={`mode-switch ${mode === "online" ? "online" : ""}`}
+              onClick={() => setMode(mode === "offline" ? "online" : "offline")}
+            >
+              <div className="mode-switch-thumb"></div>
+            </div>
 
             <button
               className={mode === "online" ? "active-toggle" : ""}
