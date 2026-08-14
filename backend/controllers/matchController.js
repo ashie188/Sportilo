@@ -1,4 +1,5 @@
 import { createMatchModel } from "../models/matchModel.js";
+import { addChatParticipant } from "../services/chatParticipantService.js";
 
 export const createMatch = async (req, res) => {
   try {
@@ -9,7 +10,7 @@ export const createMatch = async (req, res) => {
       match_time,
       max_players,
       currentPlayers,
-      description
+      description,
     } = req.body;
 
     // ✅ from JWT
@@ -30,16 +31,20 @@ export const createMatch = async (req, res) => {
       match_time,
       max_players,
       currentPlayers,
-      description
+      description,
+    });
+
+    await addChatParticipant({
+      userId: req.user.id,
+      matchId: match.id,
     });
 
     res.status(201).json({
       message: "Match created successfully",
-      match
+      match,
     });
-
   } catch (error) {
-    console.log("error at creatematch in matchcontroller")
+    console.log("error at creatematch in matchcontroller");
     res.status(500).json({ message: "Server error" });
   }
 };

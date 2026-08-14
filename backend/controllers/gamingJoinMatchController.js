@@ -3,6 +3,7 @@ import {
   joinGamingLobbyModel,
   getGamingParticipantsModel,
 } from "../models/gamingJoinMatchModel.js";
+import { addChatParticipant } from "../services/chatParticipantService.js";
 
 export const getGamingMatches = async (req, res) => {
   try {
@@ -24,7 +25,13 @@ export const getGamingMatches = async (req, res) => {
 
 export const joinGamingLobby = async (req, res) => {
   try {
-    const gaming_match_id = req.params.id;
+    const gaming_match_id = Number(req.params.id);
+
+    if (!Number.isInteger(gaming_match_id) || gaming_match_id <= 0) {
+      return res.status(400).json({
+        message: "Invalid lobby ID",
+      });
+    }
 
     const user_id = req.user.id;
     const user_email = req.user.email;
@@ -39,17 +46,23 @@ export const joinGamingLobby = async (req, res) => {
       skill_level,
     );
 
-    res.status(200).json({
+    await addChatParticipant({
+      userId: user_id,
+      gamingMatchId: gaming_match_id,
+    });
+
+    return res.status(200).json({
       message: "Joined successfully",
       match: updatedMatch,
     });
   } catch (error) {
-    res.status(400).json({
+    console.error("Error at joinGamingLobby:", error);
+
+    return res.status(400).json({
       message: error.message,
     });
   }
 };
-
 
 export const getGamingParticipants = async (req, res) => {
   try {

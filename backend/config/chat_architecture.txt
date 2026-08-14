@@ -1,0 +1,26 @@
+Sportilo Main PostgreSQL
+        │
+        │ join / host verification
+        ▼
+Sportilo Backend
+        │
+        ├── generates WRITE Chat JWT
+        │       └── sportilo_user_id
+        │       └── environment
+        │       └── role=authenticated
+        │
+        └── generates READ Chat JWT
+                └── environment
+                └── chat_type
+                └── chat_id
+                         │
+                         ▼
+                  Supabase Chat
+                  ├── chat_messages
+                  ├── chat_participants
+                  ├── RLS
+                  ├── authorization function
+                  └── Realtime
+                         ▲
+                         │
+                  Frontend directly

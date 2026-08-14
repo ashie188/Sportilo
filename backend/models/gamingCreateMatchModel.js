@@ -1,5 +1,6 @@
 import pool from "../config/db.js";
 
+
 export const createGamingMatchModel = async (
   admin_name,
   admin_email,
@@ -11,9 +12,8 @@ export const createGamingMatchModel = async (
   max_players,
   discord_link,
   room_code,
-  description
+  description,
 ) => {
-
   const result = await pool.query(
     `
     INSERT INTO gaming_groups (
@@ -45,9 +45,10 @@ export const createGamingMatchModel = async (
       max_players,
       discord_link,
       room_code,
-      description
-    ]
+      description,
+    ],
   );
+  
 
   return result.rows[0];
 };

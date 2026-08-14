@@ -1,9 +1,8 @@
 import { createGamingMatchModel } from "../models/gamingCreateMatchModel.js";
+import { addChatParticipant } from "../services/chatParticipantService.js";
 
 export const createGamingMatch = async (req, res) => {
-
   try {
-
     const user = req.user;
 
     const {
@@ -15,7 +14,7 @@ export const createGamingMatch = async (req, res) => {
       max_players,
       discord_link,
       room_code,
-      description
+      description,
     } = req.body;
 
     const gamingMatch = await createGamingMatchModel(
@@ -29,20 +28,23 @@ export const createGamingMatch = async (req, res) => {
       max_players,
       discord_link,
       room_code,
-      description
+      description,
     );
+
+    await addChatParticipant({
+      userId: user.id,
+      gamingMatchId: gamingMatch.id,
+    });
 
     res.status(201).json({
       message: "Gaming match created successfully",
-      gamingMatch
+      gamingMatch,
     });
-
   } catch (error) {
-
-    console.log("error at creategamingmatch in gamingcreatematchcontroller")
+    console.log("error at creategamingmatch in gamingcreatematchcontroller");
 
     res.status(500).json({
-      message: "Server Error"
+      message: "Server Error",
     });
   }
 };

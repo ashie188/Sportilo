@@ -16,6 +16,7 @@ import featuredMatchesRoutes from "./routes/featuredMatchesRoutes.js";
 import MatchDetailsRoutes from "./routes/MatchDetailsRoutes.js";
 import "./services/reminderCron.js"; //cron job
 import adminFinalUpdateRoutes from "./routes/admin_final_updateroute.js";
+import chatRoutes from "./routes/chatRoutes.js";
 
 dotenv.config();
 
@@ -83,6 +84,9 @@ app.use("/admin_final_update", adminFinalUpdateRoutes);
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok" });
 });
+
+//CHAT access from the frontend to the database directly
+app.use("/chat", chatRoutes);
 
 app.listen(port, () => {
   console.log("the port is started at", port);

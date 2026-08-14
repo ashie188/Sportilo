@@ -1,5 +1,6 @@
 import pool from "../config/db.js";
 import { fetchMatchesModel } from "../models/joinMatchModel.js";
+import { addChatParticipant } from "../services/chatParticipantService.js";
 
 export const joinMatch = async (req, res) => {
   const { id } = req.params;
@@ -91,6 +92,11 @@ export const joinMatch = async (req, res) => {
        RETURNING *`,
       [updatedPlayers, newStatus, id],
     );
+
+    await addChatParticipant({
+      userId: user.id,
+      matchId: Number(id),
+    });
 
     res.json({
       message: "Joined successfully",

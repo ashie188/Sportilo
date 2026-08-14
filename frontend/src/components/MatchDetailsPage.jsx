@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import api from "../api/axios";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import "./MatchDetailsPage.css";
+import Chat from "../chat/Chat.jsx";
 
 function roundRect(ctx, x, y, w, h, r) {
   ctx.beginPath();
@@ -41,6 +42,9 @@ export default function MatchDetailsPage() {
   const user = JSON.parse(localStorage.getItem("user") || "null");
 
   const isOrganizer = user?.email === currentMatch?.admin_email;
+  const [canChat, setCanChat] = useState(false);
+  const [chatAuthorizationLoading, setChatAuthorizationLoading] =
+    useState(true);
 
   //fech match details if not passed via state
   const fetchMatch = async () => {
@@ -71,6 +75,48 @@ export default function MatchDetailsPage() {
     }
   };
 
+  const checkChatAuthorization = async () => {
+    if (!currentMatch?.id || !user?.id) {
+      setCanChat(false);
+      setChatAuthorizationLoading(false);
+      return;
+    }
+
+    try {
+      setChatAuthorizationLoading(true);
+
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        setCanChat(false);
+        return;
+      }
+
+      const response = await api.get(
+        `/chat/access/${
+          isGamingMatch ? "gaming" : "offline"
+        }/${currentMatch.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      setCanChat(response.status === 200 && Boolean(response.data?.token));
+    } catch (error) {
+      if (error.response?.status === 403) {
+        setCanChat(false);
+      } else {
+        console.error("Error checking chat authorization:", error);
+
+        setCanChat(false);
+      }
+    } finally {
+      setChatAuthorizationLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (location.state) {
       setLoading(false);
@@ -86,9 +132,17 @@ export default function MatchDetailsPage() {
     fetchParticipants();
   }, [currentMatch?.id, isGamingMatch]);
 
+  useEffect(() => {
+    if (!currentMatch?.id) {
+      return;
+    }
+
+    checkChatAuthorization();
+  }, [currentMatch?.id, isGamingMatch, user?.id]);
+
   const isFull = currentMatch
-      ? currentMatch.current_players >= currentMatch.max_players
-     : false;
+    ? currentMatch.current_players >= currentMatch.max_players
+    : false;
   const iscompleted = currentMatch?.status === "completed";
 
   const buildShareText = useCallback(() => {
@@ -629,6 +683,12 @@ export default function MatchDetailsPage() {
                 : "Join now and secure your spot in this match."}
             </p>
           </div>
+
+          {/* MATCH CHAT */}
+          <Chat
+            matchType={isGamingMatch ? "gaming" : "offline"}
+            matchId={currentMatch.id}
+          />
 
           {/* ✅ PARTICIPANTS */}
           <div className="mdp-participants mdp-card glow-violet">
