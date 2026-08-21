@@ -32,14 +32,14 @@ function Footer() {
           <div className="footer-logo-row">
             <img
               src="/images/icon_best-optimized.svg"
-              alt="Sportura"
+              alt="Sportilo"
               className="footer-logo"
             />
             <h2>Sportilo</h2>
           </div>
           <p>
             Find players. Create matches. Build communities. From local sports
-            to competitive gaming, Sportura brings every game together.
+            to competitive gaming, Sportilo brings every game together.
           </p>
         </div>
 
