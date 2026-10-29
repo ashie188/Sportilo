@@ -50,6 +50,11 @@ CREATE TABLE matches (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+//run this query on supabase created at 6-9-2026
+ALTER TABLE matches
+ADD COLUMN area VARCHAR(100),
+ADD COLUMN city VARCHAR(100);
+
 3)participants table
 CREATE TABLE match_participants (
     id SERIAL PRIMARY KEY,
@@ -68,6 +73,20 @@ CREATE TABLE match_participants (
 ALTER TABLE match_participants
 ADD COLUMN player_identifier VARCHAR(100) DEFAULT NULL,
 ADD COLUMN skill_level VARCHAR(30) NOT NULL DEFAULT 'Beginner';
+
+ALTER TABLE match_participants
+ADD COLUMN IF NOT EXISTS rated_players JSONB NOT NULL DEFAULT '[]'::jsonb;
+
+CREATE INDEX IF NOT EXISTS idx_match_participants_match_id
+ON match_participants(match_id);
+
+CREATE INDEX IF NOT EXISTS idx_match_participants_gaming_match_id
+ON match_participants(gaming_match_id);
+
+CREATE INDEX IF NOT EXISTS idx_match_participants_user_id
+ON match_participants(user_id);
+
+
 
 4)gaming-groups query
 CREATE TABLE gaming_groups (
@@ -110,6 +129,68 @@ CREATE TABLE gaming_groups (
     -- TIMESTAMPS
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+//run this query on supabase create at 6-9-2026
+ALTER TABLE gaming_groups
+ADD COLUMN area VARCHAR(255),
+ADD COLUMN city VARCHAR(255);
+
+ALTER TABLE gaming_groups
+DROP COLUMN discord_link,
+DROP COLUMN room_code;
+
+4.5)player profile
+CREATE TABLE player_profiles (
+    user_id INTEGER PRIMARY KEY
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+
+    -- LOCATION
+    area VARCHAR(100) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+
+    -- CONTACT
+    whatsapp_number VARCHAR(15) DEFAULT NULL,
+
+    -- RATING DATA
+    overall_rating NUMERIC(3,2) NOT NULL DEFAULT 0,
+    show_up_rating NUMERIC(3,2) NOT NULL DEFAULT 0,
+    behavior_rating NUMERIC(3,2) NOT NULL DEFAULT 0,
+    skills_rating NUMERIC(3,2) NOT NULL DEFAULT 0,
+
+    -- GAMES AND SKILL LEVELS
+    offline_games JSONB NOT NULL DEFAULT '[]'::jsonb,
+    online_games JSONB NOT NULL DEFAULT '[]'::jsonb,
+
+    -- AVAILABILITY
+    availability JSONB NOT NULL DEFAULT '{}'::jsonb,
+
+    -- TURF
+    willing_to_play_turf BOOLEAN NOT NULL DEFAULT FALSE,
+
+    -- TIMESTAMPS
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+ALTER TABLE player_profiles
+ADD COLUMN IF NOT EXISTS rating_count INTEGER NOT NULL DEFAULT 0;
+
+//copy users to player_profiles table directly
+INSERT INTO player_profiles (user_id, area, city)
+SELECT
+    id,
+    'Not added',
+    'Not added'
+FROM users
+ON CONFLICT (user_id) DO NOTHING;
+
+CREATE INDEX IF NOT EXISTS idx_player_profiles_featured_players
+ON player_profiles (
+  overall_rating DESC,
+  rating_count DESC
+)
+WHERE rating_count > 0;
 
 //queries for chat database
 5)CREATE TABLE public.chat_participants (

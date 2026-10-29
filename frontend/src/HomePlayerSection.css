@@ -1,0 +1,382 @@
+/* =========================================================
+   FEATURED PLAYERS
+========================================================= */
+
+.featured-players-section {
+  width: min(100%, 1440px);
+  margin: 0 auto;
+  padding: 20px 28px 24px;
+
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+.featured-players-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+
+  margin-bottom: 18px;
+}
+
+.featured-players-heading {
+  min-width: 0;
+}
+
+.featured-players-heading-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.featured-players-star {
+  flex-shrink: 0;
+
+  color: #f59e0b;
+  font-size: 23px;
+  line-height: 1;
+}
+
+.featured-players-heading h2 {
+  margin: 0;
+
+  color: #0f172a;
+
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.4px;
+}
+
+.featured-players-heading p {
+  margin: 5px 0 0 32px;
+
+  color: #64748b;
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.featured-players-view-all {
+  flex-shrink: 0;
+
+  margin-top: 5px;
+
+  color: #2563eb;
+
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+
+  white-space: nowrap;
+  cursor: pointer;
+
+  transition: color 0.18s ease;
+}
+
+.featured-players-view-all:hover {
+  color: #1d4ed8;
+}
+
+/* =========================================================
+   CAROUSEL
+========================================================= */
+
+.players-carousel {
+  position: relative;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.players-scroll-background {
+  width: 100%;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  scrollbar-width: none;
+
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+
+  scroll-snap-type: x proximity;
+
+  /*
+   * Keeps the first/last cards visually clear of the
+   * carousel arrows without changing card dimensions.
+   */
+  padding: 2px 2px 12px;
+
+  box-sizing: border-box;
+}
+
+.players-scroll-background::-webkit-scrollbar {
+  display: none;
+}
+
+.players-scroll {
+  display: flex;
+  align-items: stretch;
+
+  gap: 18px;
+
+  width: max-content;
+  min-width: 100%;
+
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   PLAYER CARD SIZING — DESKTOP
+========================================================= */
+
+/*
+ * Five substantial cards across a normal desktop viewport.
+ *
+ * The clamp prevents cards from becoming:
+ * - too small on medium desktop widths
+ * - excessively wide on very large monitors
+ *
+ * At ~1440px viewport width this resolves close to 260px,
+ * which gives five strong cards across the 1440px section.
+ */
+.players-scroll .home-player-card {
+  flex: 0 0 clamp(210px, 18.1vw, 262px);
+
+  width: clamp(210px, 18.1vw, 262px);
+  min-width: 0;
+
+  scroll-snap-align: start;
+}
+
+/* =========================================================
+   CAROUSEL BUTTONS
+========================================================= */
+
+.players-carousel-button {
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 54px;
+
+  padding: 0;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.98);
+  color: #1e3a8a;
+
+  font-family: inherit;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 5px 16px rgba(15, 23, 42, 0.09),
+    0 1px 3px rgba(15, 23, 42, 0.05);
+
+  transform: translateY(-50%);
+
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+}
+
+.players-carousel-button:hover {
+  border-color: #bfdbfe;
+  background: #ffffff;
+
+  box-shadow:
+    0 9px 22px rgba(15, 23, 42, 0.12),
+    0 2px 5px rgba(37, 99, 235, 0.06);
+}
+
+.players-carousel-button:active {
+  transform: translateY(-50%) scale(0.96);
+}
+
+.players-carousel-button:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.25);
+  outline-offset: 2px;
+}
+
+.players-carousel-button--left {
+  left: -20px;
+}
+
+.players-carousel-button--right {
+  right: -20px;
+}
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.featured-players-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  width: 100%;
+  min-height: 180px;
+
+  padding: 28px;
+
+  border: 1px dashed #cbd5e1;
+  border-radius: 14px;
+
+  background: #ffffff;
+
+  box-sizing: border-box;
+}
+
+.featured-players-empty span {
+  font-size: 30px;
+  line-height: 1;
+}
+
+.featured-players-empty p {
+  margin: 10px 0 0;
+
+  color: #64748b;
+
+  font-size: 12px;
+}
+
+/* =========================================================
+   MOBILE <720px
+========================================================= */
+
+@media (max-width: 719px) {
+  .featured-players-section {
+    width: 100%;
+
+    padding: 14px 8px 16px;
+  }
+
+  .featured-players-title-row {
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 11px;
+  }
+
+  .featured-players-heading-title {
+    gap: 6px;
+  }
+
+  .featured-players-star {
+    font-size: 18px;
+  }
+
+  .featured-players-heading h2 {
+    font-size: 20px;
+    letter-spacing: -0.25px;
+  }
+
+  /*
+   * The mobile layout intentionally keeps only the main
+   * heading. The description is unnecessary at this size.
+   */
+  .featured-players-heading p {
+    display: none;
+  }
+
+  .featured-players-view-all {
+    margin-top: 0;
+
+    font-size: 12px;
+  }
+
+  /* -------------------------------------------------------
+     MOBILE CAROUSEL
+  ------------------------------------------------------- */
+
+  .players-carousel {
+    width: 100%;
+  }
+
+  .players-scroll-background {
+    margin: 0;
+    padding: 2px 1px 8px;
+
+    scroll-snap-type: x mandatory;
+
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .players-scroll {
+    gap: 9px;
+
+    min-width: max-content;
+  }
+
+  /*
+   * IMPORTANT:
+   *
+   * We intentionally do NOT fit three tiny cards here.
+   *
+   * At 360px:
+   *   42vw ≈ 151px
+   *
+   * This gives roughly two full cards and a visible portion
+   * of the next card, making the carousel obvious.
+   */
+  .players-scroll .home-player-card {
+    flex: 0 0 clamp(148px, 42vw, 168px);
+
+    width: clamp(148px, 42vw, 168px);
+
+    scroll-snap-align: start;
+  }
+
+  /*
+   * Mobile interaction is native touch scrolling.
+   */
+  .players-carousel-button {
+    display: none;
+  }
+
+  .featured-players-empty {
+    min-height: 130px;
+    padding: 20px;
+  }
+
+  .featured-players-empty span {
+    font-size: 24px;
+  }
+
+  .featured-players-empty p {
+    margin-top: 8px;
+    font-size: 10px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .players-scroll-background {
+    scroll-behavior: auto;
+  }
+
+  .players-carousel-button {
+    transition: none;
+  }
+}

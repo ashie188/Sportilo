@@ -1,36 +1,88 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  FaUserFriends,
+  FaLayerGroup,
+  FaGamepad,
+  FaArrowRight,
+  FaChevronDown,
+} from "react-icons/fa";
 import api from "./api/axios";
 import MatchCard from "./components/MatchCard";
 import GamingMatchCard from "./gaming/GamingMatchCard";
 import "./joinMatch.css";
+
+const HERO_FEATURES = [
+  { icon: FaUserFriends, title: "Real Players", sub: "Local & Online" },
+  { icon: FaLayerGroup, title: "All Skill Levels", sub: "Everyone's Welcome" },
+  { icon: FaGamepad, title: "More Games", sub: "Sports & Gaming" },
+];
+
+// ⚠️ Confirm this route exists for the "Find Players" CTA
+const FIND_PLAYERS_PATH = "/players";
+
+const LIMIT = 16;
 
 export default function JoinMatch({ token }) {
   const navigate = useNavigate();
   const [matches, setMatches] = useState([]);
   const [mode, setMode] = useState("offline");
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [initialLoading, setInitialLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
 
   const [offset, setOffset] = useState(0);
   const [hasMore, setHasMore] = useState(true);
 
-  const LIMIT = 16;
-
   useEffect(() => {
+    const controller = new AbortController();
+
     setMatches([]);
-
     setOffset(0);
-
     setHasMore(true);
+    setInitialLoading(true);
 
-    fetchMatches(0);
+    const fetchInitialMatches = async () => {
+      try {
+        const url =
+          mode === "offline"
+            ? `/joinmatch?limit=${LIMIT}&offset=0`
+            : `/gaming?limit=${LIMIT}&offset=0`;
+
+        const res = await api.get(url, {
+          signal: controller.signal,
+        });
+
+        if (controller.signal.aborted) return;
+
+        const data = Array.isArray(res.data) ? res.data : [];
+
+        setMatches(data);
+        setHasMore(data.length === LIMIT);
+      } catch (err) {
+        if (!controller.signal.aborted) {
+          console.error("Failed to fetch matches:", err);
+          setMatches([]);
+          setHasMore(false);
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setInitialLoading(false);
+        }
+      }
+    };
+
+    fetchInitialMatches();
+
+    return () => controller.abort();
   }, [mode]);
 
   const fetchMatches = async (newOffset) => {
-    try {
-      setLoading(true);
+    if (initialLoading || loadingMore || !hasMore) return;
 
+    setLoadingMore(true);
+
+    try {
       const url =
         mode === "offline"
           ? `/joinmatch?limit=${LIMIT}&offset=${newOffset}`
@@ -38,26 +90,22 @@ export default function JoinMatch({ token }) {
 
       const res = await api.get(url);
 
-      if (res.data.length < LIMIT) {
-        setHasMore(false);
-      }
+      const data = Array.isArray(res.data) ? res.data : [];
 
-      if (newOffset === 0) {
-        setMatches(res.data);
-      } else {
-        setMatches((prev) => [...prev, ...res.data]);
-      }
+      setMatches((prev) => [...prev, ...data]);
+      setHasMore(data.length === LIMIT);
+      setOffset(newOffset);
     } catch (err) {
-      console.log("error at join match page in fetch matches function");
+      console.error("Failed to load more matches:", err);
     } finally {
-      setLoading(false);
+      setLoadingMore(false);
     }
   };
 
   const handleLoadMoreMatches = () => {
-    const newOffset = offset + LIMIT;
-    setOffset(newOffset);
-    fetchMatches(newOffset);
+    if (!initialLoading && !loadingMore && hasMore) {
+      fetchMatches(offset + LIMIT);
+    }
   };
 
   // 🔍 FILTER
@@ -69,11 +117,23 @@ export default function JoinMatch({ token }) {
 
   return (
     <div className="jm-wrapper">
-      {/* HERO stays same */}
-
+      {/* HERO */}
+      {/* HERO */}
       <section className="jm-hero">
+        <img
+          className="jm-hero-bg"
+          src="/images/Sportilo-join_match.webp"
+          alt=""
+          width="1920"
+          height="450"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+        />
+
         <div className="jm-container">
           <div className="jm-hero-content">
+            <span className="jm-hero-label">FIND LOCAL PLAYERS</span>
             <h1>
               Play More. <span>Connect Faster.</span>
             </h1>
@@ -81,122 +141,165 @@ export default function JoinMatch({ token }) {
               Join local matches, meet players, and turn every game into an
               experience.
             </p>
-          </div>
 
-          <div className="jm-hero-image">
-            <img
-              src="/images/SportMania-join_match.webp"
-              alt="Players joining a sports match"
-              width="520"
-              height="355"
-              loading="eager"
-              fetchPriority="high"
-              decoding="async"
-            />
+            <div className="jm-hero-features">
+              {HERO_FEATURES.map(({ icon: Icon, title, sub }) => (
+                <div className="jm-hero-feature" key={title}>
+                  <span className="jm-hero-feature-icon">
+                    <Icon />
+                  </span>
+                  <div className="jm-hero-feature-text">
+                    <strong>{title}</strong>
+                    <small>{sub}</small>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* MATCH SECTION */}
       <section className="jm-matches">
-        {!loading && filteredMatches.length === 0 && (
-          <p className="jm-empty">No matches found</p>
-        )}
         <div className="jm-container">
-          <h2 className="jm-heading">Available Matches</h2>
+          <div className="jm-matches-head">
+            <div className="jm-matches-title">
+              <h2 className="jm-heading">Available Matches</h2>
+              <p className="jm-subheading">
+                Find and join matches happening near you.
+              </p>
+            </div>
 
-          <div className="jm-toggle-wrapper">
-            <div className="create-toggle">
-              <button
-                disabled={loading}
-                className={mode === "offline" ? "active-toggle" : ""}
-                onClick={() => setMode("offline")}
-              >
-                ⚽ Offline Sports
-              </button>
+            <div className="jm-toggle-wrapper">
+              <div className="create-toggle">
+                <button
+                  disabled={initialLoading || loadingMore}
+                  className={mode === "offline" ? "active-toggle" : ""}
+                  onClick={() => setMode("offline")}
+                >
+                  ⚽ Offline Sports
+                </button>
 
-              <div
-                className={`mode-switch ${mode === "online" ? "online" : ""}`}
-                onClick={() => {
-                  if (!loading) {
-                    setMode(mode === "offline" ? "online" : "offline");
+                <button
+                  type="button"
+                  className={`mode-switch ${mode === "online" ? "online" : ""}`}
+                  role="switch"
+                  aria-checked={mode === "online"}
+                  aria-label="Switch between offline sports and online gaming"
+                  disabled={initialLoading || loadingMore}
+                  onClick={() =>
+                    setMode((current) =>
+                      current === "offline" ? "online" : "offline",
+                    )
                   }
-                }}
-              >
-                <div className="mode-switch-thumb"></div>
-              </div>
+                >
+                  <span className="mode-switch-thumb" />
+                </button>
 
-              <button
-                disabled={loading}
-                className={mode === "online" ? "active-toggle" : ""}
-                onClick={() => setMode("online")}
-              >
-                🎮 Online Gaming
-              </button>
+                <button
+                  disabled={initialLoading || loadingMore}
+                  className={mode === "online" ? "active-toggle" : ""}
+                  onClick={() => setMode("online")}
+                >
+                  🎮 Online Gaming
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* 🔍 SEARCH */}
-          {/*<div className="jm-search">
-            <input
-              type="text"
-              placeholder={
-                mode === "offline"
-                  ? "Search by location..."
-                  : "Search by game..."
-              }
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>*/}
-
-          {loading && <div className="jm-loading">Loading matches...</div>}
-
-          <div className="jm-grid">
-            {filteredMatches.map((match) =>
-              mode === "offline" ? (
-                <MatchCard key={match.id} match={match} />
-              ) : (
-                <GamingMatchCard key={match.id} match={match} />
-              ),
+          <div className="jm-results">
+            {initialLoading ? (
+              <div
+                className="jm-loading jm-loading--spinner"
+                role="status"
+                aria-live="polite"
+              >
+                <span className="jm-loading-spinner" aria-hidden="true" />
+                <span>
+                  {mode === "offline"
+                    ? "Loading offline matches..."
+                    : "Loading online gaming matches..."}
+                </span>
+              </div>
+            ) : (
+              <div className="jm-grid">
+                {filteredMatches.map((match, index) =>
+                  mode === "offline" ? (
+                    <MatchCard
+                      key={match.id}
+                      match={match}
+                      imagePriority={index === 0}
+                    />
+                  ) : (
+                    <GamingMatchCard
+                      key={match.id}
+                      match={match}
+                      imagePriority={index === 0}
+                    />
+                  ),
+                )}
+              </div>
             )}
           </div>
         </div>
       </section>
 
-      <div className="jm-load-section">
-        {hasMore ? (
-          <button className="jm-load-btn" onClick={handleLoadMoreMatches}>
-            Load More Matches
-          </button>
-        ) : (
-          <div className="jm-no-more">
-            <p>No more matches available</p>
-            <button onClick={() => navigate("/create-group")}>
-              Create Match
+      <div className="jm-container">
+        <div className="jm-load-section">
+          {hasMore ? (
+            <button
+              className="jm-load-btn"
+              onClick={handleLoadMoreMatches}
+              disabled={initialLoading || loadingMore || !hasMore}
+            >
+              {loadingMore ? "Loading..." : "Load More Matches"}
+              {!loadingMore && <FaChevronDown />}
             </button>
-          </div>
-        )}
+          ) : (
+            <div className="jm-no-more">
+              <p>No more matches available</p>
+              <button onClick={() => navigate("/create-group")}>
+                Create Match
+              </button>
+            </div>
+          )}
+
+          {!initialLoading && matches.length > 0 && (
+            <p className="jm-load-caption" aria-live="polite">
+              Showing {filteredMatches.length} matches
+            </p>
+          )}
+        </div>
       </div>
 
       <section className="jm-bottom-cta">
-        <div className="jm-container jm-bottom-flex">
-          {/* LEFT */}
-          <div className="jm-bottom-left">
-            <h2>Create Your Own Match</h2>
-            <button onClick={() => navigate("/create-group")}>
-              Create Match
-            </button>
-          </div>
+        <div className="jm-container">
+          <div className="jm-cta-card">
+            <div className="jm-cta-text">
+              <h2>Can't find a match? Create your own or find players!</h2>
+              <p>
+                Be the one to bring players together.{" "}
+                <span>
+                  Whether it's a casual game in your locality or a squad for
+                  your favourite online game — it starts here.
+                </span>
+              </p>
+            </div>
 
-          {/* RIGHT */}
-          <div className="jm-bottom-right">
-            <h3>Craft the Game. Shape the Experience.</h3>
-
-            <p>
-              Take the lead. Set the pace. Bring players together and turn every
-              match into something worth remembering.
-            </p>
+            <div className="jm-cta-actions">
+              <button
+                className="jm-cta-primary"
+                onClick={() => navigate("/create-group")}
+              >
+                Create Match <FaArrowRight />
+              </button>
+              <button
+                className="jm-cta-secondary"
+                onClick={() => navigate(FIND_PLAYERS_PATH)}
+              >
+                Find Players <FaArrowRight />
+              </button>
+            </div>
           </div>
         </div>
       </section>

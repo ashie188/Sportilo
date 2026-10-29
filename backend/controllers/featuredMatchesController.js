@@ -91,7 +91,53 @@ LIMIT 3
 
     res.json(featuredMatches);
   } catch (err) {
-    console.log("error at getfeaturedmatches in featuredmatchescontroller")
+    console.log("error at getfeaturedmatches in featuredmatchescontroller");
+
+    res.status(500).json({
+      message: "Server Error",
+    });
+  }
+};
+
+// =========================
+// FEATURED PLAYERS
+// =========================
+
+export const getFeaturedPlayers = async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT
+        u.id AS user_id,
+        u.name,
+
+        pp.area,
+        pp.city,
+
+        pp.overall_rating,
+        pp.rating_count,
+
+        pp.offline_games,
+        pp.online_games
+
+      FROM player_profiles pp
+
+      INNER JOIN users u
+        ON u.id = pp.user_id
+
+      ORDER BY
+        pp.overall_rating DESC,
+        pp.rating_count DESC,
+        pp.updated_at DESC
+
+      LIMIT 10
+    `);
+
+    res.json(result.rows);
+  } catch (err) {
+    console.log(
+      "error at getfeaturedplayers in featuredmatchescontroller",
+      err,
+    );
 
     res.status(500).json({
       message: "Server Error",

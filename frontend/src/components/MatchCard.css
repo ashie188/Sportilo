@@ -1,240 +1,297 @@
 /* CARD */
 
 .mc-card {
-  background: linear-gradient(135deg, #e0f2fe 0%, #7dd3fc 70%);
-  border-radius: 22px;
-  padding: 20px;
-  cursor: pointer;
-  transition: all 0.35s ease;
-  position: relative;
+  background: #ffffff;
+  border: 1px solid #e5eaf1;
+  border-radius: 16px;
   overflow: hidden;
-  border: 1px solid rgba(56, 189, 248, 0.18);
-  box-shadow:
-    0 8px 22px rgba(15, 23, 42, 0.06),
-    0 2px 8px rgba(59, 130, 246, 0.06);
-  backdrop-filter: blur(12px);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
-/* TOP ACCENT */
+.mc-card:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
 
-.mc-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
+/* TOP VISUAL HEADER */
+
+.mc-media {
+  position: relative;
+  height: 116px;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: #1e3a8a; /* shown only while the image loads */
+}
+
+.mc-media-img {
   width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, #2563eb, #38bdf8, #0ea5e9);
-  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.25);
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-/* GLOW */
+/* subtle bottom shade so badge/status read well on any photo */
 
-.mc-card::after {
+.mc-media::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    circle at top right,
-    rgba(195, 195, 15, 0.04) transparent 40%
-  );
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.18) 0%, transparent 40%);
   pointer-events: none;
 }
 
-/* HOVER */
+/* SPORT ICON BADGE */
 
-.mc-card:hover {
-  transform: translateY(-6px) scale(1.01);
-  box-shadow:
-    0 24px 50px rgba(37, 99, 235, 0.18),
-    0 8px 24px rgba(15, 23, 42, 0.12);
-}
-
-/* HEADER */
-
-.mc-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px;
-}
-
-/* SPORT ICON */
-
-.mc-sport-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
+.mc-sport-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
-  background: linear-gradient(135deg, #2563eb, #38bdf8);
-  color: white;
-  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.25);
+  z-index: 1;
 }
 
-/* STATUS */
+/* STATUS PILL */
 
 .mc-status {
-  font-size: 12px;
-  padding: 6px 12px;
-  border-radius: 999px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.2px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  color: #ffffff;
+  box-shadow: 0 3px 8px rgba(15, 23, 42, 0.25);
 }
 
-.mc-status.open {
-  background: rgba(16, 185, 129, 0.12);
-  color: #047857;
+.mc-status--open {
+  background: #16a34a;
 }
 
-.mc-status.completed {
-  background: rgba(239, 68, 68, 0.12);
-  color: #b91c1c;
+.mc-status--filling {
+  background: #f59e0b;
 }
 
-.mc-status.full {
-  background: rgba(234, 179, 8, 0.12);
-  color: #92400e;
+.mc-status--full {
+  background: #dc2626;
+}
+
+.mc-status--completed {
+  background: #64748b;
 }
 
 /* BODY */
 
-.mc-body h3 {
-  margin-top: 8px;
-  font-size: 22px;
-  color: #0f172a;
+.mc-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px 14px;
+}
+
+.mc-title {
+  margin: 0;
+  font-size: 17px;
   font-weight: 700;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* LOCATION */
+/* META ROWS (location / date) */
 
-.mc-location {
-  color: #475569;
-  font-size: 14px;
-  margin-top: 4px;
-}
-
-/* TIME */
-
-.mc-time {
-  margin-top: 10px;
-  font-size: 13px;
-  color: #64748b;
+.mc-meta {
   display: flex;
   align-items: center;
   gap: 6px;
+  margin: 0;
+  font-size: 13px;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-/* PLAYERS */
+.mc-meta span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mc-meta b {
+  color: #334155;
+  font-weight: 600;
+}
+
+.mc-meta-icon {
+  flex-shrink: 0;
+  font-size: 12px;
+  color: #2563eb;
+}
+
+/* PLAYERS + PROGRESS BAR */
 
 .mc-players {
-  margin-top: 18px;
-  font-weight: 700;
-  color: #0f172a;
+  margin-top: 4px;
 }
 
-/* PLAYER BAR */
+.mc-players-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #334155;
+}
 
 .mc-player-bar {
-  width: 100%;
-  height: 8px;
-  margin-top: 8px;
+  height: 6px;
+  margin-top: 6px;
   border-radius: 999px;
+  background: #e8edf4;
   overflow: hidden;
-  background: rgba(148, 163, 184, 0.18);
 }
 
 .mc-player-fill {
   height: 100%;
   border-radius: 999px;
-  background: linear-gradient(90deg, #2563eb, rgb(195, 195, 15));
+  background: linear-gradient(90deg, #2563eb, #38bdf8);
+  transition: width 0.4s ease;
 }
 
-/* ADMIN */
+/* FOOTER */
+
+.mc-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid #eef2f7;
+}
 
 .mc-admin {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 18px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(148, 163, 184, 0.18);
+  gap: 7px;
+  min-width: 0;
 }
 
-/* USER ICON */
-
 .mc-user-icon {
-  font-size: 30px;
+  flex-shrink: 0;
+  font-size: 24px;
   color: #2563eb;
 }
 
-/* ADMIN NAME */
-
 .mc-admin span {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-@media (max-width: 768px) {
-  .mc-card {
-    padding: 12px;
-    border-radius: 16px;
-  }
+.mc-arrow {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #eaf2ff;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
 
-  /* scale() on hover is fine on desktop but causes jank/overflow on
-     touch taps where hover state can stick — disable at this width */
+/* HOVER (desktop / pointer devices only) */
+
+@media (hover: hover) {
   .mc-card:hover {
-    transform: none;
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(37, 99, 235, 0.14);
   }
 
-  .mc-header {
-    margin-bottom: 8px;
+  .mc-card:hover .mc-arrow {
+    background: #2563eb;
+    color: #ffffff;
+  }
+}
+
+/* MOBILE — compact 2-per-row layout */
+
+@media (max-width: 720px) {
+  .mc-media {
+    height: 84px;
   }
 
-  .mc-sport-icon {
+  .mc-media-watermark {
+    font-size: 62px;
+    bottom: -14px;
+  }
+
+  .mc-sport-badge {
     width: 32px;
     height: 32px;
-    font-size: 15px;
-    border-radius: 10px;
+    font-size: 16px;
+    top: 8px;
+    left: 8px;
   }
 
   .mc-status {
-    font-size: 10px;
+    font-size: 9.5px;
     padding: 4px 8px;
+    top: 8px;
+    right: 8px;
   }
 
-  .mc-body h3 {
-    font-size: 15px;
-    margin-top: 4px;
+  .mc-body {
+    gap: 5px;
+    padding: 10px 10px 11px;
   }
 
-  .mc-location {
+  .mc-title {
+    font-size: 14px;
+  }
+
+  .mc-meta {
+    font-size: 11px;
+    gap: 5px;
+  }
+
+  .mc-meta-icon {
+    font-size: 10px;
+  }
+
+  .mc-players-row {
     font-size: 11px;
   }
 
-  .mc-time {
-    font-size: 10px;
-    margin-top: 6px;
-    gap: 4px;
-  }
-
-  .mc-players {
-    margin-top: 10px;
-    font-size: 12px;
-  }
-
   .mc-player-bar {
-    height: 6px;
+    height: 5px;
     margin-top: 5px;
-  }
-
-  .mc-admin {
-    margin-top: 10px;
-    padding-top: 8px;
-    gap: 6px;
   }
 
   .mc-user-icon {
@@ -244,20 +301,26 @@
   .mc-admin span {
     font-size: 11px;
   }
+
+  .mc-arrow {
+    width: 22px;
+    height: 22px;
+    font-size: 9px;
+  }
 }
 
+/* SMALL DEVICES */
+
 @media (max-width: 500px) {
-  .mc-card {
-    padding: 10px;
+  .mc-media {
+    height: 76px;
   }
 
-  .mc-body h3 {
-    font-size: 14px;
-  }
-
-  .mc-sport-icon {
-    width: 28px;
-    height: 28px;
+  .mc-title {
     font-size: 13px;
+  }
+
+  .mc-meta {
+    font-size: 10.5px;
   }
 }

@@ -15,8 +15,9 @@ import gamingJoinMatchRoutes from "./routes/gamingJoinMatchRoutes.js";
 import featuredMatchesRoutes from "./routes/featuredMatchesRoutes.js";
 import MatchDetailsRoutes from "./routes/MatchDetailsRoutes.js";
 import "./services/reminderCron.js"; //cron job
-import adminFinalUpdateRoutes from "./routes/admin_final_updateroute.js";
 import chatRoutes from "./routes/chatRoutes.js";
+import playerProfilesRoutes from "./routes/playerProfilesRoutes.js";
+import ratingRoutes from "./routes/ratingRoutes.js";
 
 dotenv.config();
 
@@ -77,8 +78,11 @@ app.use("/home", featuredMatchesRoutes);
 //match details route
 app.use("/details", MatchDetailsRoutes);
 
-//aadmin final note
-app.use("/admin_final_update", adminFinalUpdateRoutes);
+// player profiles
+app.use("/players", playerProfilesRoutes);
+
+// rating routes
+app.use("/rating", ratingRoutes);
 
 //health check
 app.get("/health", (req, res) => {

@@ -44,6 +44,23 @@ const JoinIcon = () => (
   </svg>
 );
 
+const PlayersIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="9" cy="7" r="3" />
+    <circle cx="17" cy="8" r="2.5" />
+
+    <path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6" />
+    <path d="M14 15c3.5-.2 6 2 6 5" />
+  </svg>
+);
+
 const AccountIcon = () => (
   <svg
     viewBox="0 0 24 24"
@@ -88,19 +105,6 @@ export default function BottomNav({ user }) {
         </span>
         <span className="bottom-label">Home</span>
       </NavLink>
-
-      <NavLink
-        to="/create-group"
-        className={({ isActive }) =>
-          isActive ? "bottom-item active" : "bottom-item"
-        }
-      >
-        <span className="bottom-icon">
-          <CreateIcon />
-        </span>
-        <span className="bottom-label">Create</span>
-      </NavLink>
-
       <NavLink
         to="/join-group"
         className={({ isActive }) =>
@@ -110,9 +114,34 @@ export default function BottomNav({ user }) {
         <span className="bottom-icon">
           <JoinIcon />
         </span>
-        <span className="bottom-label">Join Match</span>
+        <span className="bottom-label">Matches</span>
+      </NavLink>
+      <NavLink
+        to="/create-group"
+        className={({ isActive }) =>
+          isActive
+            ? "bottom-item create-item active"
+            : "bottom-item create-item"
+        }
+      >
+        <span className="bottom-icon create-icon">
+          <CreateIcon />
+        </span>
+        <span className="bottom-label">Create</span>
       </NavLink>
 
+      <NavLink
+        to="/player-profiles"
+        className={({ isActive }) =>
+          isActive ? "bottom-item active" : "bottom-item"
+        }
+      >
+        <span className="bottom-icon">
+          <PlayersIcon />
+        </span>
+
+        <span className="bottom-label">Players</span>
+      </NavLink>
       <NavLink
         to={user ? "/account" : "/login"}
         className={({ isActive }) =>

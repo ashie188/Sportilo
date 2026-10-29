@@ -1,51 +1,177 @@
 /* MAIN CONTAINER */
-
 .auth-container {
   display: flex;
   min-height: 100vh;
   font-family: "Poppins", sans-serif;
+  background: #f8fafc;
 }
 
-/* LEFT SIDE */
-
 .auth-left {
+  position: relative;
   flex: 1;
-  background: linear-gradient(135deg, #1e3a8a, #38bdf8);
-  color: white;
+  min-width: 0;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   padding: 40px;
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
+  background: #f8fafc;
 }
+
+.auth-left::before {
+  content: "";
+  position: absolute;
+  inset: 24px;
+  z-index: -1;
+  border-radius: 22px;
+  background-image: url("/images/auth-sports-background.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.auth-left-overlay {
+  position: absolute;
+  inset: 24px;
+  border-radius: 22px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(2, 24, 58, 0.72) 0%,
+      rgba(2, 24, 58, 0.5) 42%,
+      rgba(2, 24, 58, 0.12) 78%,
+      rgba(2, 24, 58, 0.08) 100%
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.auth-left-content {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 560px);
+  padding: 64px 56px;
+  box-sizing: border-box;
+  transform: scale(0.9);
+  transform-origin: center;
+}
+
+/* LOGO */
 .auth-logo {
   display: flex;
   align-items: center;
   gap: 14px;
+  margin-bottom: 54px;
 }
 
 .auth-logo img {
-  background-color: white;
-  border-radius: 100%;
-  margin-top: 18px;
-  padding-top: 4px;
-
   width: 54px;
-  height: 52px;
+  height: 54px;
   display: block;
+  object-fit: contain;
+  background: #ffffff;
+  border-radius: 50%;
+  padding: 4px;
+  box-sizing: border-box;
 }
 
-.auth-left h1 {
-  font-size: 48px;
-  margin-bottom: 15px;
+.auth-logo h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 42px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -1.5px;
 }
 
-.auth-left p {
+/* HERO COPY */
+.auth-hero-copy {
+  max-width: 500px;
+}
+
+.auth-hero-copy h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(38px, 4vw, 58px);
+  line-height: 1.08;
+  font-weight: 700;
+  letter-spacing: -2px;
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.2);
+}
+
+.auth-hero-copy h2 span {
+  color: #2496ff;
+}
+
+.auth-hero-copy p {
+  margin: 24px 0 0;
+  color: #e5f2ff;
   font-size: 18px;
-  font-weight: 500;
-  color: #e0f2fe;
+  line-height: 1.55;
+  font-weight: 400;
 }
 
+/* FEATURES */
+.auth-features {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-top: 48px;
+}
+
+.auth-feature {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.auth-feature-icon {
+  width: 54px;
+  height: 54px;
+  flex: 0 0 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(20, 125, 235, 0.42);
+  border: 1px solid rgba(125, 200, 255, 0.3);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 6px 18px rgba(0, 20, 60, 0.2);
+  backdrop-filter: blur(5px);
+}
+
+.auth-feature-icon svg {
+  width: 28px;
+  height: 28px;
+  stroke: #ffffff;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.auth-feature-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.auth-feature-text strong {
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+.auth-feature-text span {
+  color: #e0efff;
+  font-size: 14px;
+  line-height: 1.35;
+  font-weight: 400;
+}
 /* RIGHT SIDE */
 
 .auth-right {
@@ -189,56 +315,43 @@
   font-weight: 500;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 720px) {
   .auth-container {
     flex-direction: column;
     min-height: 100dvh;
+    background: #f8fafc;
+    margin-bottom: 80px;
   }
 
-  /* Compact branding strip instead of hiding left entirely */
+  /*
+   * Mobile hero:
+   * Uses the same stadium artwork above the form.
+   * It is intentionally a compact visual header rather
+   * than a shrunken desktop panel.
+   */
+
   .auth-left {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    padding: 18px 20px;
-    flex: none;
+    display:none;
   }
 
-  .auth-logo {
-    gap: 10px;
-  }
-
-  .auth-logo img {
-    width: 36px;
-    height: 34px;
-    margin-top: 10px;
-    padding-top: 2px;
-  }
-
-  .auth-left h1 {
-    font-size: 24px;
-    margin-bottom: 0;
-  }
-
-  .auth-left p {
-    display: none; /* tagline hidden on mobile — saves space */
-  }
-
-  /* Right takes remaining space */
+  /*
+   * Existing form area.
+   * Keep the current right-side form design intact.
+   */
   .auth-right {
     flex: 1;
+    width: 100%;
     align-items: flex-start;
     padding: 44px 16px 32px;
+    box-sizing: border-box;
   }
 
   .auth-box {
     width: 100%;
     padding: 24px 18px;
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.07);
     box-sizing: border-box;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.07);
   }
 
   .auth-box h2 {
@@ -247,20 +360,20 @@
   }
 
   .auth-box input {
+    width: 100%;
+    box-sizing: border-box;
     padding: 10px 12px;
-    font-size: 14px; /* hard 14px — prevents iOS Safari zoom on focus */
     margin-bottom: 11px;
     border-radius: 8px;
-    box-sizing: border-box;
-    width: 100%;
+    font-size: 14px;
     font-family: "Poppins", sans-serif;
   }
 
   .auth-box button {
+    min-height: 48px;
     padding: 12px;
-    font-size: 15px;
-    min-height: 48px; /* minimum tap target */
     border-radius: 8px;
+    font-size: 15px;
     font-family: "Poppins", sans-serif;
   }
 
@@ -289,6 +402,10 @@
 }
 
 @media (max-width: 500px) {
+  .auth-left {
+    display: none;
+  }
+
   .auth-right {
     padding: 36px 12px 28px;
   }
@@ -296,19 +413,6 @@
   .auth-box {
     padding: 20px 14px;
     border-radius: 14px;
-  }
-
-  .auth-left {
-    padding: 14px 16px;
-  }
-
-  .auth-left h1 {
-    font-size: 21px;
-  }
-
-  .auth-logo img {
-    width: 30px;
-    height: 28px;
   }
 
   .auth-box h2 {
@@ -319,7 +423,7 @@
   .auth-box input {
     padding: 9px 10px;
     margin-bottom: 9px;
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .auth-box button {

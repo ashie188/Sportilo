@@ -4,16 +4,207 @@ import api from "./api/axios";
 import OnlineCreateMatch from "./gaming/OnlineCreateMatch";
 import "./CreateGroup.css";
 import useMatchShare from "./hooks/useMatchShare";
+import createHeroBg from "/images/create-match-hero.webp";
 
 const initialFormData = {
   sport: "",
   location: "",
+  area: "",
+  city: "",
   date: "",
   time: "",
   maxPlayers: "",
   currentPlayers: "1",
   description: "",
 };
+
+/* =========================================================
+   ICONS — inline SVG, no emoji
+========================================================= */
+
+function IconBall(props) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      {...props}
+    >
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 3v3M12 18v3M3 12h3M18 12h3M6.5 6.5l2 2M15.5 15.5l2 2M17.5 6.5l-2 2M8.5 15.5l-2 2" />
+    </svg>
+  );
+}
+
+function IconGamepad(props) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      {...props}
+    >
+      <path d="M6 12h4M8 10v4" />
+      <circle cx="16.5" cy="10.5" r="0.9" fill="currentColor" stroke="none" />
+      <circle cx="14.5" cy="12.5" r="0.9" fill="currentColor" stroke="none" />
+      <path d="M7 7h10a5 5 0 0 1 5 5.2c0 2.4-1.4 3.8-3 3.8-1 0-1.6-.5-2.3-1.3l-.7-.9a2 2 0 0 0-1.6-.8h-2.8a2 2 0 0 0-1.6.8l-.7.9C8.6 15.5 8 16 7 16c-1.6 0-3-1.4-3-3.8A5 5 0 0 1 7 7z" />
+    </svg>
+  );
+}
+
+function IconMapPin(props) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      {...props}
+    >
+      <path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+}
+
+function IconCalendar(props) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      {...props}
+    >
+      <rect x="3" y="5" width="18" height="16" rx="2" />
+      <path d="M8 3v4M16 3v4M3 10h18" />
+    </svg>
+  );
+}
+
+function IconClock(props) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      {...props}
+    >
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 2" />
+    </svg>
+  );
+}
+
+function IconUsers(props) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      {...props}
+    >
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+    </svg>
+  );
+}
+
+function IconUser(props) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      {...props}
+    >
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>
+  );
+}
+
+function IconFileText(props) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      {...props}
+    >
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <path d="M14 2v6h6M8 13h8M8 17h8M8 9h2" />
+    </svg>
+  );
+}
+
+function IconClipboard(props) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      {...props}
+    >
+      <rect x="6" y="4" width="12" height="17" rx="2" />
+      <rect x="9" y="2" width="6" height="4" rx="1" />
+      <path d="M9 11h6M9 15h6" />
+    </svg>
+  );
+}
+
+function IconBulb(props) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      {...props}
+    >
+      <path d="M9 18h6M10 22h4" />
+      <path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z" />
+    </svg>
+  );
+}
+
+function IconArrowRight(props) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      {...props}
+    >
+      <path d="M5 12h14M13 6l6 6-6 6" />
+    </svg>
+  );
+}
+
+function IconRocket(props) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      {...props}
+    >
+      <path d="M4.5 16.5c-1.5 1.5-2 5-2 5s3.5-.5 5-2c.8-.8 1-2 .5-3-1-.5-2.2-.3-3 .5z" />
+      <path d="M12 15l-3-3c1-3 3-8 8-10 2 5-3 7-10 8l3 3z" />
+      <circle cx="15" cy="9" r="1.2" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
 
 function CreateGroup() {
   const navigate = useNavigate();
@@ -54,6 +245,8 @@ function CreateGroup() {
 
     const sport = formData.sport.trim();
     const location = formData.location.trim();
+    const area = formData.area.trim();
+    const city = formData.city.trim();
     const description = formData.description.trim();
 
     const currentPlayers = Number(formData.currentPlayers);
@@ -62,6 +255,8 @@ function CreateGroup() {
     if (
       !sport ||
       !location ||
+      !area ||
+      !city ||
       !formData.date ||
       !formData.time ||
       !formData.maxPlayers ||
@@ -104,6 +299,8 @@ function CreateGroup() {
         {
           sport,
           location,
+          area,
+          city,
           match_date: formData.date,
           match_time: formData.time,
           max_players: maxPlayers,
@@ -198,215 +395,343 @@ function CreateGroup() {
     return time.slice(0, 5);
   };
 
+  const isOffline = mode === "offline";
+
   return (
     <div className="create-page">
-      <div className="create-left">
-        {/* LEFT FORM */}
-        <div className="info-panel">
-          {mode === "offline" ? (
-            <>
-              <div className="panel-header">
-                <span className="badge">🏆 Notes</span>
-                <h3>Make Your Match Better</h3>
-              </div>
-
-              <div className="suggestions">
-                <div className="suggestion-card">
-                  • Specifically mention the exact location to avoid confusion.
-                </div>
-
-                <div className="suggestion-card">
-                  • create any match atleast 6 hours before the match to give
-                  players enough time to join.
-                </div>
-
-                <div className="suggestion-card">
-                  • clearly describe the match format,rules and duration.
-                </div>
-
-                <div className="suggestion-card">
-                  • Keep team sizes realistic to get more join requests.
-                </div>
-              </div>
-
-              <div className="cta-box">
-                <p>Want to join instead?</p>
-
-                <button type="button" onClick={() => navigate("/join-group")}>
-                  Explore Matches →
-                </button>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="panel-header">
-                <span className="badge">🏆 Notes</span>
-                <h3>Make your Squad Better</h3>
-              </div>
-
-              <div className="suggestions">
-                <div className="suggestion-card gaming-card-info">
-                  • Mention your rank to attract players at a similar skill
-                  level.
-                </div>
-
-                <div className="suggestion-card gaming-card-info">
-                  • create any match atleast 3 hours before the match time to
-                  give players enough time to join.
-                </div>
-
-                <div className="suggestion-card gaming-card-info">
-                  • clearly describe the match format and rules,mention the
-                  duration.
-                </div>
-
-                <div className="suggestion-card gaming-card-info">
-                  • Clear room details reduce last-minute dropouts.
-                </div>
-              </div>
-
-              <div className="cta-box">
-                <p>Looking for gaming squads?</p>
-
-                <button type="button" onClick={() => navigate("/join-group")}>
-                  Explore Lobbies →
-                </button>
-              </div>
-            </>
-          )}
+      {creatingMatch && !showSuccessModal && (
+        <div
+          className="create-page-loader"
+          role="status"
+          aria-live="polite"
+          aria-label="Creating your match"
+        >
+          <div className="create-page-loader-spinner" aria-hidden="true" />
+          <p>Creating your match...</p>
+          <span>Please wait while we set everything up.</span>
         </div>
+      )}
+
+      {/* =================================================
+          HERO — real 1920×400 artwork, shown at 300px on
+          desktop (per spec — this asset is fine to crop,
+          unlike the Account page's photo). The image itself
+          already contains the sport/gaming icons and the
+          cursive tag on its right side — nothing here is
+          hand-drawn; the left side of the artwork is a pale
+          wash the text sits directly on. DOM order is
+          [text, image] rather than [image, text] so the same
+          markup can flex into "text left / small icon chip
+          right" on mobile without reordering anything.
+      ================================================= */}
+      <div className="create-hero">
+        <div className="create-hero-inner">
+          <span className="create-eyebrow">Create a Match</span>
+
+          <h1 className="create-heading">
+            Bring People <span className="accent">Together</span>
+          </h1>
+
+          <p className="create-subtext">
+            Create a match in just a few steps and get players to join.
+          </p>
+        </div>
+
+        <img
+          className="create-hero-bg"
+          src={createHeroBg}
+          alt=""
+          aria-hidden="true"
+          width={1920}
+          height={400}
+          loading="eager"
+          decoding="async"
+        />
       </div>
 
-      <div className="create-right">
-        {/* RIGHT PANEL */}
-        <div className="create-header">
-          <h1>{mode === "offline" ? "Create Match " : "Create Lobby "}</h1>
+      {/* =================================================
+          MODE TOGGLE — two pills with a physical switch
+          between them; both trigger the same setMode already
+          used by the pills, just a second way to reach it.
+      ================================================= */}
+      <div className="create-toggle-row" role="tablist" aria-label="Match type">
+        <button
+          type="button"
+          role="tab"
+          aria-selected={isOffline}
+          className={`create-toggle-pill ${isOffline ? "active" : ""}`}
+          onClick={() => setMode("offline")}
+        >
+          <IconBall width={18} height={18} />
+          <span>
+            Offline Match
+            <small>Play on the field</small>
+          </span>
+        </button>
 
-          <div className="create-toggle">
-            <button
-              type="button"
-              className={mode === "offline" ? "active-toggle" : ""}
-              onClick={() => setMode("offline")}
-            >
-              ⚽ Offline Sports
-            </button>
+        <button
+          type="button"
+          className={`create-mode-switch ${!isOffline ? "online" : ""}`}
+          onClick={() =>
+            setMode((currentMode) =>
+              currentMode === "offline" ? "online" : "offline",
+            )
+          }
+          aria-label="Switch between offline sports and online gaming"
+        >
+          <span className="create-mode-switch-thumb" />
+        </button>
 
-            <button
-              type="button"
-              className={`mode-switch ${mode === "online" ? "online" : ""}`}
-              onClick={() =>
-                setMode((currentMode) =>
-                  currentMode === "offline" ? "online" : "offline",
-                )
-              }
-              aria-label="Switch between offline sports and online gaming"
-            >
-              <span className="mode-switch-thumb" />
-            </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={!isOffline}
+          className={`create-toggle-pill ${!isOffline ? "active" : ""}`}
+          onClick={() => setMode("online")}
+        >
+          <IconGamepad width={18} height={18} />
+          <span>
+            Online Match
+            <small>Play from anywhere</small>
+          </span>
+        </button>
+      </div>
 
-            <button
-              type="button"
-              className={mode === "online" ? "active-toggle" : ""}
-              onClick={() => setMode("online")}
-            >
-              🎮 Online Gaming
-            </button>
-          </div>
-        </div>
-
-        <div className="create-main">
-          {mode === "offline" ? (
+      {/* =================================================
+          BODY — form (left) + sidebar (right)
+      ================================================= */}
+      <div className="create-body">
+        <div className="create-main-col">
+          {isOffline ? (
             <div className="create-box">
               <div className="form-header">
-                <h3>Create Match</h3>
-                <p>Fill details to find players instantly</p>
+                <span className="form-header-icon">
+                  <IconClipboard width={18} height={18} />
+                </span>
+                <div>
+                  <h3>Match Details</h3>
+                  <p>Fill in the details and let players join your match.</p>
+                </div>
               </div>
 
               <form onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  name="sport"
-                  value={formData.sport}
-                  placeholder="Sport (Football, Cricket...)"
-                  maxLength="80"
-                  autoComplete="off"
-                  onChange={handleChange}
-                  aria-label="Sport"
-                  required
-                />
-                <input
-                  type="text"
-                  name="location"
-                  value={formData.location}
-                  placeholder="Location"
-                  maxLength="150"
-                  autoComplete="street-address"
-                  onChange={handleChange}
-                  aria-label="Match location"
-                  required
-                />
-                <div className="row">
-                  <input
-                    type="date"
-                    name="date"
-                    value={formData.date}
-                    min={today}
-                    onChange={handleChange}
-                    aria-label="Match date"
-                    required
-                  />
+                <div className="row row-stack-mobile">
+                  <label className="field">
+                    <span className="field-label">
+                      Sport <em>*</em>
+                    </span>
+                    <span className="field-control">
+                      <IconBall className="field-icon" width={16} height={16} />
+                      <input
+                        type="text"
+                        name="sport"
+                        value={formData.sport}
+                        placeholder="e.g. Football, Cricket, Badminton..."
+                        maxLength="80"
+                        autoComplete="off"
+                        onChange={handleChange}
+                        aria-label="Sport"
+                        required
+                      />
+                    </span>
+                  </label>
 
-                  <input
-                    type="time"
-                    name="time"
-                    value={formData.time}
-                    onChange={handleChange}
-                    aria-label="Match time"
-                    required
-                  />
+                  <label className="field">
+                    <span className="field-label">
+                      Location <em>*</em>
+                    </span>
+                    <span className="field-control">
+                      <IconMapPin
+                        className="field-icon"
+                        width={16}
+                        height={16}
+                      />
+                      <input
+                        type="text"
+                        name="location"
+                        value={formData.location}
+                        placeholder="Enter location (e.g. Turf name)"
+                        maxLength="150"
+                        autoComplete="street-address"
+                        onChange={handleChange}
+                        aria-label="Match location"
+                        required
+                      />
+                    </span>
+                  </label>
                 </div>
-                <div className="row">
-                  <input
-                    type="number"
-                    name="currentPlayers"
-                    value={formData.currentPlayers}
-                    placeholder="Current Players"
-                    min="1"
-                    step="1"
-                    inputMode="numeric"
-                    onChange={handleChange}
-                    aria-label="Current players"
-                    required
-                  />
 
-                  <input
-                    type="number"
-                    name="maxPlayers"
-                    value={formData.maxPlayers}
-                    placeholder="Max players"
-                    min="2"
-                    step="1"
-                    inputMode="numeric"
-                    onChange={handleChange}
-                    aria-label="Maximum players"
-                    required
-                  />
+                <div className="row">
+                  <label className="field">
+                    <span className="field-label">
+                      Area <em>*</em>
+                    </span>
+                    <span className="field-control">
+                      <IconMapPin
+                        className="field-icon"
+                        width={16}
+                        height={16}
+                      />
+                      <input
+                        type="text"
+                        name="area"
+                        value={formData.area}
+                        placeholder="Area"
+                        maxLength="100"
+                        autoComplete="address-level3"
+                        onChange={handleChange}
+                        aria-label="Match area"
+                        required
+                      />
+                    </span>
+                  </label>
+
+                  <label className="field">
+                    <span className="field-label">
+                      City <em>*</em>
+                    </span>
+                    <span className="field-control">
+                      <IconMapPin
+                        className="field-icon"
+                        width={16}
+                        height={16}
+                      />
+                      <input
+                        type="text"
+                        name="city"
+                        value={formData.city}
+                        placeholder="City"
+                        maxLength="100"
+                        autoComplete="address-level2"
+                        onChange={handleChange}
+                        aria-label="Match city"
+                        required
+                      />
+                    </span>
+                  </label>
                 </div>
-                <textarea
-                  name="description"
-                  value={formData.description}
-                  placeholder="Description...."
-                  onChange={handleChange}
-                  aria-label="Match description"
-                  required
-                />
+
+                <div className="row">
+                  <label className="field">
+                    <span className="field-label">
+                      Date <em>*</em>
+                    </span>
+                    <span className="field-control">
+                      <IconCalendar
+                        className="field-icon"
+                        width={16}
+                        height={16}
+                      />
+                      <input
+                        type="date"
+                        name="date"
+                        value={formData.date}
+                        min={today}
+                        onChange={handleChange}
+                        aria-label="Match date"
+                        required
+                      />
+                    </span>
+                  </label>
+
+                  <label className="field">
+                    <span className="field-label">
+                      Time <em>*</em>
+                    </span>
+                    <span className="field-control">
+                      <IconClock
+                        className="field-icon"
+                        width={16}
+                        height={16}
+                      />
+                      <input
+                        type="time"
+                        name="time"
+                        value={formData.time}
+                        onChange={handleChange}
+                        aria-label="Match time"
+                        required
+                      />
+                    </span>
+                  </label>
+                </div>
+
+                <div className="row">
+                  <label className="field">
+                    <span className="field-label">Current Players</span>
+                    <span className="field-control field-control-muted">
+                      <IconUser className="field-icon" width={16} height={16} />
+                      <input
+                        type="number"
+                        name="currentPlayers"
+                        value={formData.currentPlayers}
+                        placeholder="1"
+                        min="1"
+                        step="1"
+                        inputMode="numeric"
+                        onChange={handleChange}
+                        aria-label="Current players"
+                        required
+                      />
+                    </span>
+                  </label>
+
+                  <label className="field">
+                    <span className="field-label">
+                      Maximum Players <em>*</em>
+                    </span>
+                    <span className="field-control">
+                      <IconUsers
+                        className="field-icon"
+                        width={16}
+                        height={16}
+                      />
+                      <input
+                        type="number"
+                        name="maxPlayers"
+                        value={formData.maxPlayers}
+                        placeholder="e.g. 10"
+                        min="2"
+                        step="1"
+                        inputMode="numeric"
+                        onChange={handleChange}
+                        aria-label="Maximum players"
+                        required
+                      />
+                    </span>
+                  </label>
+                </div>
+
+                <label className="field field-full">
+                  <span className="field-label">
+                    Description <em>*</em>
+                  </span>
+                  <span className="field-control field-control-textarea">
+                    <IconFileText
+                      className="field-icon field-icon-top"
+                      width={16}
+                      height={16}
+                    />
+                    <textarea
+                      name="description"
+                      value={formData.description}
+                      placeholder="Add match details, ground info, what to bring, etc..."
+                      onChange={handleChange}
+                      aria-label="Match description"
+                      required
+                    />
+                  </span>
+                </label>
+
                 {error && (
                   <div className="form-error" role="alert" aria-live="polite">
                     {error}
                   </div>
                 )}
+
                 <button
                   type="submit"
+                  className="create-submit-btn"
                   disabled={creatingMatch}
                   aria-busy={creatingMatch}
                 >
@@ -416,7 +741,10 @@ function CreateGroup() {
                       Creating Match...
                     </>
                   ) : (
-                    "Create Match"
+                    <>
+                      <span className="create-submit-plus">+</span>
+                      Create Match
+                    </>
                   )}
                 </button>
               </form>
@@ -425,7 +753,175 @@ function CreateGroup() {
             <OnlineCreateMatch />
           )}
         </div>
+
+        {/* =================================================
+            SIDEBAR
+        ================================================= */}
+        <aside className="create-side-col">
+          <div className="info-panel">
+            <div className="panel-header">
+              <span className="panel-header-icon">
+                <IconBulb width={18} height={18} />
+              </span>
+              <div>
+                <h3>Create a Great Match</h3>
+                <p>A few things to keep in mind:</p>
+              </div>
+            </div>
+
+            {isOffline ? (
+              <div className="suggestions">
+                <div className="suggestion-card">
+                  <span className="suggestion-icon">
+                    <IconMapPin width={16} height={16} />
+                  </span>
+                  <div>
+                    <strong>Be specific with location</strong>
+                    <p>Mention the exact location to avoid confusion.</p>
+                  </div>
+                </div>
+
+                <div className="suggestion-card">
+                  <span className="suggestion-icon">
+                    <IconClock width={16} height={16} />
+                  </span>
+                  <div>
+                    <strong>Give players enough time</strong>
+                    <p>Create your match at least 6 hours before it starts.</p>
+                  </div>
+                </div>
+
+                <div className="suggestion-card">
+                  <span className="suggestion-icon">
+                    <IconFileText width={16} height={16} />
+                  </span>
+                  <div>
+                    <strong>Describe the match clearly</strong>
+                    <p>Explain the format, rules, and duration.</p>
+                  </div>
+                </div>
+
+                <div className="suggestion-card">
+                  <span className="suggestion-icon">
+                    <IconUsers width={16} height={16} />
+                  </span>
+                  <div>
+                    <strong>Keep team sizes realistic</strong>
+                    <p>Realistic player counts get more join requests.</p>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="suggestions">
+                <div className="suggestion-card gaming-card-info">
+                  <span className="suggestion-icon">
+                    <IconGamepad width={16} height={16} />
+                  </span>
+                  <div>
+                    <strong>Mention your rank</strong>
+                    <p>Attract players at a similar skill level.</p>
+                  </div>
+                </div>
+
+                <div className="suggestion-card gaming-card-info">
+                  <span className="suggestion-icon">
+                    <IconClock width={16} height={16} />
+                  </span>
+                  <div>
+                    <strong>Give players enough time</strong>
+                    <p>Create your lobby at least 3 hours before it starts.</p>
+                  </div>
+                </div>
+
+                <div className="suggestion-card gaming-card-info">
+                  <span className="suggestion-icon">
+                    <IconFileText width={16} height={16} />
+                  </span>
+                  <div>
+                    <strong>Describe the match clearly</strong>
+                    <p>Explain the format, rules, and duration.</p>
+                  </div>
+                </div>
+
+                <div className="suggestion-card gaming-card-info">
+                  <span className="suggestion-icon">
+                    <IconUsers width={16} height={16} />
+                  </span>
+                  <div>
+                    <strong>Share clear room details</strong>
+                    <p>Clear details reduce last-minute dropouts.</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="cta-box">
+              <p>
+                {isOffline
+                  ? "Want to join instead?"
+                  : "Looking for gaming squads?"}
+              </p>
+
+              <button type="button" onClick={() => navigate("/join-group")}>
+                {isOffline ? "Explore Matches" : "Explore Lobbies"}
+                <IconArrowRight width={14} height={14} />
+              </button>
+            </div>
+          </div>
+
+          {/* Reuses the exact same setMode setter as the toggle above —
+              no new state, just another trigger for it. */}
+          <div className="switch-mode-card">
+            <span className="switch-mode-icon">
+              {isOffline ? (
+                <IconGamepad width={20} height={20} />
+              ) : (
+                <IconBall width={20} height={20} />
+              )}
+            </span>
+
+            <div className="switch-mode-text">
+              <strong>
+                {isOffline
+                  ? "Want to play online instead?"
+                  : "Want to play offline instead?"}
+              </strong>
+              <p>
+                {isOffline
+                  ? "Create a gaming match and find teammates for your favorite games."
+                  : "Create a match on the field and find players nearby."}
+              </p>
+            </div>
+
+            <button
+              type="button"
+              className="switch-mode-btn"
+              onClick={() => setMode(isOffline ? "online" : "offline")}
+            >
+              Switch to {isOffline ? "Online" : "Offline"} Match
+              <IconArrowRight width={14} height={14} />
+            </button>
+          </div>
+        </aside>
       </div>
+
+      {/* =================================================
+          BANNER
+      ================================================= */}
+      <div className="create-banner">
+        <div>
+          <h3>
+            Same Passion.
+            <br />
+            More People.
+          </h3>
+          <p>Create a match, find players and keep the game going.</p>
+        </div>
+        <span className="create-banner-icon" aria-hidden="true">
+          <IconBall width={28} height={28} />
+        </span>
+      </div>
+
       {showSuccessModal && (
         <div className="match-success-overlay">
           <div
@@ -457,7 +953,9 @@ function CreateGroup() {
               </p>
 
               <div className="created-match-card">
-                <div className="created-match-sport">⚽</div>
+                <div className="created-match-sport">
+                  <IconBall width={18} height={18} />
+                </div>
 
                 <div className="created-match-info">
                   <strong>{createdMatch?.sport}</strong>
@@ -470,7 +968,9 @@ function CreateGroup() {
               </div>
 
               <div className="match-growth-tip">
-                <div className="match-growth-tip-icon">🚀</div>
+                <div className="match-growth-tip-icon">
+                  <IconRocket width={16} height={16} />
+                </div>
 
                 <div>
                   <strong>Get players faster</strong>
@@ -516,6 +1016,3 @@ function CreateGroup() {
 }
 
 export default CreateGroup;
-
-
-

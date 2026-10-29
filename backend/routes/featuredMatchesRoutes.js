@@ -1,8 +1,14 @@
 import express from "express";
-import { getFeaturedMatches } from "../controllers/featuredMatchesController.js";
+
+import {
+  getFeaturedMatches,
+  getFeaturedPlayers,
+} from "../controllers/featuredMatchesController.js";
 
 const router = express.Router();
 
 router.get("/featuredmatches", getFeaturedMatches);
+
+router.get("/featuredplayers", getFeaturedPlayers);
 
 export default router;

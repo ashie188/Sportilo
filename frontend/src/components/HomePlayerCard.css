@@ -1,0 +1,434 @@
+/* =========================================
+   HOME PLAYER CARD
+========================================= */
+
+.home-player-card {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+
+  cursor: pointer;
+
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.home-player-card:hover {
+  transform: translateY(-4px);
+  border-color: #cbd5e1;
+
+  box-shadow: 0 16px 30px rgba(15, 23, 42, 0.13);
+}
+
+.home-player-card:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.28);
+  outline-offset: 3px;
+}
+
+/* =========================================
+   SPORTS BANNER
+========================================= */
+
+.home-player-card__banner {
+  position: relative;
+
+  height: 105px;
+
+  overflow: hidden;
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.home-player-card__banner-overlay {
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    90deg,
+    rgba(15, 23, 42, 0.38) 0%,
+    rgba(15, 23, 42, 0.08) 75%
+  );
+}
+
+.home-player-card[data-sport="gaming"] .home-player-card__banner-overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(31, 13, 58, 0.48) 0%,
+    rgba(31, 13, 58, 0.1) 75%
+  );
+}
+
+/* =========================================
+   RATING BADGE
+========================================= */
+
+.home-player-card__rating {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  padding: 6px 9px;
+
+  border-radius: 7px;
+
+  background: rgba(15, 23, 42, 0.82);
+  color: #ffffff;
+
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+
+  backdrop-filter: blur(8px);
+}
+
+.home-player-card__rating span {
+  color: #fbbf24;
+}
+
+/* =========================================
+   PLAYER AVATAR
+========================================= */
+
+.home-player-card__avatar {
+  position: absolute;
+
+  top: 73px;
+  left: 16px;
+  z-index: 4;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 58px;
+  height: 58px;
+
+  overflow: hidden;
+
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+
+  box-shadow: 0 5px 14px rgba(15, 23, 42, 0.16);
+}
+
+.home-player-card__avatar-initials {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #ffffff;
+
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.home-player-card__avatar img {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+/* =========================================
+   PLAYER CONTENT
+========================================= */
+
+.home-player-card__content {
+  padding: 35px 16px 14px;
+}
+
+.home-player-card__content h3 {
+  margin: 0 0 7px;
+
+  color: #1e293b;
+
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.2px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================================
+   LOCATION
+========================================= */
+
+.home-player-card__location {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  margin: 0;
+
+  min-width: 0;
+
+  color: #64748b;
+
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.home-player-card__location-icon {
+  flex-shrink: 0;
+
+  font-size: 10px;
+}
+
+/* =========================================
+   SPORTS TAGS
+========================================= */
+
+.home-player-card__tags {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 13px;
+
+  min-width: 0;
+  min-height: 29px;
+
+  overflow: hidden;
+}
+
+.home-player-card__tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 0;
+  max-width: 110px;
+
+  padding: 6px 10px;
+
+  border-radius: 7px;
+
+  background: #eff6ff;
+  color: #2563eb;
+
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.1;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.home-player-card__tag--extra {
+  flex-shrink: 0;
+
+  background: #f1f5f9;
+  color: #475569;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.home-player-card__footer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  margin-top: 13px;
+  padding-top: 11px;
+
+  border-top: 1px solid #eef2f7;
+
+  color: #64748b;
+
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.home-player-card__footer-star {
+  color: #f59e0b;
+
+  font-size: 13px;
+  line-height: 1;
+}
+
+/* =========================================
+   MOBILE <720px
+========================================= */
+
+@media (max-width: 719px) {
+  .home-player-card {
+    border-radius: 11px;
+  }
+
+  /* Short proportional banner */
+  .home-player-card__banner {
+    height: 76px;
+  }
+
+  .home-player-card__rating {
+    top: 7px;
+    right: 7px;
+
+    gap: 4px;
+
+    padding: 5px 7px;
+
+    border-radius: 6px;
+
+    font-size: 9px;
+  }
+
+  /* Avatar overlapping banner */
+  .home-player-card__avatar {
+    top: 53px;
+    left: 11px;
+
+    width: 45px;
+    height: 45px;
+
+    border-width: 2px;
+  }
+
+  .home-player-card__avatar-initials {
+    font-size: 14px;
+  }
+
+  .home-player-card__content {
+    padding: 28px 11px 11px;
+  }
+
+  .home-player-card__content h3 {
+    margin-bottom: 5px;
+
+    font-size: 13px;
+    line-height: 1.25;
+  }
+
+  .home-player-card__location {
+    gap: 4px;
+
+    font-size: 9px;
+  }
+
+  .home-player-card__location-icon {
+    font-size: 8px;
+  }
+
+  .home-player-card__tags {
+    gap: 4px;
+
+    margin-top: 9px;
+
+    min-height: 24px;
+  }
+
+  .home-player-card__tag {
+    max-width: 76px;
+
+    padding: 5px 7px;
+
+    border-radius: 6px;
+
+    font-size: 8px;
+  }
+
+  .home-player-card__footer {
+    gap: 4px;
+
+    margin-top: 9px;
+    padding-top: 8px;
+
+    font-size: 8px;
+  }
+
+  .home-player-card__footer-star {
+    font-size: 10px;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE <500px
+========================================= */
+
+@media (max-width: 499px) {
+  .home-player-card__banner {
+    height: 72px;
+  }
+
+  .home-player-card__avatar {
+    top: 50px;
+    left: 10px;
+
+    width: 42px;
+    height: 42px;
+  }
+
+  .home-player-card__avatar-initials {
+    font-size: 13px;
+  }
+
+  .home-player-card__content {
+    padding: 27px 10px 10px;
+  }
+
+  .home-player-card__content h3 {
+    font-size: 12px;
+  }
+
+  .home-player-card__location {
+    font-size: 8px;
+  }
+
+  .home-player-card__tags {
+    margin-top: 8px;
+  }
+
+  .home-player-card__tag {
+    max-width: 70px;
+
+    padding: 4px 6px;
+
+    font-size: 7px;
+  }
+
+  .home-player-card__footer {
+    margin-top: 8px;
+    padding-top: 7px;
+
+    font-size: 7px;
+  }
+}

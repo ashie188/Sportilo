@@ -6,6 +6,8 @@ export const createMatch = async (req, res) => {
     const {
       sport,
       location,
+      area,
+      city,
       match_date,
       match_time,
       max_players,
@@ -13,38 +15,53 @@ export const createMatch = async (req, res) => {
       description,
     } = req.body;
 
-    // ✅ from JWT
+    const adminId = req.user.id;
     const admin_name = req.user.name;
     const admin_email = req.user.email;
 
-    // validation
-    if (!sport || !location || !match_date || !match_time || !max_players) {
-      return res.status(400).json({ message: "All fields are required" });
+    if (
+      !sport?.trim() ||
+      !location?.trim() ||
+      !area?.trim() ||
+      !city?.trim() ||
+      !match_date ||
+      !match_time ||
+      !max_players
+    ) {
+      return res.status(400).json({
+        message: "All required fields must be provided",
+      });
     }
 
     const match = await createMatchModel({
+      adminId,
       admin_name,
       admin_email,
-      sport,
-      location,
+      sport: sport.trim(),
+      location: location.trim(),
+      area: area.trim(),
+      city: city.trim(),
       match_date,
       match_time,
       max_players,
       currentPlayers,
-      description,
+      description: description?.trim() || "",
     });
 
     await addChatParticipant({
-      userId: req.user.id,
+      userId: adminId,
       matchId: match.id,
     });
 
-    res.status(201).json({
+    return res.status(201).json({
       message: "Match created successfully",
       match,
     });
   } catch (error) {
-    console.log("error at creatematch in matchcontroller");
-    res.status(500).json({ message: "Server error" });
+    console.error("Error at createMatch:", error);
+
+    return res.status(500).json({
+      message: "Server error",
+    });
   }
 };

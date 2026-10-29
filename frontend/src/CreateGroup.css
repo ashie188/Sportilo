@@ -1,1199 +1,1425 @@
-/* ================================= */
-/* PAGE */
-/* ================================= */
+/* =========================================================
+   TOKENS (local — self-contained, same values/naming used
+   elsewhere in the app for visual consistency)
+========================================================= */
 
 .create-page {
-  display: flex;
-  min-height: 100dvh;
-  font-family: "Poppins", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+  --paper: #ffffff;
+  --paper-bg: #f2f4fa;
+  --border: #dfe4ee;
+  --border-strong: #c3cbdc;
+
+  --ink-900: #0f1524;
+  --ink-700: #29324e;
+  --slate-500: #626d88;
+  --slate-400: #8791a8;
+
+  --blue-700: #1e40d6;
+  --blue-600: #2f5fff;
+  --blue-500: #5b7fff;
+  --blue-50: #eaf0ff;
+
+  --green-600: #1aa160;
+  --green-50: #e7f8ef;
+
+  --violet-600: #7c3aed;
+  --violet-50: #f1e9fe;
+
+  --red-600: #d6334a;
+  --red-50: #fce9ec;
+
+  --radius-card: 20px;
+  --radius-sm: 10px;
+  --radius-pill: 999px;
+
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+
+  --shadow-card:
+    0 6px 16px rgba(15, 21, 36, 0.06), 0 2px 5px rgba(15, 21, 36, 0.05);
+  --shadow-card-hover:
+    0 14px 32px rgba(15, 21, 36, 0.12), 0 4px 10px rgba(15, 21, 36, 0.06);
+  --shadow-lifted: 0 20px 44px rgba(15, 21, 36, 0.14);
+  --shadow-button: 0 8px 20px rgba(47, 95, 255, 0.28);
+
+  background: var(--paper-bg);
+  min-height: 100vh;
+  color: var(--ink-900);
+  font-family: -apple-system, "Segoe UI", sans-serif;
+  padding: var(--space-7) var(--space-6) var(--space-9);
 }
 
-/* ================================= */
-/* LEFT */
-/* ================================= */
-
-.create-left {
-  flex: 0.4;
-  background: linear-gradient(135deg, #1e3a8a, #38bdf8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 60px;
+.create-page *,
+.create-page *::before,
+.create-page *::after {
+  box-sizing: border-box;
 }
 
-/* ================================= */
-/* RIGHT */
-/* ================================= */
+.create-page > * {
+  margin-left: auto;
+  margin-right: auto;
+}
 
-.create-right {
-  flex: 0.6;
-  background: #f8fafc;
+/* =========================================================
+   HERO — real 1920×400 artwork, shown at 300px on desktop.
+   The image already contains the sport/gaming icons and the
+   cursive tag on its right side — none of that is rebuilt
+   here. The left portion of the artwork is a pale wash the
+   text sits directly on, same pattern as the Account hero.
+========================================================= */
+
+.create-hero {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  margin-bottom: var(--space-6);
+  background: var(--blue-50); /* shows briefly while the image loads */
+}
+
+.create-hero-inner {
+  position: absolute;
+  inset: 0;
+  z-index: 1; /* stays above the image regardless of DOM order */
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  padding: 50px;
+  max-width: 560px;
+  padding: 0 var(--space-7);
 }
 
-/* ================================= */
-/* HEADER */
-/* ================================= */
-
-.create-header {
-  width: min(430px, 100%);
-  margin-bottom: 28px;
-  text-align: center;
+.create-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
-.create-header h1 {
-  font-size: 40px;
-  color: #1e3a8a;
+.create-eyebrow {
+  display: inline-block;
+  width: fit-content;
+  font-size: 0.72rem;
   font-weight: 700;
-  margin-bottom: 22px;
+  color: var(--blue-600);
+  background: var(--blue-50);
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--space-3);
 }
 
-/* ================================= */
-/* TOGGLE */
-/* ================================= */
+.create-heading {
+  margin: 0 0 var(--space-2);
+  font-size: clamp(1.8rem, 3.4vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink-900);
+}
 
-/* ================================= */
-/* TOGGLE */
-/* ================================= */
+.create-heading .accent {
+  color: var(--blue-600);
+}
 
-.create-toggle {
+.create-subtext {
+  margin: 0;
+  max-width: 46ch;
+  font-size: 0.98rem;
+  color: var(--slate-500);
+}
+
+/* =========================================================
+   MODE TOGGLE — two pills with a physical switch between them
+========================================================= */
+
+.create-toggle-row {
+  max-width: 1180px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  margin: 0 auto 35px;
-  padding: 12px;
-  box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1px solid rgba(19, 18, 18, 0.292);
-  border-radius: 18px;
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+  gap: var(--space-4);
+  margin-bottom: var(--space-7);
 }
 
-.create-toggle > button:not(.mode-switch) {
-  flex: 1 1 0;
-  min-width: 0;
-  padding: 12px 18px;
-  border: none;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.55);
-  color: #334155;
-  font-weight: 600;
-  font-family: "Poppins", sans-serif;
-  white-space: nowrap;
+.create-toggle-pill {
+  flex: 1;
+  max-width: 320px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  color: var(--slate-500);
   cursor: pointer;
+  text-align: left;
   transition:
-    background 0.25s ease,
-    color 0.25s ease,
-    transform 0.2s ease,
-    box-shadow 0.25s ease;
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
 }
 
-.active-toggle {
-  background: linear-gradient(135deg, rgb(195, 195, 15), #facc15) !important;
-  color: #111827 !important;
-  box-shadow: 0 3px 8px rgba(250, 204, 21, 0.18);
+.create-toggle-pill span {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.96rem;
+  font-weight: 700;
 }
 
-.create-toggle > button:not(.mode-switch):hover {
-  background: rgba(255, 255, 255, 0.8);
+.create-toggle-pill span small {
+  margin-top: 2px;
+  font-size: 0.76rem;
+  font-weight: 500;
+  opacity: 0.75;
+}
+
+.create-toggle-pill:hover {
+  border-color: var(--border-strong);
   transform: translateY(-1px);
 }
 
-.create-toggle .mode-switch {
-  width: 56px;
-  min-width: 56px;
-  height: 30px;
-  flex: 0 0 56px;
+.create-toggle-pill.active {
+  background: linear-gradient(135deg, var(--blue-600), var(--blue-700));
+  border-color: var(--blue-600);
+  color: #ffffff;
+  box-shadow: var(--shadow-button);
+}
+
+/* Physical switch sitting between the two pills. Same setMode
+   as the pills — this is just a second way to trigger it. */
+.create-mode-switch {
   flex-shrink: 0;
-  position: relative;
-  padding: 0;
-  border-radius: 999px;
+  width: 44px;
+  height: 26px;
+  padding: 3px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-strong);
+  background: var(--paper-bg);
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(14, 13, 13, 0.35);
-  box-shadow:
-    inset 0 2px 6px rgba(15, 23, 42, 0.1),
-    0 2px 8px rgba(250, 204, 21, 0.15);
   transition:
-    background 0.25s ease,
-    border-color 0.25s ease,
-    box-shadow 0.25s ease,
-    transform 0.2s ease;
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
 
-.create-toggle .mode-switch.online {
-  background: rgba(255, 249, 217, 0.7);
-  border-color: rgba(250, 204, 21, 0.55);
-  box-shadow:
-    inset 0 2px 6px rgba(15, 23, 42, 0.1),
-    0 2px 10px rgba(250, 204, 21, 0.28);
-}
-
-.mode-switch-thumb {
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 24px;
-  height: 24px;
+.create-mode-switch-thumb {
+  display: block;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgb(195, 195, 15), #facc15);
-  box-shadow:
-    0 3px 8px rgba(250, 204, 21, 0.4),
-    inset 0 1px 2px rgba(255, 255, 255, 0.5);
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
+  background: var(--blue-600);
+  box-shadow: 0 2px 6px rgba(15, 21, 36, 0.2);
+  transition: transform 0.2s ease;
 }
 
-.mode-switch.online .mode-switch-thumb {
-  transform: translateX(26px);
+.create-mode-switch.online {
+  background: var(--blue-50);
+  border-color: var(--blue-600);
 }
 
-.create-toggle .mode-switch:hover {
-  transform: scale(1.06);
+.create-mode-switch.online .create-mode-switch-thumb {
+  transform: translateX(18px);
+  background: var(--violet-600);
 }
 
-.mode-switch:focus-visible {
-  outline: 2px solid #facc15;
-  outline-offset: 3px;
+.create-mode-switch:focus-visible {
+  outline: 2px solid var(--blue-600);
+  outline-offset: 2px;
 }
 
-/* ================================= */
-/* FORM */
-/* ================================= */
+/* =========================================================
+   BODY — main form + sidebar
+========================================================= */
 
-.create-main {
-  width: 100%;
+.create-body {
+  max-width: 1180px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: var(--space-6);
+  align-items: start;
+  margin-bottom: var(--space-7);
+}
+
+.create-main-col {
+  min-width: 0;
+}
+
+.create-side-col {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  gap: var(--space-5);
 }
+
+/* =========================================================
+   FORM CARD
+========================================================= */
 
 .create-box {
-  width: min(500px, 100%);
-  box-sizing: border-box;
-  background: white;
-  padding: 34px 38px;
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  box-shadow:
-    0 12px 35px rgba(15, 23, 42, 0.08),
-    0 30px 60px rgba(37, 99, 235, 0.08);
-  position: relative;
-}
-
-.create-box::before {
-  content: "";
-  position: absolute;
-  inset: -8px;
-  border-radius: 30px;
-  background: radial-gradient(rgba(56, 189, 248, 0.15), transparent 70%);
-  z-index: -1;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-6);
 }
 
 .form-header {
-  margin-bottom: 22px;
-  text-align: center;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--border);
+}
+
+.form-header-icon {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--blue-50);
+  color: var(--blue-600);
 }
 
 .form-header h3 {
-  color: #1e3a8a;
-  margin-bottom: 6px;
+  margin: 0 0 3px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ink-900);
 }
 
 .form-header p {
-  color: #64748b;
-  font-size: 14px;
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--slate-500);
 }
 
-/* ================================= */
-/* INPUTS */
-/* ================================= */
-
-.create-box input,
-.create-box textarea {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  border: 1px solid #cbd5f5;
-  outline: none;
-  font-family: "Poppins", sans-serif;
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.create-box textarea {
-  min-height: 120px;
-  max-height: 260px;
-  resize: vertical;
-}
-
-.create-box input:focus,
-.create-box textarea:focus {
-  border-color: #38bdf8;
-  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
-}
-
-.create-box input:focus-visible,
-.create-box textarea:focus-visible {
-  outline: 2px solid #2563eb;
-  outline-offset: 1px;
-}
-
-.row {
-  display: flex;
-  gap: 12px;
-}
-
-/* ================================= */
-/* BUTTON */
-/* ================================= */
-
-.create-box button[type="submit"] {
-  width: 100%;
-  min-height: 48px;
-  padding: 12px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #38bdf8, #2563eb);
-  color: #ffffff;
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    opacity 0.2s ease;
-}
-
-.create-box button[type="submit"]:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3);
-}
-
-.create-box button[type="submit"]:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-.create-box button:focus-visible {
-  outline: 2px solid #2563eb;
-  outline-offset: 2px;
-}
-
-/* ================================= */
-/* LEFT PANEL */
-/* ================================= */
-
-.info-panel {
-  width: min(430px, 100%);
-  color: white;
-}
-
-.panel-header {
-  text-align: center;
-  margin-bottom: 28px;
-}
-
-.panel-header h3 {
-  font-size: 26px;
-  margin-top: 10px;
-  margin-bottom: 8px;
-}
-
-.panel-header p {
-  color: #dbeafe;
-}
-
-.badge {
-  display: inline-block;
-  padding: 5px 12px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.18);
-  font-size: 11px;
-  font-weight: 600;
-}
-
-/* ================================= */
-
-.suggestions {
+.create-box form {
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  margin: 32px 0;
+  gap: var(--space-4);
 }
 
-.suggestion-card {
-  background: none;
-  border: none;
-  padding: 0;
-  font-size: 13px;
-  line-height: 1.7;
-  color: #eef6ff;
+/*
+ * Stays 2-column at every breakpoint by default — Date/Time and
+ * the player-count fields keep their pairing on mobile because
+ * their content (a date, a short number) tolerates a half-width
+ * column. .row-stack-mobile is the exception: fields with longer
+ * free-text placeholders (Sport/Location, Game/Platform) unpair
+ * to full-width stacked rows under the mobile breakpoint —
+ * see the media query below.
+ */
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
 }
 
-/* ================================= */
+/* =========================================================
+   FIELDS
+========================================================= */
 
-.cta-box {
-  text-align: center;
-  margin-top: 38px;
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
 }
 
-.cta-box p {
-  font-size: 14px;
-  margin-bottom: 14px;
-  color: #dbeafe;
+.field-full {
+  grid-column: 1 / -1;
 }
 
-.cta-box button {
-  width: auto;
-  padding: 11px 22px;
-  border: none;
-  border-radius: 12px;
-  background: white;
-  color: #2563eb;
-  font-weight: 600;
-  cursor: pointer;
-  font-family: "Poppins", sans-serif;
-  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.12);
+.field-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--ink-700);
+}
+
+.field-label em {
+  font-style: normal;
+  color: var(--red-600);
+  margin-left: 2px;
+}
+
+.field-label small {
+  font-weight: 500;
+  color: var(--slate-400);
+  margin-left: 4px;
+}
+
+.field-control {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.field-icon {
+  position: absolute;
+  left: 13px;
+  color: var(--slate-400);
+  pointer-events: none;
+}
+
+.field-control input,
+.field-control textarea {
+  width: 100%;
+  padding: 11px 14px 11px 38px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: #ffffff;
+  color: var(--ink-900);
+  font-size: 0.92rem;
+  font-family: inherit;
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
-.cta-box button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.18);
+.field-control input::placeholder,
+.field-control textarea::placeholder {
+  color: var(--slate-400);
 }
 
-.cta-box button:focus-visible {
-  outline: 2px solid #2563eb;
-  outline-offset: 2px;
-  border-radius: 12px;
+.field-control input:focus,
+.field-control textarea:focus {
+  outline: none;
+  border-color: var(--blue-600);
+  box-shadow: 0 0 0 3px var(--blue-50);
 }
 
-/* ================================= */
+/* Current Players — stays fully editable, just a softer visual
+   treatment so it reads as "prefilled" without disabling it. */
+.field-control-muted input {
+  background: var(--paper-bg);
+}
+
+.field-control-textarea {
+  align-items: flex-start;
+}
+
+.field-icon-top {
+  top: 13px;
+}
+
+.field-control-textarea textarea {
+  min-height: 110px;
+  padding-top: 12px;
+  resize: vertical;
+  line-height: 1.5;
+}
 
 .form-error,
 .gaming-error {
-  margin: 4px 0 12px;
-  padding: 10px 12px;
-  border: 1px solid rgba(220, 38, 38, 0.15);
-  border-radius: 10px;
-  background: #fef2f2;
-  color: #b91c1c;
-  font-size: 13px;
-  line-height: 1.45;
-  animation: formErrorEnter 0.2s ease-out;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--red-50);
+  color: var(--red-600);
+  font-size: 0.86rem;
+  font-weight: 600;
 }
 
-@keyframes formErrorEnter {
-  from {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+/* =========================================================
+   SUBMIT BUTTON
+========================================================= */
 
-.create-box button[type="submit"] {
-  display: inline-flex;
+.create-submit-btn {
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--space-2);
+  width: 100%;
+  padding: 14px;
+  margin-top: var(--space-2);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--blue-600), var(--blue-700));
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow-button);
+  transition:
+    filter 0.15s ease,
+    transform 0.15s ease;
 }
 
-.create-box button[type="submit"]:disabled {
+.create-submit-btn:hover:not(:disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.create-submit-btn:disabled {
+  opacity: 0.75;
   cursor: not-allowed;
-  opacity: 0.7;
+  transform: none;
+}
+
+.create-submit-plus {
+  font-size: 1.1rem;
+  line-height: 1;
 }
 
 .button-spinner {
-  width: 15px;
-  height: 15px;
-  flex-shrink: 0;
-  border: 2px solid rgba(255, 255, 255, 0.35);
-  border-top-color: #ffffff;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  animation: buttonSpin 0.7s linear infinite;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #ffffff;
+  animation: create-spin 0.7s linear infinite;
 }
 
-@keyframes buttonSpin {
+@keyframes create-spin {
   to {
     transform: rotate(360deg);
   }
 }
-/* ================================= */
-/* MATCH CREATED MODAL */
-/* ================================= */
 
-.match-success-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
+/* =========================================================
+   SIDEBAR — tips panel
+========================================================= */
+
+.info-panel {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-5);
+}
+
+.panel-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.panel-header-icon {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
-  background: rgba(15, 23, 42, 0.52);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  animation: matchOverlayEnter 0.22s ease-out;
+  background: var(--blue-50);
+  color: var(--blue-600);
+}
+
+.panel-header h3 {
+  margin: 0 0 2px;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.panel-header p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--slate-500);
+}
+
+.suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.suggestion-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-radius: 12px;
+  background: var(--paper-bg);
+}
+
+.suggestion-card.gaming-card-info {
+  background: var(--violet-50);
+}
+
+.suggestion-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper);
+  color: var(--blue-600);
+}
+
+.gaming-card-info .suggestion-icon {
+  color: var(--violet-600);
+}
+
+.suggestion-card strong {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink-900);
+  margin-bottom: 1px;
+}
+
+.suggestion-card p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--slate-500);
+  line-height: 1.4;
+}
+
+.cta-box {
+  padding: var(--space-4);
+  border-radius: 14px;
+  background: var(--blue-50);
+  text-align: center;
+}
+
+.cta-box p {
+  margin: 0 0 var(--space-2);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-700);
+}
+
+.cta-box button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  background: none;
+  color: var(--blue-600);
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cta-box button:hover {
+  text-decoration: underline;
+}
+
+/* =========================================================
+   SIDEBAR — switch mode card
+========================================================= */
+
+.switch-mode-card {
+  background: linear-gradient(160deg, var(--blue-700), var(--blue-600));
+  border-radius: var(--radius-card);
+  padding: var(--space-5);
+  color: #ffffff;
+  box-shadow: var(--shadow-lifted);
+}
+
+.switch-mode-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.16);
+  margin-bottom: var(--space-3);
+}
+
+.switch-mode-text strong {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.switch-mode-text p {
+  margin: 0 0 var(--space-4);
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.4;
+}
+
+.switch-mode-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  justify-content: center;
+  padding: 11px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: #ffffff;
+  color: var(--blue-700);
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.switch-mode-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   BOTTOM BANNER
+========================================================= */
+
+.create-banner {
+  max-width: 1180px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  padding: var(--space-6) var(--space-7);
+  border-radius: var(--radius-card);
+  background: linear-gradient(135deg, var(--blue-700), var(--blue-600));
+  color: #ffffff;
+  box-shadow: var(--shadow-lifted);
+}
+
+.create-banner h3 {
+  margin: 0 0 6px;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.create-banner p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.create-banner-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* =========================================================
+   SUCCESS MODAL (shared by both offline + online forms)
+========================================================= */
+
+.match-success-overlay {
+  max-width: 1180px;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 21, 36, 0.55);
+  padding: var(--space-4);
 }
 
 .match-success-modal {
-  width: min(100%, 440px);
-  max-height: calc(100dvh - 48px);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  background: #ffffff;
-  border-radius: 22px;
-  box-shadow:
-    0 24px 70px rgba(15, 23, 42, 0.24),
-    0 4px 16px rgba(15, 23, 42, 0.08);
-  animation: matchModalEnter 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 100%;
+  max-width: 420px;
+  background: var(--paper);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-lifted);
+  overflow: hidden;
 }
 
 .match-success-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 20px 0;
+  padding: var(--space-4) var(--space-4) 0;
 }
 
 .match-success-icon {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: #dcfce7;
-  color: #15803d;
-  font-size: 24px;
-  font-weight: 700;
+  background: var(--green-50);
+  color: var(--green-600);
+  font-weight: 800;
+  font-size: 1.1rem;
 }
 
 .match-success-close {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  background: #f1f5f9;
-  color: #64748b;
-  font-size: 24px;
+  border: none;
+  background: var(--paper-bg);
+  color: var(--slate-500);
+  font-size: 1.2rem;
   line-height: 1;
   cursor: pointer;
-  transition:
-    background 0.2s ease,
-    color 0.2s ease,
-    transform 0.2s ease;
-}
-
-.match-success-close:hover {
-  background: #e2e8f0;
-  color: #0f172a;
-  transform: scale(1.04);
 }
 
 .match-success-content {
-  padding: 14px 28px 24px;
-  text-align: center;
+  padding: var(--space-5) var(--space-6) var(--space-6);
 }
 
 .match-success-label {
   display: inline-block;
-  margin-bottom: 8px;
-  color: #15803d;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--green-600);
+  margin-bottom: var(--space-2);
 }
 
 .match-success-content h2 {
-  margin: 0;
-  color: #0f172a;
-  font-size: 27px;
-  line-height: 1.2;
+  margin: 0 0 var(--space-2);
+  font-size: 1.35rem;
+  font-weight: 800;
 }
 
 .match-success-description {
-  margin: 8px auto 18px;
-  max-width: 340px;
-  color: #64748b;
-  font-size: 14px;
-  line-height: 1.55;
+  margin: 0 0 var(--space-5);
+  font-size: 0.88rem;
+  color: var(--slate-500);
+  line-height: 1.5;
 }
 
 .created-match-card {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 13px;
-  text-align: left;
-  border: 1px solid #e2e8f0;
-  border-radius: 15px;
-  background: #f8fafc;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: 14px;
+  background: var(--paper-bg);
+  margin-bottom: var(--space-4);
 }
 
 .created-match-sport {
-  width: 42px;
-  height: 42px;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  border-radius: 11px;
-  background: #ffffff;
-  font-size: 21px;
+  background: var(--blue-50);
+  color: var(--blue-600);
 }
 
 .created-match-info {
   display: flex;
   flex-direction: column;
-  gap: 3px;
   min-width: 0;
 }
 
 .created-match-info strong {
-  overflow: hidden;
-  color: #0f172a;
-  font-size: 15px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 0.95rem;
+  color: var(--ink-900);
 }
 
 .created-match-info span {
-  color: #64748b;
-  font-size: 13px;
+  font-size: 0.8rem;
+  color: var(--slate-500);
 }
 
 .match-growth-tip {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
-  margin: 14px 0 18px;
-  padding: 13px;
-  text-align: left;
-  border-radius: 15px;
-  background: #eff6ff;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: 14px;
+  background: var(--blue-50);
+  margin-bottom: var(--space-5);
 }
 
 .match-growth-tip-icon {
   flex-shrink: 0;
-  font-size: 19px;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  color: var(--blue-600);
 }
 
 .match-growth-tip strong {
   display: block;
-  margin-bottom: 3px;
-  color: #1e3a8a;
-  font-size: 14px;
+  font-size: 0.85rem;
+  margin-bottom: 2px;
 }
 
 .match-growth-tip p {
   margin: 0;
-  color: #475569;
-  font-size: 13px;
-  line-height: 1.45;
+  font-size: 0.78rem;
+  color: var(--slate-500);
+  line-height: 1.4;
 }
 
 .match-success-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
 }
 
 .match-share-now-btn,
 .match-view-btn {
-  min-height: 46px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 600;
+  flex: 1;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.86rem;
+  font-weight: 700;
   cursor: pointer;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
+  border: none;
 }
 
 .match-share-now-btn {
-  border: 1px solid #dbeafe;
-  background: #eff6ff;
-  color: #2563eb;
-}
-
-.match-share-now-btn:hover {
-  background: #dbeafe;
+  background: linear-gradient(135deg, var(--blue-600), var(--blue-700));
+  color: #ffffff;
 }
 
 .match-view-btn {
-  border: none;
-  background: #2563eb;
-  color: #ffffff;
-  box-shadow: 0 7px 16px rgba(37, 99, 235, 0.2);
-}
-
-.match-view-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.26);
+  background: var(--paper);
+  border: 1px solid var(--border-strong);
+  color: var(--ink-700);
 }
 
 .match-later-btn {
-  margin-top: 12px;
+  width: 100%;
+  padding: 8px;
   border: none;
-  background: transparent;
-  color: #64748b;
-  font-size: 13px;
+  background: none;
+  color: var(--slate-500);
+  font-size: 0.82rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: color 0.2s ease;
+  text-align: center;
 }
 
 .match-later-btn:hover {
-  color: #0f172a;
+  color: var(--ink-700);
+  text-decoration: underline;
 }
 
-@keyframes matchOverlayEnter {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
+/* =========================================================
+   CREATE MATCH — CONSOLIDATED MOBILE STYLES
+   Desktop styles remain unchanged.
+   Breakpoints: 720px and 380px.
+========================================================= */
 
-@keyframes matchModalEnter {
-  from {
-    opacity: 0;
-    transform: translateY(14px) scale(0.97);
-  }
+@media (max-width: 720px) {
+  /* ---------- Page layout ---------- */
 
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* ================================= */
-/* RESPONSIVE — MOBILE (<768px)      */
-/* ================================= */
-
-@media (max-width: 768px) {
   .create-page {
-    flex-direction: column;
-    min-height: 100dvh;
-    padding-bottom: 80px;
-  }
-
-  .create-right {
-    order: 1;
-    padding: 24px 16px 20px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .create-left {
-    order: 2;
-    display: flex;
-    padding: 30px 20px 40px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* Header */
-  .create-header {
-    width: 100%;
-    margin-bottom: 14px;
-  }
-
-  .create-header h1 {
-    font-size: 24px;
-    margin-bottom: 12px;
-  }
-
-  /* Toggle */
-  /* ================================= */
-  /* MOBILE TOGGLE */
-  /* ================================= */
-
-  /* Toggle */
-
-  .create-toggle {
-    width: 100%;
-    gap: 6px;
-    padding: 7px;
-    margin-bottom: 16px;
-    border-radius: 12px;
-  }
-
-  .create-toggle > button:not(.mode-switch) {
-    flex: 1 1 0;
     min-width: 0;
-    padding: 10px 8px;
-    font-size: 13px;
-    border-radius: 9px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    padding: 16px 10px 88px;
   }
 
-  .create-toggle .mode-switch {
-    width: 46px;
-    min-width: 46px;
-    height: 26px;
-    flex: 0 0 46px;
-    margin: 0 2px;
+  .create-page .create-hero,
+  .create-page .create-toggle-row,
+  .create-page .create-body,
+  .create-page .create-banner {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+  }
+
+  .create-page .create-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .create-page .create-main-col,
+  .create-page .create-side-col {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* ---------- Compact hero ---------- */
+
+  .create-page .create-hero {
+    display: flex;
+    position: relative;
+    align-items: center;
+    gap: 10px;
+    height: auto;
+    min-height: 112px;
+    padding: 14px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    border-radius: 16px;
+    background: var(--blue-50);
+  }
+
+  .create-page .create-hero-inner {
+    position: relative;
+    inset: auto;
+    z-index: 1;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: none;
     padding: 0;
   }
 
-  .mode-switch-thumb {
-    width: 20px;
-    height: 20px;
+  .create-page .create-eyebrow {
+    width: fit-content;
+    margin-bottom: 7px;
+    padding: 4px 9px;
+    font-size: 0.65rem;
+    line-height: 1.3;
   }
 
-  .mode-switch.online .mode-switch-thumb {
-    transform: translateX(20px);
+  .create-page .create-heading {
+    margin: 0 0 6px;
+    font-size: clamp(1.15rem, 5vw, 1.5rem);
+    line-height: 1.12;
+    letter-spacing: -0.025em;
   }
 
-  /* Form box */
-  .create-box {
+  .create-page .create-subtext {
+    max-width: 30ch;
+    margin: 0;
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  .create-page .create-hero-bg {
+    position: relative;
+    inset: auto;
+    z-index: 0;
+    display: block;
+    flex: 0 0 84px;
+    width: 84px;
+    max-width: 30%;
+    height: 64px;
+    object-fit: cover;
+    object-position: 85% center;
+    border-radius: 11px;
+  }
+
+  /* ---------- Offline / Online mode selector ---------- */
+
+  .create-page .create-toggle-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 32px minmax(0, 1fr);
+    align-items: stretch;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+
+  .create-page .create-toggle-pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
     width: 100%;
-    padding: 20px 16px;
-    border-radius: 18px;
-    box-shadow:
-      0 6px 20px rgba(15, 23, 42, 0.07),
-      0 16px 32px rgba(37, 99, 235, 0.05);
+    min-width: 0;
+    max-width: none;
+    padding: 10px 6px;
+    border-radius: 12px;
+    text-align: center;
   }
 
-  .create-box::before {
+  .create-page .create-toggle-pill > svg {
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .create-page .create-toggle-pill > span {
+    display: block;
+    min-width: 0;
+    font-size: clamp(0.68rem, 2.8vw, 0.82rem);
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .create-page .create-toggle-pill > span small {
     display: none;
   }
 
-  .form-header {
-    margin-bottom: 14px;
+  .create-page .create-mode-switch {
+    align-self: center;
+    justify-self: center;
+    flex: 0 0 32px;
+    width: 32px;
+    height: 22px;
+    padding: 3px;
   }
 
-  .form-header h3 {
-    font-size: 17px;
+  .create-page .create-mode-switch-thumb {
+    width: 14px;
+    height: 14px;
   }
 
-  .form-header p {
-    font-size: 12px;
+  .create-page .create-mode-switch.online .create-mode-switch-thumb {
+    transform: translateX(10px);
   }
 
-  /* Inputs — tighter on mobile, user doesn't need large padding */
-  .create-box input,
-  .create-box textarea {
-    padding: 10px 11px;
-    margin-bottom: 9px;
-    border-radius: 9px;
-    box-sizing: border-box;
-    width: 100%;
-    font-size: 14px;
-  }
+  /* ---------- Form card ---------- */
 
-  .create-box textarea {
-    min-height: 80px;
-    max-height: 140px;
-  }
-
-  .row {
-    flex-direction: row;
-    gap: 8px;
-  }
-
-  .row input {
-    box-sizing: border-box;
+  .create-page .create-box {
     width: 100%;
     min-width: 0;
+    padding: 14px;
+    border-radius: 16px;
   }
 
-  /* Submit button — full tap target */
-  .create-box button[type="submit"] {
-    padding: 13px;
-    font-size: 15px;
-    border-radius: 10px;
-    min-height: 48px;
+  .create-page .create-box form {
+    min-width: 0;
+    gap: 14px;
   }
 
-  /* Error */
-  .form-error {
-    font-size: 12px;
-    padding: 9px 11px;
-    margin-bottom: 10px;
+  /* Sport and Location remain stacked.
+     Area/City, Date/Time and player counts remain paired. */
+
+  .create-page .row-stack-mobile {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  /* Left panel */
-  .info-panel {
-    width: 100%;
-  }
-
-  .panel-header {
-    margin-bottom: 16px;
-  }
-
-  .panel-header h3 {
-    font-size: 19px;
-  }
-
-  .suggestions {
-    gap: 12px;
-    margin: 16px 0;
-  }
-
-  .suggestion-card {
-    font-size: 13px;
-    line-height: 1.6;
-  }
-
-  .cta-box {
-    margin-top: 22px;
-  }
-
-  .cta-box button {
-    padding: 12px 24px;
-    min-height: 48px;
-    font-size: 14px;
-  }
-
-  /* Success modal — bottom sheet on mobile */
-  .match-success-overlay {
-    padding: 18px;
-  }
-
-  .match-success-modal {
-    width: min(100%, 390px);
-    max-height: calc(100dvh - 36px);
-    border-radius: 20px;
-  }
-
-  .match-success-top {
-    padding: 14px 16px 0;
-  }
-
-  .match-success-icon {
-    width: 40px;
-    height: 40px;
-    font-size: 22px;
-  }
-
-  .match-success-close {
-    width: 34px;
-    height: 34px;
-    font-size: 22px;
-  }
-
-  .match-success-content {
-    padding: 10px 20px 20px;
-  }
-
-  .match-success-label {
-    margin-bottom: 6px;
-    font-size: 10px;
-  }
-
-  .match-success-content h2 {
-    font-size: 23px;
-  }
-
-  .match-success-description {
-    margin: 7px auto 15px;
-    font-size: 13px;
-    line-height: 1.5;
-  }
-
-  .created-match-card {
+  .create-page .row:not(.row-stack-mobile) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
-    padding: 11px;
-    border-radius: 13px;
-  }
-
-  .created-match-sport {
-    width: 38px;
-    height: 38px;
-    font-size: 19px;
-  }
-
-  .created-match-info strong {
-    font-size: 14px;
-  }
-
-  .created-match-info span {
-    font-size: 12px;
-  }
-
-  .match-growth-tip {
-    gap: 9px;
-    margin: 12px 0 16px;
-    padding: 11px;
-    border-radius: 13px;
-  }
-
-  .match-growth-tip-icon {
-    font-size: 17px;
-  }
-
-  .match-growth-tip strong {
-    font-size: 13px;
-  }
-
-  .match-growth-tip p {
-    font-size: 12px;
-    line-height: 1.4;
-  }
-
-  .match-success-actions {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-
-  .match-share-now-btn,
-  .match-view-btn {
-    min-height: 43px;
-    border-radius: 11px;
-    font-size: 13px;
-  }
-
-  .match-later-btn {
-    margin-top: 10px;
-    font-size: 12px;
-  }
-}
-
-/* ================================= */
-/* RESPONSIVE — SMALL MOBILE (<500px)*/
-/* ================================= */
-
-@media (max-width: 500px) {
-  .create-right {
-    padding: 20px 12px 18px;
-  }
-
-  .create-left {
-    padding: 26px 14px 36px;
-  }
-
-  .create-header h1 {
-    font-size: 21px;
-  }
-
-  /* ================================= */
-  /* SMALL MOBILE TOGGLE */
-  /* ================================= */
-
-  .create-toggle {
-    width: 100%;
-    gap: 4px;
-    padding: 5px;
-    margin: 0 0 12px;
-    border-radius: 11px;
-  }
-
-  .create-toggle > button:not(.mode-switch) {
-    flex: 1 1 0;
     min-width: 0;
-    padding: 9px 4px;
-    font-size: 11px;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
-  .create-toggle .mode-switch {
-    width: 42px;
-    min-width: 42px;
-    height: 24px;
-    flex: 0 0 42px;
-    margin: 0;
-    padding: 0;
+  .create-page .field {
+    min-width: 0;
   }
 
-  .mode-switch-thumb {
-    width: 18px;
-    height: 18px;
+  .create-page .field-label {
+    display: block;
+    margin-bottom: 1px;
+    font-size: 0.76rem;
+    line-height: 1.3;
   }
 
-  .mode-switch.online .mode-switch-thumb {
-    transform: translateX(18px);
+  .create-page .field-control {
+    width: 100%;
+    min-width: 0;
   }
 
-  .create-box {
-    padding: 18px 13px;
+  .create-page .field-icon {
+    left: 10px;
+    width: 14px;
+    height: 14px;
+  }
+
+  .create-page .field-control input,
+  .create-page .field-control textarea {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    min-height: 42px;
+    padding: 10px 8px 10px 30px;
+    font-size: 0.875rem;
+    border-radius: 9px;
+  }
+
+  .create-page .field-control input[type="date"],
+  .create-page .field-control input[type="time"] {
+    padding-right: 3px;
+    padding-left: 29px;
+    font-size: 0.78rem;
+  }
+
+  .create-page .field-control input[type="number"] {
+    padding-right: 4px;
+    padding-left: 30px;
+  }
+
+  .create-page .field-control textarea {
+    min-height: 100px;
+    padding-left: 12px;
+  }
+
+  .create-page .create-submit-btn {
+    width: 100%;
+    min-height: 46px;
+    padding: 12px;
+    font-size: 0.94rem;
+  }
+
+  /* ---------- Sidebar: show below the form ---------- */
+
+  .create-page .create-side-col {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .create-page .info-panel,
+  .create-page .switch-mode-card {
+    width: 100%;
+    min-width: 0;
+    padding: 16px;
     border-radius: 14px;
   }
 
-  /* Hard 16px — non-negotiable, prevents iOS Safari zoom on input focus */
-  .create-box input,
-  .create-box textarea {
-    font-size: 14px;
-    padding: 8px 10px;
-    margin-bottom: 8px;
-    box-sizing: border-box;
-    width: 100%;
+  .create-page .suggestions {
+    gap: 10px;
+    margin-bottom: 14px;
   }
 
-  .create-box textarea {
-    min-height: 70px;
-    max-height: 120px;
+  .create-page .suggestion-card {
+    gap: 10px;
+    padding: 11px;
   }
 
-  .form-header h3 {
-    font-size: 16px;
-  }
-
-  .panel-header h3 {
-    font-size: 17px;
-  }
-
-  .suggestion-card {
-    font-size: 12px;
-  }
-
-  .badge {
-    font-size: 10px;
-    padding: 4px 10px;
-  }
-
-  .match-success-overlay {
-    padding: 14px;
-  }
-
-  .match-success-modal {
-    width: min(100%, 350px);
-    max-height: calc(100dvh - 28px);
-    border-radius: 18px;
-  }
-
-  .match-success-top {
-    padding: 12px 14px 0;
-  }
-
-  .match-success-icon {
-    width: 36px;
-    height: 36px;
-    font-size: 20px;
-  }
-
-  .match-success-close {
-    width: 32px;
-    height: 32px;
-    font-size: 21px;
-  }
-
-  .match-success-content {
-    padding: 8px 16px 16px;
-  }
-
-  .match-success-label {
-    margin-bottom: 5px;
-    font-size: 9px;
-    letter-spacing: 0.1em;
-  }
-
-  .match-success-content h2 {
-    font-size: 21px;
-  }
-
-  .match-success-description {
-    margin: 6px auto 13px;
-    max-width: 290px;
-    font-size: 12px;
+  .create-page .suggestion-card p {
     line-height: 1.45;
+    overflow-wrap: anywhere;
   }
 
-  .created-match-card {
-    gap: 9px;
-    padding: 10px;
-    border-radius: 12px;
+  .create-page .cta-box {
+    padding: 13px;
   }
 
-  .created-match-sport {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    font-size: 18px;
+  .create-page .switch-mode-icon {
+    margin-bottom: 10px;
   }
 
-  .created-match-info strong {
-    font-size: 13px;
+  .create-page .switch-mode-text p {
+    margin-bottom: 12px;
   }
 
-  .created-match-info span {
-    font-size: 11px;
+  /* ---------- Bottom banner ---------- */
+
+  .create-page .create-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 20px;
+    text-align: left;
   }
 
-  .match-growth-tip {
+  .create-page .create-banner-icon {
+    display: none;
+  }
+
+  /* ---------- Success dialog ---------- */
+
+  .create-page .match-success-overlay {
+    width: 100%;
+    max-width: none;
+    padding: 12px;
+  }
+
+  .create-page .match-success-modal {
+    width: 100%;
+    max-width: 420px;
+    max-height: calc(100vh - 24px);
+    max-height: calc(100dvh - 24px);
+    overflow-y: auto;
+  }
+
+  .create-page .match-success-actions {
+    flex-direction: column;
+  }
+}
+
+/* =========================================================
+   EXTRA-NARROW PHONES — 380px AND BELOW
+========================================================= */
+
+@media (max-width: 380px) {
+  .create-page {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  /* Hero */
+
+  .create-page .create-hero {
+    gap: 7px;
+    min-height: 104px;
+    padding: 11px;
+  }
+
+  .create-page .create-eyebrow {
+    margin-bottom: 5px;
+    padding: 3px 7px;
+    font-size: 0.61rem;
+  }
+
+  .create-page .create-heading {
+    font-size: 1.12rem;
+    line-height: 1.15;
+  }
+
+  .create-page .create-subtext {
+    font-size: 0.72rem;
+    line-height: 1.35;
+  }
+
+  .create-page .create-hero-bg {
+    flex-basis: 70px;
+    width: 70px;
+    max-width: 28%;
+    height: 56px;
+    border-radius: 9px;
+  }
+
+  /* Mode selector */
+
+  .create-page .create-toggle-row {
+    grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr);
+    gap: 4px;
+  }
+
+  .create-page .create-toggle-pill {
+    gap: 4px;
+    padding: 10px 3px;
+  }
+
+  .create-page .create-toggle-pill > svg {
+    flex-basis: 14px;
+    width: 14px;
+    height: 14px;
+  }
+
+  .create-page .create-toggle-pill > span {
+    font-size: 0.68rem;
+  }
+
+  .create-page .create-mode-switch {
+    flex-basis: 28px;
+    width: 28px;
+  }
+
+  .create-page .create-mode-switch.online .create-mode-switch-thumb {
+    transform: translateX(6px);
+  }
+
+  /* Form */
+
+  .create-page .create-box {
+    padding: 11px;
+  }
+
+  .create-page .create-box form {
+    gap: 12px;
+  }
+
+  .create-page .row:not(.row-stack-mobile) {
     gap: 8px;
-    margin: 10px 0 14px;
-    padding: 10px;
-    border-radius: 12px;
   }
 
-  .match-growth-tip-icon {
+  .create-page .field-label {
+    font-size: 0.72rem;
+  }
+
+  .create-page .field-control input,
+  .create-page .field-control textarea {
+    padding-top: 9px;
+    padding-bottom: 9px;
+    font-size: 0.82rem;
+  }
+
+  .create-page .field-control input[type="date"],
+  .create-page .field-control input[type="time"] {
+    padding-right: 2px;
+    padding-left: 27px;
+    font-size: 0.72rem;
+  }
+
+  .create-page .field-icon {
+    left: 8px;
+    width: 13px;
+    height: 13px;
+  }
+
+  /* Keep numeric controls and paired fields within their columns */
+  .create-page .field-control input[type="number"] {
+    padding-right: 2px;
+    padding-left: 27px;
+  }
+}
+
+/* loading css */
+.create-page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  background: rgba(248, 250, 252, 0.94);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  color: #1e293b;
+  text-align: center;
+  cursor: wait;
+}
+
+.create-page-loader-spinner {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  border: 4px solid #dbeafe;
+  border-top-color: #2563eb;
+  border-right-color: #2563eb;
+  border-radius: 50%;
+  animation: create-page-loader-spin 0.8s linear infinite;
+}
+
+.create-page-loader p {
+  margin: 4px 0 0;
+  color: #1e40af;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.create-page-loader > span {
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+@keyframes create-page-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 600px) {
+  .create-page-loader {
+    padding: 20px;
+  }
+
+  .create-page-loader-spinner {
+    width: 38px;
+    height: 38px;
+  }
+
+  .create-page-loader p {
     font-size: 16px;
   }
 
-  .match-growth-tip strong {
-    margin-bottom: 2px;
-    font-size: 12px;
-  }
-
-  .match-growth-tip p {
-    font-size: 11px;
-    line-height: 1.4;
-  }
-
-  .match-success-actions {
-    gap: 7px;
-  }
-
-  .match-share-now-btn,
-  .match-view-btn {
-    min-height: 41px;
-    border-radius: 10px;
-    font-size: 12px;
-  }
-
-  .match-later-btn {
-    margin-top: 8px;
-    font-size: 11px;
+  .create-page-loader > span {
+    font-size: 13px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+  .create-page-loader-spinner {
+    animation-duration: 2s;
   }
 }

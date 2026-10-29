@@ -1,0 +1,649 @@
+/* =========================================================
+   HOME PROMO SECTION
+   ========================================================= */
+
+.home-promo-section {
+  width: 100%;
+  padding: 8px 0 34px;
+
+  box-sizing: border-box;
+}
+
+.home-promo-grid {
+  width: calc(100% - 40px);
+
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.72fr) minmax(320px, 0.88fr);
+
+  gap: 16px;
+
+  box-sizing: border-box;
+}
+/* =========================================================
+   SHARED PROMO CARD
+   ========================================================= */
+
+.home-create-promo,
+.home-join-promo {
+  position: relative;
+
+  min-height: 164px;
+
+  overflow: hidden;
+
+  border-radius: 14px;
+
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   CREATE MATCH
+   ========================================================= */
+
+.home-create-promo {
+  display: flex;
+  align-items: center;
+
+  padding: 28px 38px;
+
+  color: #ffffff;
+
+  background:
+    radial-gradient(
+      circle at 85% 50%,
+      rgba(59, 130, 246, 0.45),
+      transparent 32%
+    ),
+    linear-gradient(115deg, #0f2948 0%, #0b4f91 52%, #0875dc 100%);
+
+  box-shadow: 0 8px 24px rgba(15, 71, 125, 0.14);
+}
+
+.home-create-promo::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    125deg,
+    transparent 0 45%,
+    rgba(255, 255, 255, 0.055) 45% 48%,
+    transparent 48% 56%,
+    rgba(255, 255, 255, 0.035) 56% 60%,
+    transparent 60%
+  );
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   CREATE CONTENT
+   ========================================================= */
+
+.home-create-promo-content {
+  position: relative;
+  z-index: 2;
+
+  max-width: 390px;
+}
+
+.home-promo-eyebrow {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: rgba(255, 255, 255, 0.72);
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.home-create-promo h2,
+.home-join-promo h2 {
+  margin: 0;
+
+  font-size: 22px;
+  line-height: 1.15;
+  font-weight: 800;
+
+  letter-spacing: -0.45px;
+}
+
+.home-create-promo p,
+.home-join-promo p {
+  margin: 5px 0 14px;
+
+  font-size: 12px;
+  line-height: 1.4;
+
+  font-weight: 500;
+}
+
+/* =========================================================
+   PROMO BUTTON
+   ========================================================= */
+
+.home-promo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  min-height: 34px;
+
+  padding: 0 18px;
+
+  border-radius: 8px;
+
+  border: 0;
+
+  font-family: inherit;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  line-height: 1;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.home-promo-btn:hover {
+  transform: translateY(-1px);
+}
+
+.home-promo-btn:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+.home-promo-btn-light {
+  color: #1261e8;
+  background: #ffffff;
+
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
+}
+
+.home-promo-btn-light:hover {
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.17);
+}
+
+/* =========================================================
+   CREATE — DECORATIVE SPORTS ART
+   ========================================================= */
+
+.home-create-sports-art {
+  position: absolute;
+
+  top: 0;
+  right: 0;
+
+  width: 46%;
+  height: 100%;
+
+  pointer-events: none;
+}
+
+.home-sport-ball {
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  line-height: 1;
+
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.18));
+}
+
+.home-sport-ball-football {
+  right: 17%;
+  bottom: -16px;
+
+  font-size: 88px;
+
+  transform: rotate(-9deg);
+}
+
+.home-sport-ball-basketball {
+  right: -1%;
+  bottom: -22px;
+
+  font-size: 78px;
+
+  transform: rotate(8deg);
+}
+
+.home-sport-ball-shuttle {
+  right: 38%;
+  top: 16px;
+
+  font-size: 43px;
+
+  transform: rotate(-25deg);
+}
+
+.home-sport-glow {
+  position: absolute;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+.home-sport-glow-one {
+  width: 150px;
+  height: 150px;
+
+  right: 15%;
+  bottom: -90px;
+
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.home-sport-glow-two {
+  width: 100px;
+  height: 100px;
+
+  right: 48%;
+  top: -65px;
+
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* =========================================================
+   JOIN MATCH
+   ========================================================= */
+
+.home-join-promo {
+  display: flex;
+  align-items: center;
+
+  padding: 28px 30px;
+
+  color: #0f172a;
+
+  background:
+    radial-gradient(
+      circle at 88% 50%,
+      rgba(147, 197, 253, 0.32),
+      transparent 38%
+    ),
+    linear-gradient(120deg, #eff8ff 0%, #dbeafe 100%);
+
+  border: 1px solid #dbeafe;
+
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.08);
+}
+
+.home-join-promo::before {
+  content: "";
+
+  position: absolute;
+
+  width: 190px;
+  height: 190px;
+
+  right: -70px;
+  top: -65px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.35);
+
+  pointer-events: none;
+}
+
+.home-join-promo-content {
+  position: relative;
+  z-index: 3;
+
+  max-width: 205px;
+}
+
+.home-join-promo .home-promo-eyebrow {
+  color: #2563eb;
+}
+
+.home-join-promo h2 {
+  color: #0f172a;
+}
+
+.home-join-promo p {
+  color: #475569;
+}
+
+.home-promo-btn-blue {
+  color: #ffffff;
+
+  background: #2563eb;
+
+  box-shadow: 0 6px 15px rgba(37, 99, 235, 0.22);
+}
+
+.home-promo-btn-blue:hover {
+  box-shadow: 0 8px 19px rgba(37, 99, 235, 0.28);
+}
+
+/* =========================================================
+   JOIN — DECORATIVE PHONE
+   ========================================================= */
+
+.home-phone-art {
+  position: absolute;
+
+  right: 28px;
+  bottom: -20px;
+
+  width: 108px;
+  height: 170px;
+
+  transform: rotate(-8deg);
+
+  pointer-events: none;
+}
+
+.home-phone-frame {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  padding: 6px;
+
+  box-sizing: border-box;
+
+  border-radius: 17px;
+
+  background: #172033;
+
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.22);
+}
+
+.home-phone-notch {
+  position: absolute;
+
+  z-index: 3;
+
+  top: 5px;
+  left: 50%;
+
+  width: 35px;
+  height: 8px;
+
+  transform: translateX(-50%);
+
+  border-radius: 0 0 8px 8px;
+
+  background: #172033;
+}
+
+.home-phone-screen {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  padding: 17px 7px 7px;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+}
+
+.home-phone-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 10px;
+
+  color: #2563eb;
+
+  font-size: 6px;
+}
+
+.home-phone-header strong {
+  font-size: 8px;
+  color: #111827;
+}
+
+.home-phone-line {
+  width: 72%;
+
+  height: 5px;
+
+  margin-bottom: 5px;
+
+  border-radius: 999px;
+
+  background: #dbeafe;
+}
+
+.home-phone-line-wide {
+  width: 92%;
+  height: 8px;
+
+  background: #bfdbfe;
+}
+
+.home-phone-line-short {
+  width: 48%;
+}
+
+.home-phone-card {
+  display: grid;
+  grid-template-columns: 12px 1fr 18px;
+
+  gap: 5px;
+
+  align-items: center;
+
+  height: 28px;
+
+  margin-top: 10px;
+
+  padding: 5px;
+
+  box-sizing: border-box;
+
+  border-radius: 5px;
+
+  background: #eff6ff;
+}
+
+.home-phone-card span {
+  display: block;
+
+  height: 4px;
+
+  border-radius: 999px;
+
+  background: #93c5fd;
+}
+
+.home-phone-card span:first-child {
+  width: 12px;
+  height: 12px;
+
+  border-radius: 50%;
+
+  background: #60a5fa;
+}
+
+.home-phone-card-small {
+  grid-template-columns: 12px 1fr;
+
+  width: 85%;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 719px) {
+  .home-promo-section {
+    width: 100%;
+    padding: 4px 0 28px;
+  }
+
+  .home-promo-grid {
+    width: calc(100% - 24px);
+
+    margin: 0 auto;
+
+    display: block;
+  }
+
+  /* -----------------------------------------
+     CREATE MATCH
+     ----------------------------------------- */
+
+  .home-create-promo {
+    min-height: 150px;
+
+    padding: 22px 20px;
+
+    border-radius: 13px;
+  }
+
+  .home-create-promo-content {
+    max-width: 62%;
+  }
+
+  .home-promo-eyebrow {
+    margin-bottom: 5px;
+
+    font-size: 8px;
+  }
+
+  .home-create-promo h2,
+  .home-join-promo h2 {
+    font-size: 19px;
+  }
+
+  .home-create-promo p,
+  .home-join-promo p {
+    margin-top: 5px;
+    margin-bottom: 12px;
+
+    font-size: 11px;
+  }
+
+  .home-promo-btn {
+    min-height: 32px;
+
+    padding-inline: 14px;
+
+    font-size: 10px;
+  }
+
+  .home-create-sports-art {
+    width: 46%;
+  }
+
+  .home-sport-ball-football {
+    right: 10%;
+    bottom: -8px;
+
+    font-size: 62px;
+  }
+
+  .home-sport-ball-basketball {
+    right: -9%;
+    bottom: -11px;
+
+    font-size: 54px;
+  }
+
+  .home-sport-ball-shuttle {
+    right: 43%;
+    top: 13px;
+
+    font-size: 30px;
+  }
+
+  /* -----------------------------------------
+     JOIN MATCH
+     ----------------------------------------- */
+
+  .home-join-promo {
+    display: none;
+  }
+}
+
+/* =========================================================
+   VERY SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 499px) {
+  .home-promo-grid {
+    width: calc(100% - 24px);
+  }
+
+  .home-create-promo {
+    min-height: 136px;
+
+    padding: 20px 17px;
+  }
+
+  .home-create-promo-content {
+    max-width: 64%;
+  }
+
+  .home-create-promo h2 {
+    font-size: 18px;
+  }
+
+  .home-create-promo p {
+    max-width: 170px;
+
+    font-size: 10.5px;
+  }
+
+  .home-sport-ball-football {
+    right: 8%;
+
+    font-size: 56px;
+  }
+
+  .home-sport-ball-basketball {
+    font-size: 48px;
+  }
+
+  .home-sport-ball-shuttle {
+    font-size: 26px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .home-promo-btn {
+    transition: none;
+  }
+
+  .home-promo-btn:hover {
+    transform: none;
+  }
+}

@@ -148,27 +148,3 @@ VALUES
 
   return updatedMatch.rows[0];
 };
-
-export const getGamingParticipantsModel = async (gaming_match_id) => {
-  const result = await pool.query(
-    `
-    SELECT
-      users.id,
-      users.name,
-      match_participants.player_identifier,
-      match_participants.skill_level
-
-    FROM match_participants
-
-    JOIN users
-      ON match_participants.user_id = users.id
-
-    WHERE match_participants.gaming_match_id = $1
-
-    ORDER BY match_participants.joined_at ASC
-    `,
-    [gaming_match_id],
-  );
-
-  return result.rows;
-};

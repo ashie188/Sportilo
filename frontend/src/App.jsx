@@ -6,30 +6,30 @@ import Header from "./Header";
 import Footer from "./Footer";
 import BottomNav from "./mobile/BottomNav";
 
+import "./App.css";
+
 const Home = lazy(() => import("./Home"));
 const Auth = lazy(() => import("./Auth"));
 const CreateGroup = lazy(() => import("./CreateGroup"));
 const JoinMatch = lazy(() => import("./JoinMatch"));
 const Account = lazy(() => import("./Account"));
-const MatchDetailsPage = lazy(() => import("./components/MatchDetailsPage"));
+const MatchDetailsPage = lazy(
+  () => import("./components/MatchDetailsPage")
+);
 const Legal = lazy(() => import("./Legal&Support/Legal"));
 const Support = lazy(() => import("./Legal&Support/Support"));
-
+const PlayerProfiles = lazy(() => import("./PlayerProfiles"));
 
 function PageLoader() {
   return (
     <div
-      style={{
-        minHeight: "70vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        fontSize: "18px",
-        fontWeight: "600",
-        color: "#2563eb",
-      }}
+      className="page-loader"
+      role="status"
+      aria-live="polite"
+      aria-label="Loading page"
     >
-      Loading...
+      <div className="page-loader-spinner" aria-hidden="true" />
+      <span className="page-loader-text">Loading...</span>
     </div>
   );
 }
@@ -39,6 +39,7 @@ export default function App() {
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
+
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
@@ -47,6 +48,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Header user={user} setUser={setUser} />
+
       <main>
         <Suspense fallback={<PageLoader />}>
           <Routes>
@@ -83,16 +85,29 @@ export default function App() {
               element={<Account user={user} setUser={setUser} />}
             />
 
-            <Route path="/match/:type/:id" element={<MatchDetailsPage />} />
+            <Route
+              path="/account/:id"
+              element={<Account user={user} setUser={setUser} />}
+            />
+
+            <Route
+              path="/match/:type/:id"
+              element={<MatchDetailsPage />}
+            />
 
             <Route path="/legal" element={<Legal />} />
-
             <Route path="/support" element={<Support />} />
+            <Route
+              path="/player-profiles"
+              element={<PlayerProfiles />}
+            />
           </Routes>
         </Suspense>
       </main>
+
       <Footer />
-      <BottomNav user={user}/>
+      <BottomNav user={user} />
     </BrowserRouter>
   );
 }
+

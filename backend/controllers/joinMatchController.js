@@ -108,41 +108,6 @@ export const joinMatch = async (req, res) => {
   }
 };
 
-export const getParticipants = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const result = await pool.query(
-      `
-      SELECT
-        users.id,
-        users.name,
-        users.email,
-        match_participants.player_identifier,
-        match_participants.skill_level
-
-      FROM match_participants
-
-      JOIN users
-        ON users.id = match_participants.user_id
-
-      WHERE match_participants.match_id = $1
-
-      ORDER BY match_participants.joined_at ASC
-      `,
-      [id],
-    );
-
-    res.json(result.rows);
-  } catch (err) {
-    console.log("error at getparticipants in joinmatchcontroller");
-
-    res.status(500).json({
-      message: "Server error",
-    });
-  }
-};
-
 export const fetchMatchesController = async (req, res) => {
   try {
     const limit = parseInt(req.query.limit) || 16;

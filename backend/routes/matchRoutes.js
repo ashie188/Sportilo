@@ -3,7 +3,6 @@ import { createMatch } from "../controllers/matchController.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import { joinMatch } from "../controllers/joinMatchController.js";
 
-
 const router = express.Router();
 
 // offline Create Match (Protected)

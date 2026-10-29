@@ -1,0 +1,337 @@
+/* =========================================================
+   SPORTILO — SPORTS CATEGORY STRIP
+   Compact sports navigation directly below the hero
+========================================================= */
+
+.sports-category-section {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #edf2f7;
+}
+
+/* =========================================================
+   SCROLL CONTAINER
+========================================================= */
+
+.sports-category-scroll {
+  width: min(100%, 1180px);
+  margin: 0 auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  /* Smooth touch scrolling on mobile */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+
+  /* Hide scrollbar while preserving scrolling */
+  scrollbar-width: none;
+}
+
+.sports-category-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* =========================================================
+   CATEGORY LIST — DESKTOP
+========================================================= */
+
+.sports-category-list {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+
+  width: 100%;
+  min-width: 0;
+}
+
+/* =========================================================
+   CATEGORY ITEM
+========================================================= */
+
+.sports-category-item {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 0;
+  min-height: 78px;
+
+  padding: 9px 10px 10px;
+
+  background: #ffffff;
+
+  border-right: 1px solid #edf2f7;
+
+  color: #17375f;
+
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.sports-category-item:last-child {
+  border-right: 0;
+}
+
+/* =========================================================
+   ICON CONTAINER
+========================================================= */
+
+.sports-category-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 38px;
+
+  margin-bottom: 5px;
+
+  border-radius: 50%;
+
+  flex: 0 0 auto;
+
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+/* =========================================================
+   SVG ICONS
+
+   Increased stroke weight so the icons don't look thin.
+========================================================= */
+
+.sports-category-icon svg {
+  display: block;
+
+  width: 23px;
+  height: 23px;
+
+  fill: none;
+  stroke: currentColor;
+
+  /* Previously too thin — intentionally increased */
+  stroke-width: 2.35;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  vector-effect: non-scaling-stroke;
+}
+
+/* =========================================================
+   SPORT LABEL
+========================================================= */
+
+.sports-category-label {
+  display: block;
+
+  color: #17375f;
+
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* =========================================================
+   SPORT-SPECIFIC ICON COLORS
+========================================================= */
+
+/* Football */
+.sports-category-icon--football {
+  color: #172033;
+  background: #f1f5f9;
+}
+
+/* Cricket */
+.sports-category-icon--cricket {
+  color: #4169d8;
+  background: #eef3ff;
+}
+
+/* Badminton */
+.sports-category-icon--badminton {
+  color: #d946ef;
+  background: #fdf1ff;
+}
+
+/* Basketball */
+.sports-category-icon--basketball {
+  color: #f97316;
+  background: #fff3e8;
+}
+
+/* Tennis */
+.sports-category-icon--tennis {
+  color: #76a000;
+  background: #f1f9d7;
+}
+
+/* Volleyball */
+.sports-category-icon--volleyball {
+  color: #2878df;
+  background: #edf5ff;
+}
+
+/* Gaming */
+.sports-category-icon--gaming {
+  color: #8b4fd8;
+  background: #f5efff;
+}
+
+/* More */
+.sports-category-icon--more {
+  color: #2563eb;
+  background: #edf4ff;
+}
+
+/* =========================================================
+   MORE ICON
+
+   The "More" icon is intentionally filled rather than
+   outlined because the reference uses a grid of dots.
+========================================================= */
+
+.sports-category-icon--more svg {
+  width: 21px;
+  height: 21px;
+
+  fill: currentColor;
+  stroke: none;
+}
+
+/* =========================================================
+   DESKTOP HOVER
+========================================================= */
+
+@media (hover: hover) and (pointer: fine) {
+  .sports-category-item:hover {
+    background: #f8fbff;
+  }
+
+  .sports-category-item:hover .sports-category-icon {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+  }
+}
+
+/* =========================================================
+   MOBILE SPORTS CATEGORY STRIP
+   <720px
+========================================================= */
+
+@media (max-width: 719px) {
+  .sports-category-section {
+    width: 100%;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  .sports-category-scroll {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x;
+
+    scrollbar-width: none;
+  }
+
+  .sports-category-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sports-category-list {
+    display: flex;
+    width: max-content;
+    min-width: 100%;
+  }
+
+  .sports-category-item {
+    flex: 0 0 78px;
+    width: 78px;
+
+    min-height: 74px;
+
+    padding: 8px 5px 9px;
+
+    border-right: 1px solid #edf2f7;
+  }
+
+  .sports-category-icon {
+    width: 34px;
+    height: 34px;
+
+    margin-bottom: 5px;
+  }
+
+  .sports-category-icon svg {
+    width: 21px;
+    height: 21px;
+
+    stroke-width: 2.35;
+  }
+
+  .sports-category-label {
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.15;
+  }
+
+  .sports-category-icon--more svg {
+    width: 19px;
+    height: 19px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   <500px
+========================================================= */
+
+@media (max-width: 499px) {
+  .sports-category-item {
+    flex-basis: 72px;
+    width: 72px;
+
+    min-height: 70px;
+
+    padding: 7px 4px 8px;
+  }
+
+  .sports-category-icon {
+    width: 32px;
+    height: 32px;
+
+    margin-bottom: 4px;
+  }
+
+  .sports-category-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2.4;
+  }
+
+  .sports-category-label {
+    font-size: 9.5px;
+    line-height: 1.15;
+  }
+
+  .sports-category-icon--more svg {
+    width: 18px;
+    height: 18px;
+  }
+}

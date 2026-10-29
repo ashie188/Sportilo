@@ -1,7 +1,6 @@
 import {
   getGamingMatchesModel,
   joinGamingLobbyModel,
-  getGamingParticipantsModel,
 } from "../models/gamingJoinMatchModel.js";
 import { addChatParticipant } from "../services/chatParticipantService.js";
 
@@ -60,22 +59,6 @@ export const joinGamingLobby = async (req, res) => {
 
     return res.status(400).json({
       message: error.message,
-    });
-  }
-};
-
-export const getGamingParticipants = async (req, res) => {
-  try {
-    const gaming_match_id = req.params.id;
-
-    const participants = await getGamingParticipantsModel(gaming_match_id);
-
-    res.status(200).json(participants);
-  } catch (error) {
-    console.log("error at getgamingparticipants in gamingjoinmatchcontroller");
-
-    res.status(500).json({
-      message: "Server Error",
     });
   }
 };

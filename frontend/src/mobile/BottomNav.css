@@ -1,179 +1,164 @@
-/* ================================= */
-/* BOTTOM NAV — HIDDEN ON DESKTOP    */
-/* ================================= */
-
+/* SPORTILO BOTTOM NAVIGATION */
 .bottom-nav {
   display: none;
+  box-sizing: border-box;
 }
-
-/* ================================= */
-/* MOBILE ONLY                       */
-/* ================================= */
-
+.bottom-nav *,
+.bottom-nav *::before,
+.bottom-nav *::after {
+  box-sizing: border-box;
+}
+/* MOBILE NAVIGATION */
 @media (max-width: 768px) {
   .bottom-nav {
     position: fixed;
-    left: 0;
     right: 0;
     bottom: 0;
+    left: 0;
     z-index: 9999;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-
-    /* Dark glass — matches your #0f172a base */
-    background: rgba(10, 16, 40, 0.82);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(56, 189, 248, 0.1);
-    box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.35);
-
-    height: 64px;
-    padding-bottom: env(safe-area-inset-bottom);
-
-    /* Contain repaints to this element */
-    contain: layout style;
-    will-change: auto;
+    align-items: stretch;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 68px;
+    padding: 5px 6px calc(5px + env(safe-area-inset-bottom, 0px));
+    background: rgba(255, 255, 255, 0.98);
+    border-top: 1px solid #e5edf7;
+    box-shadow: 0 -5px 22px rgba(15, 23, 42, 0.075);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
   }
-
-  /* ================================= */
-  /* BACKDROP FALLBACK — LOW-END ANDROID */
-  /* ================================= */
-
-  @supports not (backdrop-filter: blur(1px)) {
-    .bottom-nav {
-      background: rgba(10, 16, 40, 0.97);
-    }
-  }
-
-  /* ================================= */
-  /* NAV ITEM                          */
-  /* ================================= */
-
+  /* NAVIGATION ITEMS */
   .bottom-item {
-    flex: 1;
+    position: relative;
     display: flex;
+    flex: 1 1 0;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 4px;
+    min-width: 0;
+    min-height: 56px;
+    padding: 5px 2px;
+    border-radius: 10px;
+    color: #71829d;
+    background: transparent;
     text-decoration: none;
-    color: rgba(148, 163, 184, 0.7); /* slate-400 muted */
-    padding: 8px 0;
-    position: relative;
-    transition: color 0.2s ease;
-
-    /* Prevent tap highlight flash on Android */
     -webkit-tap-highlight-color: transparent;
+    transition:
+      color 160ms ease,
+      background-color 160ms ease;
   }
-
-  /* ================================= */
-  /* ACTIVE INDICATOR — TOP BORDER     */
-  /* ================================= */
-
-  .bottom-item::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%) scaleX(0);
-    width: 32px;
-    height: 2px;
-    border-radius: 0 0 4px 4px;
-    background: linear-gradient(90deg, #38bdf8, #2563eb);
-    transition: transform 0.25s ease;
-  }
-
-  .bottom-item.active::before {
-    transform: translateX(-50%) scaleX(1);
-  }
-
-  /* ================================= */
-  /* ACTIVE STATE                      */
-  /* ================================= */
-
   .bottom-item.active {
-    color: #38bdf8;
+    color: #1769f5;
   }
-
-  /* ================================= */
-  /* ICON                              */
-  /* ================================= */
-
+  /* ICONS */
   .bottom-icon {
-    width: 22px;
-    height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s ease;
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
+    color: inherit;
+    transition: transform 160ms ease;
   }
-
   .bottom-icon svg {
-    width: 22px;
-    height: 22px;
+    display: block;
+    width: 23px;
+    height: 23px;
+    max-width: 100%;
+    overflow: visible;
   }
-
   .bottom-item.active .bottom-icon {
     transform: translateY(-1px);
   }
-
-  /* ================================= */
-  /* CREATE — ACCENT ICON              */
-  /* ================================= */
-
-  .create-icon svg {
-    width: 26px;
-    height: 26px;
-    stroke: url(#create-gradient);
-  }
-
-  /* Inline SVG gradient for create icon */
-  .bottom-nav svg defs {
-    display: none;
-  }
-
-  /* ================================= */
-  /* LABEL                             */
-  /* ================================= */
-
+  /* LABELS */
   .bottom-label {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    color: inherit;
     font-size: 11px;
     font-weight: 600;
-    letter-spacing: 0.3px;
-    line-height: 1;
+    line-height: 1.2;
+    letter-spacing: 0;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
-
-  /* ================================= */
-  /* TAP FEEDBACK                      */
-  /* ================================= */
-
+  /* CREATE ACTION */
+  .bottom-item.create-item {
+    gap: 2px;
+    color: #71829d;
+  }
+  .bottom-item.create-item.active {
+    color: #1769f5;
+  }
+  .bottom-item.create-item .bottom-icon {
+    width: 29px;
+    height: 29px;
+    flex: 0 0 29px;
+    border-radius: 50%;
+    color: #fff;
+    background: linear-gradient(135deg, #2878ff, #0860ed);
+    box-shadow: 0 3px 8px rgba(37, 99, 235, 0.2);
+  }
+  .bottom-item.create-item .bottom-icon svg {
+    width: 19px;
+    height: 19px;
+    stroke: currentColor;
+  }
+  /* INTERACTION */
   .bottom-item:active {
-    transform: scale(0.92);
-    transition: transform 0.1s ease;
+    background-color: #f1f6ff;
   }
-
-  /* ================================= */
-/* CREATE ICON — FIX                 */
-/* ================================= */
-
-.bottom-item .create-icon svg {
-  stroke: rgba(148, 163, 184, 0.7); /* matches default muted color */
+  .bottom-item:focus-visible {
+    outline: 2px solid #60a5fa;
+    outline-offset: -2px;
+  }
 }
-
-.bottom-item.active .create-icon svg {
-  stroke: #38bdf8; /* matches active cyan */
+/* NARROW PHONES — INCLUDING 350PX */
+@media (max-width: 390px) {
+  .bottom-nav {
+    min-height: 64px;
+    padding-right: 3px;
+    padding-left: 3px;
+    padding-bottom: calc(4px + env(safe-area-inset-bottom, 0px));
+  }
+  .bottom-item {
+    gap: 3px;
+    padding-right: 1px;
+    padding-left: 1px;
+    border-radius: 8px;
+  }
+  .bottom-icon {
+    width: 22px;
+    height: 22px;
+    flex-basis: 22px;
+  }
+  .bottom-icon svg {
+    width: 21px;
+    height: 21px;
+  }
+  .bottom-label {
+    font-size: 10px;
+    letter-spacing: -0.1px;
+  }
+  .bottom-item.create-item .bottom-icon {
+    width: 27px;
+    height: 27px;
+    flex-basis: 27px;
+  }
+  .bottom-item.create-item .bottom-icon svg {
+    width: 18px;
+    height: 18px;
+  }
 }
-
-  /* ================================= */
-  /* REDUCED MOTION                    */
-  /* ================================= */
-
-  @media (prefers-reduced-motion: reduce) {
-    .bottom-item,
-    .bottom-item::before,
-    .bottom-icon {
-      transition: none;
-    }
+/* REDUCED MOTION */
+@media (prefers-reduced-motion: reduce) {
+  .bottom-item,
+  .bottom-icon {
+    transition: none;
   }
 }

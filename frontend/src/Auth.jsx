@@ -159,13 +159,93 @@ export default function Auth({ setUser }) {
 
   return (
     <div className="auth-container">
-      {/* LEFT */}
+      {/* LEFT / AUTH HERO */}
       <div className="auth-left">
-        <div className="auth-logo">
-          <img src="/images/icon_best-optimized.svg" alt="Sportilo" />
-          <h1>Sportilo</h1>
+        <div className="auth-left-overlay" />
+
+        <div className="auth-left-content">
+          <div className="auth-logo">
+            <img src="/images/icon_best-optimized.svg" alt="Sportilo" />
+            <h1>Sportilo</h1>
+          </div>
+
+          <div className="auth-hero-copy">
+            <h2>
+              Find players.
+              <br />
+              Join matches.
+              <br />
+              <span>Play together.</span>
+            </h2>
+
+            <p>
+              A community for real players,
+              <br />
+              on and off the field.
+            </p>
+          </div>
+
+          <div className="auth-features">
+            <div className="auth-feature">
+              <div className="auth-feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="9" cy="8" r="3" />
+                  <circle cx="17" cy="9" r="2.5" />
+                  <path d="M3.5 19c.4-3.2 2.2-5 5.5-5s5.1 1.8 5.5 5" />
+                  <path d="M14.5 15.2c.8-.8 1.8-1.2 3.2-1.2 2.3 0 3.7 1.3 4 4" />
+                </svg>
+              </div>
+
+              <div className="auth-feature-text">
+                <strong>Meet</strong>
+                <span>New Players</span>
+              </div>
+            </div>
+
+            <div className="auth-feature">
+              <div className="auth-feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <rect x="4" y="5" width="16" height="15" rx="2" />
+                  <path d="M8 3v4M16 3v4M4 10h16" />
+                  <path d="M8 14h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01" />
+                </svg>
+              </div>
+
+              <div className="auth-feature-text">
+                <strong>Join or Create</strong>
+                <span>Matches</span>
+              </div>
+            </div>
+
+            <div className="auth-feature">
+              <div className="auth-feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M7 8.5h10a3.5 3.5 0 0 1 3.3 4.7l-1.1 3.1a2.5 2.5 0 0 1-4.5.5L14 15H10l-.7 1.8a2.5 2.5 0 0 1-4.5-.5l-1.1-3.1A3.5 3.5 0 0 1 7 8.5Z" />
+                  <path d="M8 11v3M6.5 12.5h3M16.5 12h.01M18 13.5h.01" />
+                </svg>
+              </div>
+
+              <div className="auth-feature-text">
+                <strong>Play Your</strong>
+                <span>Favorite Games</span>
+              </div>
+            </div>
+
+            <div className="auth-feature">
+              <div className="auth-feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="m12 3 1.9 4.3 4.6.4-3.5 3 1.1 4.5-4.1-2.4-4.1 2.4 1.1-4.5-3.5-3 4.6-.4L12 3Z" />
+                  <path d="M7 18h10M9 21h6" />
+                </svg>
+              </div>
+
+              <div className="auth-feature-text">
+                <strong>Be Part of a</strong>
+                <span>Growing Community</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <p>Find players. Join matches. Play together.</p>
       </div>
 
       {/* RIGHT */}
