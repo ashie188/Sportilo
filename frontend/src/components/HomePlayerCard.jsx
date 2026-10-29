@@ -136,7 +136,7 @@ function HomePlayerCard({ player }) {
     .join(", ");
 
   const handleCardClick = () => {
-    navigate(`/player/${player.user_id}`);
+    navigate(`/account/${player.user_id}`);
   };
 
   return (

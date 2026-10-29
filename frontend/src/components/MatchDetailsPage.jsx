@@ -55,7 +55,7 @@ export default function MatchDetailsPage() {
   const isGamingMatch = type === "gaming";
 
   const user = JSON.parse(localStorage.getItem("user") || "null");
-
+  
   const isOrganizer = user?.email === currentMatch?.admin_email;
   const [canChat, setCanChat] = useState(false);
   const [chatAuthorizationLoading, setChatAuthorizationLoading] =
@@ -70,7 +70,6 @@ export default function MatchDetailsPage() {
   const fetchMatch = async () => {
     try {
       const result = await api.get(`/details/${type}/${id}`);
-
       setCurrentMatch(result.data);
     } catch (err) {
       console.log("error at matchdeatilpage fetchmatch");
